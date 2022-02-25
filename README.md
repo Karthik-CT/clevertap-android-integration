@@ -1,3 +1,3 @@
 # CleverTap Android SDK Integration
 
-This is example application of CleverTap Android SDK Application.
+This is a example of CleverTap Android SDK Application.
