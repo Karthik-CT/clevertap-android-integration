@@ -76,7 +76,6 @@
         android:textAllCaps="false"
         android:textSize="17sp" />
 
-
     <Button
         android:id="@+id/custom_app_inbox"
         android:layout_width="wrap_content"
@@ -84,6 +83,36 @@
         android:layout_below="@id/geofence"
         android:layout_centerHorizontal="true"
         android:text="Custom App Inbox"
+        android:textAllCaps="false"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/product_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_app_inbox"
+        android:layout_centerHorizontal="true"
+        android:text="Product Experience"
+        android:textAllCaps="false"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/inapp_callback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product_exp"
+        android:layout_centerHorizontal="true"
+        android:text="In App Callback Event"
+        android:textAllCaps="false"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/web_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inapp_callback"
+        android:layout_centerHorizontal="true"
+        android:text="Web View"
         android:textAllCaps="false"
         android:textSize="17sp" />
 

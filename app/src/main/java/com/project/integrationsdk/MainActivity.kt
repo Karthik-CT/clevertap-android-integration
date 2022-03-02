@@ -30,8 +30,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import android.location.LocationManager
+import android.os.Handler
+import com.clevertap.android.sdk.CTFeatureFlagsListener
+import com.clevertap.android.sdk.InAppNotificationButtonListener
+import com.clevertap.android.sdk.product_config.CTProductConfigListener
 
-class MainActivity : AppCompatActivity(), CTInboxListener {
+class MainActivity : AppCompatActivity(), CTInboxListener, InAppNotificationButtonListener {
 
     lateinit var binding: ActivityMainBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
@@ -106,7 +110,80 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
         }
 
         //product experience
+        binding.productExp.setOnClickListener {
+            cleverTapDefaultInstance?.pushEvent("Karthik's Product Exp Event")
+            productExperienceAB()
+            Toast.makeText(applicationContext, "Product Exp button Clicked", Toast.LENGTH_SHORT).show()
+        }
 
+        //in app callbacks
+        cleverTapDefaultInstance!!.setInAppNotificationButtonListener(this)
+        binding.inappCallback.setOnClickListener {
+            cleverTapDefaultInstance?.pushEvent("Karthik's InApp Callback Event")
+            Toast.makeText(applicationContext, "InApp Callback Event Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        //web view
+        binding.webView.setOnClickListener {
+            startActivity(Intent(applicationContext, WebViewActivity::class.java))
+            Toast.makeText(applicationContext, "WebView Button Clicked", Toast.LENGTH_SHORT).show()
+
+        }
+
+    }
+
+    fun productExperienceAB() {
+        val productConfigInstance = cleverTapDefaultInstance!!.productConfig()
+
+        val hashMap = HashMap<String, Any>()
+        hashMap["ProdExpKey"] = "product exp key test 100% original" //add these key value pair in dashboard keys
+        productConfigInstance.setDefaults(hashMap)
+
+        //FetchAndActivate
+        productConfigInstance.fetchAndActivate()
+        Log.d("pe", productConfigInstance.fetchAndActivate().toString())
+
+        //register listener
+        cleverTapDefaultInstance!!.setCTProductConfigListener(object : CTProductConfigListener{
+            override fun onActivated() {
+                val str = cleverTapDefaultInstance!!.productConfig().getString("ProdExpKey")
+                Log.d("pe_act", str)
+            }
+
+            override fun onFetched() {
+                val str = cleverTapDefaultInstance!!.productConfig().getString("ProdExpKey")
+                Log.d("pe_fet", str)
+            }
+
+            override fun onInit() {
+                productConfigInstance.fetch()
+                productConfigInstance.activate()
+            }
+        })
+
+        //throttling
+        productConfigInstance.setMinimumFetchIntervalInSeconds(60*10)
+
+        //get parameter values
+        productConfigInstance.getBoolean("key_bool")
+        productConfigInstance.getDouble("key_double")
+        productConfigInstance.getLong("key_long")
+        productConfigInstance.getString("key_string")
+        productConfigInstance.getString("key_json")
+
+        //resetting the configs
+//        productConfigInstance.reset()
+
+        //last response time stamp
+        productConfigInstance.lastFetchTimeStampInMillis
+        Log.d("Product Experience", productConfigInstance.lastFetchTimeStampInMillis.toString())
+    }
+
+    fun productExperienceFeatureFlag() {
+        val featureFlagInstance = cleverTapDefaultInstance!!.featureFlag()
+        cleverTapDefaultInstance!!.setCTFeatureFlagsListener {
+        }
+        featureFlagInstance.get("key", false)
     }
 
     fun geoFencing() {
@@ -160,6 +237,10 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
 
         //for deactivation
 //        CTGeofenceAPI.getInstance(applicationContext).deactivate()
+    }
+
+    override fun onInAppButtonClick(payload: HashMap<String, String>?) {
+        println("payload: $payload")
     }
 
     override fun inboxDidInitialize() {
@@ -236,8 +317,8 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
         profileUpdate["Education"] = "Graduate"
         profileUpdate["Married"] = "N"
         profileUpdate["Customer Type"] = "Platinum"
-        profileUpdate["latitude"] = location.latitude
-        profileUpdate["longitude"] = location.longitude
+//        profileUpdate["latitude"] = location.latitude
+//        profileUpdate["longitude"] = location.longitude
 
         profileUpdate["MSG-email"] = true // Disable email notifications
         profileUpdate["MSG-push"] = true // Enable push notifications
@@ -252,6 +333,4 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profileUpdate)
 //        Toast.makeText(applicationContext, "Profile Updated!", Toast.LENGTH_SHORT).show()
     }
-
 }
-

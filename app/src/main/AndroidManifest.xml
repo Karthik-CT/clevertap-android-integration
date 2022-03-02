@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntegrationSDKTest">
         <activity
+            android:name=".WebViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".CustomAppInboxActivity"
             android:exported="false" />
         <activity
