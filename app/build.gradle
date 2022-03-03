@@ -71,4 +71,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:19.0.1"
     implementation "androidx.work:work-runtime:2.7.1" // required for FETCH_LAST_LOCATION_PERIODIC
     implementation "androidx.concurrent:concurrent-futures:1.1.0"
+
+    //push templates
+    implementation "com.clevertap.android:push-templates:1.0.0"
 }

@@ -31,8 +31,10 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import android.location.LocationManager
 import android.os.Handler
+import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CTFeatureFlagsListener
 import com.clevertap.android.sdk.InAppNotificationButtonListener
+import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.product_config.CTProductConfigListener
 
 class MainActivity : AppCompatActivity(), CTInboxListener, InAppNotificationButtonListener {
@@ -57,6 +59,9 @@ class MainActivity : AppCompatActivity(), CTInboxListener, InAppNotificationButt
             applicationContext, "testkk123", "Notification Test", "CleverTap Notification Test",
             NotificationManager.IMPORTANCE_MAX, true
         )
+
+        //push templates
+        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler)
 
 //        addUserDetails1()
         addUserDetails()
@@ -127,7 +132,12 @@ class MainActivity : AppCompatActivity(), CTInboxListener, InAppNotificationButt
         binding.webView.setOnClickListener {
             startActivity(Intent(applicationContext, WebViewActivity::class.java))
             Toast.makeText(applicationContext, "WebView Button Clicked", Toast.LENGTH_SHORT).show()
+        }
 
+        //push template button
+        binding.pushTemplate.setOnClickListener {
+            cleverTapDefaultInstance?.pushEvent("Karthik's Push Template Event")
+            Toast.makeText(applicationContext, "Push Template Event Clicked", Toast.LENGTH_SHORT).show()
         }
 
     }

@@ -116,4 +116,14 @@
         android:textAllCaps="false"
         android:textSize="17sp" />
 
+    <Button
+        android:id="@+id/push_template"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/web_view"
+        android:layout_centerHorizontal="true"
+        android:text="Push Template"
+        android:textAllCaps="false"
+        android:textSize="17sp" />
+
 </RelativeLayout>

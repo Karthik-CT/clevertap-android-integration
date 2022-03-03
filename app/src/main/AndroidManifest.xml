@@ -40,12 +40,22 @@
             </intent-filter>
         </activity>
 
+<!--        JitendraClev Account-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+<!--            android:value="65R-654-5Z6Z" />-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_TOKEN"-->
+<!--            android:value="456-256" />-->
+
+<!--        ks account-->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="65R-654-5Z6Z" />
+            android:value="W4R-R8R-8K6Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="456-256" />
+            android:value="2b2-240" />
+
         <meta-data
             android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
             android:value="1" />
@@ -63,6 +73,17 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!--        <receiver-->
+        <!--            android:name="com.clevertap.pushtemplates.PTPushNotificationReceiver"-->
+        <!--            android:exported="false"-->
+        <!--            android:enabled="true">-->
+        <!--        </receiver>-->
+
+<!--        <receiver-->
+<!--            android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
     </application>
 
 </manifest>
