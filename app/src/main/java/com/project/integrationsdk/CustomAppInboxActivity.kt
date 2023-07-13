@@ -5,11 +5,12 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.InboxMessageButtonListener
 import com.clevertap.android.sdk.inbox.CTInboxMessage
 import com.project.integrationsdk.adapter.CustomAIAdapter
 import com.project.integrationsdk.databinding.ActivityCustomAppInboxBinding
 
-class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
+class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener, InboxMessageButtonListener {
     lateinit var binding: ActivityCustomAppInboxBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
     lateinit var customAIAdapter: CustomAIAdapter
@@ -22,7 +23,18 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
 
+        cleverTapDefaultInstance?.apply {
+            ctNotificationInboxListener = this@CustomAppInboxActivity
+            initializeInbox()
+        }
+    }
+
+    override fun inboxDidInitialize() {
         val allMessage = cleverTapDefaultInstance!!.allInboxMessages
+
+        allMessage.forEach {
+            println("Link Payload: ${it.inboxMessageContents[0].links}")
+        }
 
         binding.customAppInboxRv.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(applicationContext)
@@ -38,9 +50,17 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         }
     }
 
-    override fun inboxDidInitialize() {
+    override fun inboxMessagesDidUpdate() {
     }
 
-    override fun inboxMessagesDidUpdate() {
+    override fun onInboxButtonClick(payload: HashMap<String, String>?) {
+        payload?.apply {
+            val key1 = get("key1")
+            val key2 = get("key2")
+
+            println("Keys: $key1 and $key2")
+        }
+        println("onInboxButtonClick called")
+        println("Custom Inbox payload: $payload")
     }
 }

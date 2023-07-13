@@ -1,129 +1,440 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/update_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Update Profile"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+    <RelativeLayout
+        android:id="@+id/relLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/add_events"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/update_profile"
-        android:layout_centerHorizontal="true"
-        android:text="Events"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/update_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Update Profile"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/push_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/add_events"
-        android:layout_centerHorizontal="true"
-        android:text="Push Notification"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/add_events"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/update_profile"
+            android:layout_centerHorizontal="true"
+            android:text="Events"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/inapp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/push_notification"
-        android:layout_centerHorizontal="true"
-        android:text="In App Notification"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/push_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_events"
+            android:layout_centerHorizontal="true"
+            android:text="Push Notification"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/app_inbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/inapp"
-        android:layout_centerHorizontal="true"
-        android:text="App Inbox"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/push_notification_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_events"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/push_notification"
+            android:text="PN2"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/native_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_inbox"
-        android:layout_centerHorizontal="true"
-        android:text="Native Display"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/inapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/push_notification"
+            android:layout_centerHorizontal="true"
+            android:text="In App Notification"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/geofence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/native_display"
-        android:layout_centerHorizontal="true"
-        android:text="Geofence"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/app_inbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inapp"
+            android:layout_centerHorizontal="true"
+            android:text="App Inbox"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/custom_app_inbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/geofence"
-        android:layout_centerHorizontal="true"
-        android:text="Custom App Inbox"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/native_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_inbox"
+            android:layout_centerHorizontal="true"
+            android:text="Native Display"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/product_exp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/custom_app_inbox"
-        android:layout_centerHorizontal="true"
-        android:text="Product Experience"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/geofence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/native_display"
+            android:layout_centerHorizontal="true"
+            android:text="Geofence"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/inapp_callback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/product_exp"
-        android:layout_centerHorizontal="true"
-        android:text="In App Callback Event"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/custom_app_inbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/geofence"
+            android:layout_centerHorizontal="true"
+            android:text="Custom App Inbox"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/web_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/inapp_callback"
-        android:layout_centerHorizontal="true"
-        android:text="Web View"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/product_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_app_inbox"
+            android:layout_centerHorizontal="true"
+            android:text="Product Experience"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/push_template"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/web_view"
-        android:layout_centerHorizontal="true"
-        android:text="Push Template"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
+        <Button
+            android:id="@+id/inapp_callback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_exp"
+            android:layout_centerHorizontal="true"
+            android:text="In App Callback Event"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/web_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inapp_callback"
+            android:layout_centerHorizontal="true"
+            android:text="Web View"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/push_template"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/web_view"
+            android:layout_centerHorizontal="true"
+            android:text="Push Template"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/segments_android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/push_template"
+            android:layout_centerHorizontal="true"
+            android:text="Segments Android"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/bulletins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/segments_android"
+            android:layout_centerHorizontal="true"
+            android:text="Bulletins Push"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/image_nd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bulletins"
+            android:layout_centerHorizontal="true"
+            android:text="Image Only Noti in ND"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/catalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_nd"
+            android:layout_centerHorizontal="true"
+            android:text="Catalogs"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/mixpanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/catalog"
+            android:layout_centerHorizontal="true"
+            android:text="MixPanel Integration"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/rtut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mixpanel"
+            android:layout_centerHorizontal="true"
+            android:text="RTUT"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/feature_flags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rtut"
+            android:layout_centerHorizontal="true"
+            android:text="Feature Flags"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/email_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/feature_flags"
+            android:layout_centerHorizontal="true"
+            android:text="Email"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/product_config_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/email_btn"
+            android:layout_centerHorizontal="true"
+            android:text="Product Config"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/appsflyer_pe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_config_btn"
+            android:layout_centerHorizontal="true"
+            android:text="AppsFlyer PE"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/mparticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appsflyer_pe"
+            android:layout_centerHorizontal="true"
+            android:text="mParticle"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/add_to_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mparticle"
+            android:layout_centerHorizontal="true"
+            android:text="Add to cart"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/charged_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_to_cart"
+            android:layout_centerHorizontal="true"
+            android:text="Charged Event"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/charged_btn_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/charged_btn"
+            android:layout_centerHorizontal="true"
+            android:text="Charged Event Str"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/charged_btn_float"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/charged_btn_str"
+            android:layout_centerHorizontal="true"
+            android:text="Charged Event Float"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/upload_events_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/charged_btn_float"
+            android:layout_centerHorizontal="true"
+            android:text="Upload Events"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <RelativeLayout
+            android:id="@+id/event_upload_rellay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/upload_events_btn"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/event_to_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="event"
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/event_prop_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/event_to_upload"
+                android:layout_marginTop="5dp"
+                android:hint="event prop key"
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/event_prop_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/event_prop_key"
+                android:layout_marginTop="5dp"
+                android:hint="event prop value"
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/upload_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/event_prop_value"
+                android:layout_centerHorizontal="true"
+                android:text="Upload Events"
+                android:textAllCaps="false"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/OptOut_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/event_upload_rellay"
+            android:text="OptOut"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/OptIn_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/event_upload_rellay"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/OptOut_btn"
+            android:text="OptIn"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/OptOut_btn"
+            android:layout_centerHorizontal="true"
+            android:text="Logout"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/loan_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logout_btn"
+            android:layout_centerHorizontal="true"
+            android:text="Loan Event"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/date_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logout_btn"
+            android:layout_centerHorizontal="true"
+            android:text="Date Event"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/open_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_event"
+            android:layout_centerHorizontal="true"
+            android:text="Open Website"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+
+
+        <Button
+            android:id="@+id/offline_true_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/open_website"
+            android:text="Offline True"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/offline_false_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/open_website"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/offline_true_btn"
+            android:text="Offline False"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -31,6 +31,15 @@
             android:text="Message"
             android:textColor="@color/black"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/custom_ai_links"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_ai_message"
+            android:layout_marginTop="7dp"
+            android:text="Links"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

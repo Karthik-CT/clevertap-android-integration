@@ -1,21 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/CleverTap/WorkDocs/Android/IntegrationSDK/app/src/main/res/layout/activity_geofence.xml" value="0.22447916666666667" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/IntegrationSDK/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/IntegrationSDK/app/src/main/res/layout/activity_native_display.xml" value="0.33" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/test/IntegrationSDK/app/src/main/res/drawable/prdouct_config.xml" value="0.23692307692307693" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/test/IntegrationSDK/app/src/main/res/layout/activity_custom_app_inbox.xml" value="0.22447916666666667" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/test/IntegrationSDK/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/test/IntegrationSDK/app/src/main/res/layout/activity_web_view.xml" value="0.22447916666666667" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/test/IntegrationSDK/app/src/main/res/layout/custom_app_inbox_card_layout.xml" value="0.19537037037037036" />
-        <entry key="..\:/CleverTap/WorkDocs/Android/test/IntegrationSDK/app/src/main/res/xml/product_config.xml" value="0.19537037037037036" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.11302083333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2368659420289855" />
+        <entry key="app/src/main/res/layout/activity_web_view.xml" value="0.3098958333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

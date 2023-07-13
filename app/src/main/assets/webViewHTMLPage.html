@@ -5,9 +5,25 @@
 </head>
 <body>
     <h1>Android CleverTap Web View</h1>
+    <input id="name" type="text" name="username" placeholder="Name" />
+    <br /><br />
+    <input id="emailid" type="text" name="username" placeholder="Email ID" />
+    <br /><br />
+    <input id="identity" type="text" name="username" placeholder="Identity" />
+    <br /><br />
+    <input id="mobno" type="text" name="username" placeholder="Mobile Number" />
+    <br /><br />
+    <button onclick="ctOnUserLogin()">On User Login</button>
+    <br/> <br/>
+    <button onclick="ctPushProfile()">Push Profile</button>
+    <br/> <br/>
     <button onclick="pushEvent()">Push Event</button>
     <br/> <br/>
     <button onclick="invokeChargedEvent()">Invoke Charged Event</button>
+    <br/> <br/>
+    <button onclick="openDashboard()">Open Dashboard</button>
+    <br/> <br/>
+    <button onclick="ageCal()">Age</button>
     <script>
         function pushEvent() {
             CleverTap.pushEvent("Karthik WebView Event")
@@ -17,6 +33,50 @@
             var items = [{Category: 'Books', Name: 'Book name', Quantity: 1},{Category: 'Clothes', Name: 'Cloth name', Quantity: 1},{Category: 'Food', Name: 'Food name', Quantity: 1}]
             CleverTap.pushChargedEvent(JSON.stringify(chargeDetails),JSON.stringify(items))
         }
+        function openDashboard() {
+
+        }
+
+        function ctOnUserLogin() {
+          var props = {
+             Name: document.getElementById("name").value,
+             Identity: document.getElementById("identity").value,
+             Email: document.getElementById("emailid").value,
+             Phone: document.getElementById("mobno").value,
+             "MSG-email": true,
+             "MSG-push": true,
+             "MSG-sms": true,
+             "MSG-whatsapp": true,
+          };
+          if (window.CleverTap) {
+               CleverTap.onUserLogin(JSON.stringify(props));
+          }
+          CleverTap.pushEvent("Android WebView Login Successful")
+        }
+
+        function ctPushProfile() {
+            var props = {
+             Name: document.getElementById("name").value,
+             Identity: document.getElementById("identity").value,
+             Email: document.getElementById("emailid").value,
+             Phone: document.getElementById("mobno").value,
+             "MSG-email": true,
+             "MSG-push": true,
+             "MSG-sms": true,
+             "MSG-whatsapp": true,
+          };
+            if (window.CleverTap) {
+                CleverTap.pushProfile(JSON.stringify(props));
+            }
+        }
+
+        function ageCal() {
+            if (window.CleverTap) {
+                var props = {DOB: "$D_976606200", klm: 'nop'};
+                CleverTap.pushProfile(JSON.stringify(props));
+            }
+        }
+
     </script>
 </body>
 </html>
