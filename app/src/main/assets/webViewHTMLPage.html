@@ -26,12 +26,12 @@
     <button onclick="ageCal()">Age</button>
     <script>
         function pushEvent() {
-            CleverTap.pushEvent("Karthik WebView Event")
+            com_project_integrationsdk.pushEvent("Karthik WebView Event")
         }
         function invokeChargedEvent(){
             var chargeDetails = {Amount: 300, Payment: 'Card'};
             var items = [{Category: 'Books', Name: 'Book name', Quantity: 1},{Category: 'Clothes', Name: 'Cloth name', Quantity: 1},{Category: 'Food', Name: 'Food name', Quantity: 1}]
-            CleverTap.pushChargedEvent(JSON.stringify(chargeDetails),JSON.stringify(items))
+            com_project_integrationsdk.pushChargedEvent(JSON.stringify(chargeDetails),JSON.stringify(items))
         }
         function openDashboard() {
 
@@ -48,10 +48,10 @@
              "MSG-sms": true,
              "MSG-whatsapp": true,
           };
-          if (window.CleverTap) {
-               CleverTap.onUserLogin(JSON.stringify(props));
+          if (window.com_project_integrationsdk) {
+               com_project_integrationsdk.onUserLogin(JSON.stringify(props));
           }
-          CleverTap.pushEvent("Android WebView Login Successful")
+          com_project_integrationsdk.pushEvent("Android WebView Login Successful")
         }
 
         function ctPushProfile() {
@@ -65,15 +65,15 @@
              "MSG-sms": true,
              "MSG-whatsapp": true,
           };
-            if (window.CleverTap) {
-                CleverTap.pushProfile(JSON.stringify(props));
+            if (window.com_project_integrationsdk) {
+                com_project_integrationsdk.pushProfile(JSON.stringify(props));
             }
         }
 
         function ageCal() {
-            if (window.CleverTap) {
+            if (window.com_project_integrationsdk) {
                 var props = {DOB: "$D_976606200", klm: 'nop'};
-                CleverTap.pushProfile(JSON.stringify(props));
+                com_project_integrationsdk.pushProfile(JSON.stringify(props));
             }
         }
 

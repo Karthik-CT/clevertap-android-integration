@@ -4,16 +4,19 @@
     package="com.project.integrationsdk">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- geofence permission -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- geofence permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Singular -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Singular -->
     <uses-permission android:name="BIND_GET_INSTALL_REFERRER_SERVICE" />
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" /> <!-- Facebook -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+    <!-- Facebook -->
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
@@ -38,8 +41,10 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="loginpage"
                     android:scheme="karthikdl" />
@@ -50,8 +55,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="prodexppage"
                     android:scheme="karthikdl" />
@@ -63,8 +70,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="webviewpage"
                     android:scheme="karthikdl" />
@@ -76,8 +85,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="customaipage"
                     android:scheme="karthikdl" />
@@ -89,8 +100,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="geofencepage"
                     android:scheme="karthikdl" />
@@ -102,8 +115,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="nativedisplaypage"
                     android:scheme="karthikdl" />
@@ -115,8 +130,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="mainpage"
                     android:scheme="karthikdl" />
@@ -125,75 +142,21 @@
         </activity>
 
         <!--        To display the inapp after the splash screen add the below meta tag-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_INAPP_EXCLUDE"-->
-        <!--            android:value="YourSplashActivity1, YourSplashActivity2" />-->
+        <meta-data
+            android:name="CLEVERTAP_INAPP_EXCLUDE"
+            android:value="LoginActivity" />
 
-        <!-- JitendraClev Account -->
-        <!--         <meta-data-->
-        <!--         android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--         android:value="65R-654-5Z6Z" />-->
-        <!--         <meta-data-->
-        <!--         android:name="CLEVERTAP_TOKEN"-->
-        <!--         android:value="456-256" />-->
-
-        <!--       TEST-KarthikTest Account -->
+        <!--       TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="TEST-W8W-6WR-846Z" />
+            android:value="clevertap_account_id" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" />
+            android:value="clevertap_account_token" />
 
-        <!--       TEST-CTShikha Account -->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--            android:value="TEST-8R5-4Z6-676Z" />-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_TOKEN"-->
-        <!--            android:value="TEST-206-0b0" />-->
-
-        <!-- TEST - Rushdannew Account -->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--            android:value="44K-96Z-W86Z" />-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_TOKEN"-->
-        <!--            android:value="16c-344" />-->
-
-        <!-- ks Account -->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--            android:value="W4R-R8R-8K6Z" />-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_TOKEN"-->
-        <!--            android:value="2b2-240" />-->
-
-        <!-- TEST - Rushdan Account -->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--            android:value="TEST-RZ5-44Z-856Z" />-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_TOKEN"-->
-        <!--            android:value="TEST-144-512" />-->
-
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
-        <!-- android:value="48K-R55-Z46Z" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_TOKEN" -->
-        <!-- android:value="TEST-552-3b4" /> -->
-        <!-- ks account -->
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
-        <!-- android:value="W4R-R8R-8K6Z" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_TOKEN" -->
-        <!-- android:value="2b2-240" /> -->
-
-        <meta-data
-            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
-            android:value="1" />
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"-->
+<!--            android:value="1" />-->
 
         <!-- Suppress System Events -->
         <!-- <meta-data -->

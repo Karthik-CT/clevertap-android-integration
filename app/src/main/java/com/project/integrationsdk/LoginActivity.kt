@@ -1,16 +1,22 @@
 package com.project.integrationsdk
 
 import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.clevertap.android.pushtemplates.PTConstants
+import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.CleverTapInstanceConfig
+import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.project.integrationsdk.databinding.ActivityLoginBinding
+import java.math.BigInteger
 import java.text.SimpleDateFormat
+import kotlin.reflect.typeOf
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,6 +30,12 @@ class LoginActivity : AppCompatActivity() {
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            cleverTapDefaultInstance?.promptForPushPermission(true)
+//        }
+
+        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CleverTapAPI.createNotificationChannelGroup(
@@ -59,6 +71,12 @@ class LoginActivity : AppCompatActivity() {
             uploadPofileTest()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        cleverTapDefaultInstance?.promptForPushPermission(false)
+    }
+
 
     private fun onUserLogin() {
 //        val location = cleverTapDefaultInstance!!.location
@@ -109,7 +127,15 @@ class LoginActivity : AppCompatActivity() {
 //            }
 //        }
 
+//        val arrInt = ArrayList<BigInteger>()
+//        arrInt.add(1999)
+//        arrInt.add(2999)
+//        arrInt.add(3999)
+//        arrInt.add(4999)
+//        println("ArrInt Value: $arrInt")
+
         val profile = HashMap<String, Any>()
+//        profile["total_cart_values"] = arrInt
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
@@ -124,8 +150,9 @@ class LoginActivity : AppCompatActivity() {
 
 //        profile["latitude"] = location.latitude
 //        profile["longitude"] = location.longitude
-        
+
         profile["items_to_recommend"] = arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
+        profile["int_values"] = intArrayOf(19,29,39,49)
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
@@ -133,9 +160,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun pushProfile() {
-        val location = cleverTapDefaultInstance!!.location
-        cleverTapDefaultInstance!!.location = location
-        Log.d("location", "Latitude: ${location.latitude} longitude: ${location.longitude}")
+//        val location = cleverTapDefaultInstance!!.location
+//        cleverTapDefaultInstance!!.location = location
+//        Log.d("location", "Latitude: ${location.latitude} longitude: ${location.longitude}")
 
 
         val profile = HashMap<String, Any>()
@@ -147,8 +174,8 @@ class LoginActivity : AppCompatActivity() {
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
         profile["MSG-whatsapp"] = true
-        profile["latitude"] = location.latitude
-        profile["longitude"] = location.longitude
+//        profile["latitude"] = location.latitude
+//        profile["longitude"] = location.longitude
 
         CleverTapAPI.getDefaultInstance(applicationContext)?.pushProfile(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -171,5 +198,30 @@ class LoginActivity : AppCompatActivity() {
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
 
         Toast.makeText(applicationContext, "uploadPofileTest() Pushed!", Toast.LENGTH_SHORT).show()
+    }
+
+    fun dismissNotification(intent: Intent?, applicationContext: Context){
+        intent?.extras?.apply {
+            var autoCancel = true
+            var notificationId = -1
+
+            getString("actionId")?.let {
+                Log.d("ACTION_ID", it)
+                autoCancel = getBoolean("autoCancel", true)
+                notificationId = getInt("notificationId", -1)
+            }
+            /**
+             * If using InputBox template, add ptDismissOnClick flag to not dismiss notification
+             * if pt_dismiss_on_click is false in InputBox template payload. Alternatively if normal
+             * notification is raised then we dismiss notification.
+             */
+            val ptDismissOnClick = intent.extras!!.getString(PTConstants.PT_DISMISS_ON_CLICK,"")
+
+            if (autoCancel && notificationId > -1 && ptDismissOnClick.isNullOrEmpty()) {
+                val notifyMgr: NotificationManager =
+                    applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notifyMgr.cancel(notificationId)
+            }
+        }
     }
 }

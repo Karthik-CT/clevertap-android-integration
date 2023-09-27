@@ -50,8 +50,8 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-
 
 class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     DisplayUnitListener, CTInboxListener, InboxMessageButtonListener, InboxMessageListener, CTPushNotificationListener {
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         cleverTapDefaultInstance?.enableDeviceNetworkInfoReporting(true)
 
         //addUserDetails()
-
+0
         binding.updateProfile.setOnClickListener {
             var prof = HashMap<String, Any>()
             prof["Email"] = "test110@test.com"
@@ -163,8 +163,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
         else {
             Toast.makeText(applicationContext, "Permission Granted", Toast.LENGTH_SHORT).show()
-            geoFencing()
+//            geoFencing()
         }
+
+        geoFencing()
 
         //custom app inbox
         binding.customAppInbox.setOnClickListener {
@@ -719,6 +721,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         CTGeofenceAPI.getInstance(applicationContext).setCtLocationUpdatesListener {
             //New location on the main thread as provided by the Android OS
+//            Log.d("ad_geofencing", it.latitude.toString())
         }
 
         //for deactivation
@@ -873,6 +876,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         contentPageIndex: Int,
         buttonIndex: Int
     ) {
+        TODO("Not yet implemented")
+    }
+
+    fun onInboxItemClicked(message: CTInboxMessage?) {
         TODO("Not yet implemented")
     }
 
