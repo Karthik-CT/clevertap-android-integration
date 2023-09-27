@@ -146,17 +146,101 @@
             android:name="CLEVERTAP_INAPP_EXCLUDE"
             android:value="LoginActivity" />
 
+        <!-- JitendraClev Account -->
+        <!--         <meta-data-->
+        <!--         android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--         android:value="65R-654-5Z6Z" />-->
+        <!--         <meta-data-->
+        <!--         android:name="CLEVERTAP_TOKEN"-->
+        <!--         android:value="456-256" />-->
+
         <!--       TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="clevertap_account_id" />
+            android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="clevertap_account_token" />
+            android:value="TEST-206-0b0" />
 
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"-->
-<!--            android:value="1" />-->
+        <!--       TEST-KarthikTest2 Account -->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="TEST-6Z4-46Z-776Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="TEST-164-416" />-->
+
+        <!--        FairMoney-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="TEST-56W-W44-4R6Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="TEST-5a4-016" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_REGION"-->
+        <!--            android:value="in1"/>-->
+
+        <!-- TEST-Avinash-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="TEST-K74-965-WK6Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="TEST-56c-4a3" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_REGION"-->
+        <!--            android:value="in1"/>-->
+
+        <!--       TEST-CTShikha Account -->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="TEST-8R5-4Z6-676Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="TEST-206-0b0" />-->
+
+        <!-- TEST - Rushdannew Account -->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="44K-96Z-W86Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="16c-344" />-->
+
+        <!-- ks Account -->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="W4R-R8R-8K6Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="2b2-240" />-->
+
+        <!-- TEST - Rushdan Account -->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="TEST-RZ5-44Z-856Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="TEST-144-512" />-->
+
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="48K-R55-Z46Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-552-3b4" /> -->
+        <!-- ks account -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="W4R-R8R-8K6Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="2b2-240" /> -->
+
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"-->
+        <!--            android:value="1" />-->
 
         <!-- Suppress System Events -->
         <!-- <meta-data -->

@@ -529,6 +529,13 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("resume", "displaying inapp from onResume")
+        //resume inapp
+        cleverTapDefaultInstance?.resumeInAppNotifications()
+    }
+
     fun logOutSession() {
         val sharedPreferences = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
