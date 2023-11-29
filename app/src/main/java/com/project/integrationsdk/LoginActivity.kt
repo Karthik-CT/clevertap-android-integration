@@ -12,6 +12,8 @@ import com.clevertap.android.pushtemplates.PTConstants
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.CleverTapInstanceConfig
+import com.clevertap.android.sdk.Constants
+import com.clevertap.android.sdk.inapp.CTLocalInApp
 import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.project.integrationsdk.databinding.ActivityLoginBinding
 import java.math.BigInteger
@@ -28,12 +30,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            cleverTapDefaultInstance?.promptForPushPermission(true)
-//        }
 
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
 
@@ -74,7 +72,18 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        cleverTapDefaultInstance?.promptForPushPermission(false)
+
+        val builder = CTLocalInApp.builder()
+            .setInAppType(CTLocalInApp.InAppType.ALERT)
+            .setTitleText("Get Notified")
+            .setMessageText("Enable Notification permission")
+            .followDeviceOrientation(true)
+            .setPositiveBtnText("Allow")
+            .setNegativeBtnText("Cancel")
+            .build()
+        cleverTapDefaultInstance?.promptPushPrimer(builder)
+
+//        cleverTapDefaultInstance?.promptForPushPermission(false)
     }
 
 

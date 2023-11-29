@@ -40,6 +40,6 @@ class WebViewActivity : AppCompatActivity() {
         binding.webView.webViewClient = object : WebViewClient() {}
 
         //suspend inapp
-        CleverTapAPI.getDefaultInstance(applicationContext)?.suspendInAppNotifications()
+//        CleverTapAPI.getDefaultInstance(applicationContext)?.suspendInAppNotifications()
     }
 }

@@ -34,6 +34,12 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener, InboxMessag
 
         allMessage.forEach {
             println("Link Payload: ${it.inboxMessageContents[0].links}")
+            //for getting custom KV pair
+            val inbox = it.inboxMessageContents[0].links
+            for (i in 0 until inbox.length()) {
+                val inb = inbox.getJSONObject(i)
+                println("KV value: ${inb.get("kv")}")
+            }
         }
 
         binding.customAppInboxRv.setHasFixedSize(true)

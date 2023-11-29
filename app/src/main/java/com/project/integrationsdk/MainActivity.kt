@@ -42,8 +42,8 @@ import com.segment.analytics.Properties
 import com.segment.analytics.Properties.Product
 import com.segment.analytics.Traits
 import com.segment.analytics.android.integrations.clevertap.CleverTapIntegration
-import com.singular.sdk.Singular
-import com.singular.sdk.SingularConfig
+//import com.singular.sdk.Singular
+//import com.singular.sdk.SingularConfig
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_notifications_24)
+//        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_notifications_24)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
@@ -424,19 +424,19 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
 
         //Singular Integration
-        val singularConfig = SingularConfig(
-            "0c2efa8657e934b3728e69f257827b74e46c0006e7f9a41383b3a938aab1ccfe",
-            "7a63ca5dda084505221f75ca1b415e37"
-        )
-            .withCustomUserId("kkiyer16")
-            .withSessionTimeoutInSec(120)
+//        val singularConfig = SingularConfig(
+//            "0c2efa8657e934b3728e69f257827b74e46c0006e7f9a41383b3a938aab1ccfe",
+//            "7a63ca5dda084505221f75ca1b415e37"
+//        )
+//            .withCustomUserId("kkiyer16")
+//            .withSessionTimeoutInSec(120)
 
-        Singular.init(applicationContext, singularConfig)
-
-        cleverTapDefaultInstance?.getCleverTapID {
-            Singular.setGlobalProperty("CLEVERTAPID", it, true)
-        }
-        Singular.event("KKSingularTest")
+//        Singular.init(applicationContext, singularConfig)
+//
+//        cleverTapDefaultInstance?.getCleverTapID {
+//            Singular.setGlobalProperty("CLEVERTAPID", it, true)
+//        }
+//        Singular.event("KKSingularTest")
 
         //App Personalization
         //Enable Personalization

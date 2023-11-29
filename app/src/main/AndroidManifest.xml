@@ -142,17 +142,17 @@
         </activity>
 
         <!--        To display the inapp after the splash screen add the below meta tag-->
-        <meta-data
-            android:name="CLEVERTAP_INAPP_EXCLUDE"
-            android:value="LoginActivity" />
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_INAPP_EXCLUDE"-->
+        <!--            android:value="LoginActivity" />-->
 
         <!--       TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="clevertap_account_id" />
+            android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="clevertap_account_token" />
+            android:value="TEST-206-0b0" />
 
         <!--        <meta-data-->
         <!--            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"-->
@@ -167,9 +167,9 @@
             android:name="FCM_SENDER_ID"
             android:value="id:487275975172" />
 
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_BACKGROUND_SYNC"-->
-        <!--            android:value="1" />-->
+        <meta-data
+            android:name="CLEVERTAP_BACKGROUND_SYNC"
+            android:value="1" />
 
         <service
             android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
