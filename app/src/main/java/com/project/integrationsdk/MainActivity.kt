@@ -2,11 +2,13 @@ package com.project.integrationsdk
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +27,7 @@ import com.clevertap.android.geofence.CTGeofenceAPI
 import com.clevertap.android.geofence.CTGeofenceSettings
 import com.clevertap.android.geofence.Logger
 import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener
+import com.clevertap.android.geofence.interfaces.CTLocationUpdatesListener
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
@@ -54,18 +57,24 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
-    DisplayUnitListener, CTInboxListener, InboxMessageButtonListener, InboxMessageListener, CTPushNotificationListener {
+    DisplayUnitListener, CTInboxListener, InboxMessageButtonListener, InboxMessageListener, CTPushNotificationListener, CTGeofenceAPI.OnGeofenceApiInitializedListener,
+    CTGeofenceEventsListener, CTLocationUpdatesListener {
 
     lateinit var binding: ActivityMainBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
     var ctGeofenceAPI: CTGeofenceAPI? = null
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
+    private val MY_PERMISSIONS_REQUEST_LOCATION = 99
+    private val MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION = 66
+
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        checkLocationPermission()
 
 //        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_notifications_24)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -152,19 +161,19 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
 
         //GeoFence
-        val permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(applicationContext, "Please grant the Permission", Toast.LENGTH_SHORT).show()
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
-        }
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(applicationContext, "Please grant the Permission", Toast.LENGTH_SHORT).show()
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), 1)
-        }
-        else {
-            Toast.makeText(applicationContext, "Permission Granted", Toast.LENGTH_SHORT).show()
-//            geoFencing()
-        }
+//        val permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//        if (permission != PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(applicationContext, "Please grant the Permission", Toast.LENGTH_SHORT).show()
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+//        }
+//        if (permission != PackageManager.PERMISSION_GRANTED) {
+//            Toast.makeText(applicationContext, "Please grant the Permission", Toast.LENGTH_SHORT).show()
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), 1)
+//        }
+//        else {
+//            Toast.makeText(applicationContext, "Permission Granted", Toast.LENGTH_SHORT).show()
+////            geoFencing()
+//        }
 
         geoFencing()
 
@@ -534,6 +543,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         Log.d("resume", "displaying inapp from onResume")
         //resume inapp
         cleverTapDefaultInstance?.resumeInAppNotifications()
+//        geoFencing()
     }
 
     fun logOutSession() {
@@ -684,17 +694,24 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         println("KK Geo Called")
         val ctGeofenceSettings = CTGeofenceSettings.Builder()
             .enableBackgroundLocationUpdates(true)//boolean to enable background location updates
-            .setLogLevel(Logger.DEBUG)//Log Level
+            .setLogLevel(Logger.VERBOSE)//Log Level
             .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH)//byte value for Location Accuracy
-            .setLocationFetchMode(CTGeofenceSettings.FETCH_LAST_LOCATION_PERIODIC)//byte value for Fetch Mode
-            .setGeofenceMonitoringCount(50)//int value for number of Geofences CleverTap can monitor
-            .setInterval(1800000)//long value for interval in milliseconds
-            .setFastestInterval(1800000)//long value for fastest interval in milliseconds
-            .setSmallestDisplacement(200F)//float value for smallest Displacement in meters
-            .setGeofenceNotificationResponsiveness(0)// int value for geofence notification responsiveness in milliseconds
+            .setLocationFetchMode(CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC)//byte value for Fetch Mode
+            .setGeofenceMonitoringCount(100)//int value for number of Geofences CleverTap can monitor
+            .setInterval(10000)//long value for interval in milliseconds
+            .setFastestInterval(5000)//long value for fastest interval in milliseconds
+            .setSmallestDisplacement(0.3f)//float value for smallest Displacement in meters
+            .setGeofenceNotificationResponsiveness(5000)// int value for geofence notification responsiveness in milliseconds
             .build()
 
-        ctGeofenceAPI?.init(ctGeofenceSettings, cleverTapDefaultInstance!!)
+        CTGeofenceAPI.getInstance(this).init(ctGeofenceSettings, cleverTapDefaultInstance!!)
+
+        //callbacks
+        CTGeofenceAPI.getInstance(applicationContext).setOnGeofenceApiInitializedListener {
+            //App is notified on the main thread that CTGeofenceAPI is initialized
+            Log.d("clevertap_geofence", "CTGeofenceAPI is initialized")
+            println("CTGeofenceAPI is initialized called")
+        }
 
         try {
             CTGeofenceAPI.getInstance(applicationContext).triggerLocation()
@@ -702,11 +719,12 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             e.printStackTrace()
         }
 
-        //callbacks
-        CTGeofenceAPI.getInstance(applicationContext).setOnGeofenceApiInitializedListener {
-            //App is notified on the main thread that CTGeofenceAPI is initialized
-            Log.d("clevertap_geofence", "CTGeofenceAPI is initialized")
-            println("CTGeofenceAPI is initialized called")
+        CTGeofenceAPI.getInstance(applicationContext).setCtLocationUpdatesListener {
+            //New location on the main thread as provided by the Android OS
+//            Log.d("ad_geofencing", it.latitude.toString())
+            if(it != null) {
+                Log.d("Location updated", "" + it.latitude + " and " + it.longitude)
+            }
         }
 
         CTGeofenceAPI.getInstance(applicationContext)
@@ -725,11 +743,6 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                     println("geofence exited called")
                 }
             })
-
-        CTGeofenceAPI.getInstance(applicationContext).setCtLocationUpdatesListener {
-            //New location on the main thread as provided by the Android OS
-//            Log.d("ad_geofencing", it.latitude.toString())
-        }
 
         //for deactivation
 //        CTGeofenceAPI.getInstance(applicationContext).deactivate()
@@ -888,6 +901,188 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
     fun onInboxItemClicked(message: CTInboxMessage?) {
         TODO("Not yet implemented")
+    }
+
+    private fun checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            ) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                AlertDialog.Builder(this)
+                    .setTitle("Location Permission Needed")
+                    .setMessage("This app needs the Location permission, please accept to use location functionality")
+                    .setPositiveButton(
+                        "OK"
+                    ) { _, _ ->
+                        //Prompt the user once explanation has been shown
+                        requestLocationPermission()
+                    }
+                    .create()
+                    .show()
+            } else {
+                // No explanation needed, we can request the permission.
+                requestLocationPermission()
+            }
+        } else {
+            checkBackgroundLocation()
+        }
+
+    }
+
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ),
+            MY_PERMISSIONS_REQUEST_LOCATION
+        )
+    }
+
+    private fun checkBackgroundLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestBackgroundLocationPermission()
+        }
+    }
+
+    private fun requestBackgroundLocationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                ),
+                MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION
+            )
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MY_PERMISSIONS_REQUEST_LOCATION
+            )
+        }
+    }
+
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        checkBackgroundLocation()
+                    }
+
+                } else {
+
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
+
+                }
+                return
+            }
+            MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        Toast.makeText(
+                            this,
+                            "Granted Background Location Permission",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        geoFencing()
+                    }
+                } else {
+
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
+                }
+                return
+
+            }
+        }
+    }
+
+    override fun OnGeofenceApiInitialized() {
+        try {
+            Log.d(
+                "clevertap OnGeofenceApiInitialized-",
+                "-----OnGeofenceApiInitialized----="
+            )
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override fun onGeofenceEnteredEvent(geofenceEnteredEventProperties: JSONObject?) {
+        try {
+            Log.d(
+                "Geofence Entered",
+                geofenceEnteredEventProperties!!.getString("gcName") + " : " + geofenceEnteredEventProperties!!.getString(
+                    "triggered_lat"
+                ) + " , " + geofenceEnteredEventProperties!!.getString("triggered_lng")
+            )
+        } catch (e: Exception) {
+            Log.d("Exception : ", e.localizedMessage)
+        }
+    }
+
+    override fun onGeofenceExitedEvent(geofenceExitedEventProperties: JSONObject?) {
+        try {
+            Log.d(
+                "Geofence Entered",
+                geofenceExitedEventProperties!!.getString("gcName") + " : " + geofenceExitedEventProperties!!.getString(
+                    "triggered_lat"
+                ) + " , " + geofenceExitedEventProperties!!.getString("triggered_lng")
+            )
+        } catch (e: Exception) {
+            Log.d("Exception : ", e.localizedMessage)
+        }
+    }
+
+    override fun onLocationUpdates(location: Location?) {
+        try {
+            Log.d(
+                "Location Updated : ",
+                location!!.latitude.toString() + " , " + location!!.longitude.toString()
+            )
+
+        } catch (e: Exception) {
+            Log.d("Exception : ", e.localizedMessage)
+        }
     }
 
 }
