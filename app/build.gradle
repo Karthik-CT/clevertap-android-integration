@@ -98,7 +98,7 @@ dependencies {
     implementation "androidx.concurrent:concurrent-futures:1.1.0"
 
     //push templates
-    implementation "com.clevertap.android:push-templates:1.0.5"
+    implementation "com.clevertap.android:push-templates:1.2.0"
 
     //Segments-Android Install
     implementation 'com.clevertap.android:clevertap-segment-android:1.4.0'

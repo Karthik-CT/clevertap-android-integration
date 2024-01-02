@@ -544,6 +544,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         //resume inapp
         cleverTapDefaultInstance?.resumeInAppNotifications()
 //        geoFencing()
+
     }
 
     fun logOutSession() {
@@ -866,6 +867,18 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         super.onNewIntent(intent)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             CleverTapAPI.getDefaultInstance(this)?.pushNotificationClickedEvent(intent!!.extras)
+        }
+
+        val payload = this.intent?.extras
+        if (payload?.containsKey("pt_id") == true && payload["pt_id"] =="pt_rating")
+        {
+            val nm = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nm.cancel(payload["notificationId"] as Int)
+        }
+        if (payload?.containsKey("pt_id") == true && payload["pt_id"] =="pt_product_display")
+        {
+            val nm = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nm.cancel(payload["notificationId"] as Int)
         }
     }
 
