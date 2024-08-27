@@ -315,7 +315,6 @@
                 android:layout_height="wrap_content"
                 android:hint="event"
                 android:minHeight="48dp"
-                android:textColor="@color/black"
                 android:textSize="17sp" />
 
             <EditText
@@ -326,7 +325,6 @@
                 android:layout_marginTop="5dp"
                 android:hint="event prop key"
                 android:minHeight="48dp"
-                android:textColor="@color/black"
                 android:textSize="17sp" />
 
             <EditText
@@ -337,7 +335,6 @@
                 android:layout_marginTop="5dp"
                 android:hint="event prop value"
                 android:minHeight="48dp"
-                android:textColor="@color/black"
                 android:textSize="17sp" />
 
             <Button
@@ -413,7 +410,6 @@
             android:textSize="17sp" />
 
 
-
         <Button
             android:id="@+id/offline_true_btn"
             android:layout_width="wrap_content"
@@ -431,6 +427,39 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/offline_true_btn"
             android:text="Offline False"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/view_plp_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/offline_false_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="view_plp_1"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/view_plp_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_plp_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="view_plp_2"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/view_plp_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_plp_2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="view_plp_3"
             android:textAllCaps="false"
             android:textSize="17sp" />
 

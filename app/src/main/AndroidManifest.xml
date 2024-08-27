@@ -5,6 +5,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <!-- geofence permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -12,9 +15,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Singular -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Singular -->
     <uses-permission android:name="BIND_GET_INSTALL_REFERRER_SERVICE" />
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" /> <!-- Facebook -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+    <!-- Facebook -->
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
@@ -129,23 +134,48 @@
                     android:host="mainpage"
                     android:scheme="karthikdl" />
             </intent-filter>
-        </activity> <!-- To display the inapp after the splash screen add the below meta tag -->
+        </activity>
+
+        <!-- To display the inapp after the splash screen add the below meta tag -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_INAPP_EXCLUDE" -->
         <!-- android:value="LoginActivity" /> -->
+
         <!-- TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" /> <!-- <meta-data -->
+            android:value="TEST-206-0b0" />
+
+        <!-- IN1 Bearded Robot -->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+<!--            android:value="ZWW-WWW-WW4Z" />-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_TOKEN"-->
+<!--            android:value="000-001" />-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_REGION"-->
+<!--            android:value="in1"/>-->
+
+        <!-- TEST-KarthikTest2 Account -->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+        <!--            android:value="TEST-6Z4-46Z-776Z" />-->
+        <!--        <meta-data-->
+        <!--            android:name="CLEVERTAP_TOKEN"-->
+        <!--            android:value="TEST-164-416" />-->
+
+        <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_USE_GOOGLE_AD_ID" -->
         <!-- android:value="1" /> -->
         <!-- Suppress System Events -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_DISABLE_APP_LAUNCHED" -->
         <!-- android:value="1" /> -->
+
         <meta-data
             android:name="FCM_SENDER_ID"
             android:value="id:487275975172" />
@@ -159,7 +189,9 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service> <!-- Custom Android Push Notifications Handling -->
+        </service>
+
+        <!-- Custom Android Push Notifications Handling -->
         <!-- <service -->
         <!-- android:name="com.project.integrationsdk.MyFcmMessageListenerService" -->
         <!-- android:exported="true"> -->
@@ -172,6 +204,7 @@
         <!-- android:exported="false" -->
         <!-- android:enabled="true"> -->
         <!-- </receiver> -->
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -183,6 +216,11 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider693680325291955"
             android:exported="true" />
+
+        <meta-data
+            android:name="CLEVERTAP_ENCRYPTION_LEVEL"
+            android:value="1" />
+
     </application>
 
 </manifest>

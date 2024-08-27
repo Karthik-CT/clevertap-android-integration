@@ -13,6 +13,7 @@ import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.CleverTapInstanceConfig
 import com.clevertap.android.sdk.Constants
+import com.clevertap.android.sdk.PushPermissionResponseListener
 import com.clevertap.android.sdk.inapp.CTLocalInApp
 import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.project.integrationsdk.databinding.ActivityLoginBinding
@@ -20,7 +21,7 @@ import java.math.BigInteger
 import java.text.SimpleDateFormat
 import kotlin.reflect.typeOf
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
     lateinit var binding: ActivityLoginBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
@@ -33,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
 
+        cleverTapDefaultInstance?.registerPushPermissionNotificationResponseListener(this)
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -68,34 +70,50 @@ class LoginActivity : AppCompatActivity() {
         binding.profileUploadBtn.setOnClickListener {
             uploadPofileTest()
         }
+
+        cleverTapDefaultInstance?.promptForPushPermission(true)
+
     }
 
     override fun onResume() {
         super.onResume()
 
-        val builder = CTLocalInApp.builder()
-            .setInAppType(CTLocalInApp.InAppType.ALERT)
-            .setTitleText("Get Notified")
-            .setMessageText("Enable Notification permission")
-            .followDeviceOrientation(true)
-            .setPositiveBtnText("Allow")
-            .setNegativeBtnText("Cancel")
-            .build()
-        cleverTapDefaultInstance?.promptPushPrimer(builder)
+//        if (cleverTapDefaultInstance!!.isPushPermissionGranted()) {
+//            Log.d("CT", "onResume: ALready granted")
+//        } else {
+//            val builder = CTLocalInApp.builder()
+//                .setInAppType(CTLocalInApp.InAppType.ALERT)
+//                .setTitleText("Get Notified")
+//                .setMessageText("Enable Notification permission")
+//                .followDeviceOrientation(true)
+//                .setPositiveBtnText("Allow")
+//                .setNegativeBtnText("Cancel")
+//                .build()
+//            cleverTapDefaultInstance?.promptPushPrimer(builder)
+      //  }
+
+        cleverTapDefaultInstance?.promptForPushPermission(true)
+
+//        val builder = CTLocalInApp.builder()
+//            .setInAppType(CTLocalInApp.InAppType.ALERT)
+//            .setTitleText("Get Notified")
+//            .setMessageText("Enable Notification permission")
+//            .followDeviceOrientation(true)
+//            .setPositiveBtnText("Allow")
+//            .setNegativeBtnText("Cancel")
+//            .build()
+//        cleverTapDefaultInstance?.promptPushPrimer(builder)
 
 //        cleverTapDefaultInstance?.promptForPushPermission(false)
 
 
-
         val payload = this.intent?.extras
         println("PT Payload: $payload")
-        if (payload?.containsKey("pt_id") == true && payload["pt_id"] =="pt_rating")
-        {
+        if (payload?.containsKey("pt_id") == true && payload["pt_id"] == "pt_rating") {
             val nm = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nm.cancel(payload["notificationId"] as Int)
         }
-        if (payload?.containsKey("pt_id") == true && payload["pt_id"] =="pt_product_display")
-        {
+        if (payload?.containsKey("pt_id") == true && payload["pt_id"] == "pt_product_display") {
             val nm = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nm.cancel(payload["notificationId"] as Int)
         }
@@ -112,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
     object NotificationUtils {
 
         //Require to close notification on action button click
-        fun dismissNotification(intent: Intent?, applicationContext: Context){
+        fun dismissNotification(intent: Intent?, applicationContext: Context) {
             intent?.extras?.apply {
                 var autoCancel = true
                 var notificationId = -1
@@ -127,7 +145,8 @@ class LoginActivity : AppCompatActivity() {
                  * if pt_dismiss_on_click is false in InputBox template payload. Alternatively if normal
                  * notification is raised then we dismiss notification.
                  */
-                val ptDismissOnClick = intent.extras!!.getString(PTConstants.PT_DISMISS_ON_CLICK,"")
+                val ptDismissOnClick =
+                    intent.extras!!.getString(PTConstants.PT_DISMISS_ON_CLICK, "")
 
                 if (autoCancel && notificationId > -1 && ptDismissOnClick.isNullOrEmpty()) {
                     val notifyMgr: NotificationManager =
@@ -143,7 +162,7 @@ class LoginActivity : AppCompatActivity() {
 //        val location = cleverTapDefaultInstance!!.location
 //        cleverTapDefaultInstance!!.location = location
 //        println("Location $location")
-//        Log.d("location", "Latitude: ${location.latitude} longitude: ${location.longitude}")
+//        println("Latitude: ${location.latitude} longitude: ${location.longitude}")
 
 //        val arList = listOf("test101", "test102", "test105", "test106")
 //        for (x in arList) {
@@ -200,7 +219,7 @@ class LoginActivity : AppCompatActivity() {
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = binding.mobileNo.text.toString()
+        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
@@ -212,8 +231,9 @@ class LoginActivity : AppCompatActivity() {
 //        profile["latitude"] = location.latitude
 //        profile["longitude"] = location.longitude
 
-        profile["items_to_recommend"] = arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
-        profile["int_values"] = intArrayOf(19,29,39,49)
+        profile["items_to_recommend"] =
+            arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
+        profile["int_values"] = intArrayOf(19, 29, 39, 49)
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
@@ -244,7 +264,7 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "Profile Pushed!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun uploadPofileTest(){
+    private fun uploadPofileTest() {
         val profile = HashMap<String, Any>()
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = "el1"
@@ -261,7 +281,7 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "uploadPofileTest() Pushed!", Toast.LENGTH_SHORT).show()
     }
 
-    fun dismissNotification(intent: Intent?, applicationContext: Context){
+    fun dismissNotification(intent: Intent?, applicationContext: Context) {
         intent?.extras?.apply {
             var autoCancel = true
             var notificationId = -1
@@ -276,7 +296,7 @@ class LoginActivity : AppCompatActivity() {
              * if pt_dismiss_on_click is false in InputBox template payload. Alternatively if normal
              * notification is raised then we dismiss notification.
              */
-            val ptDismissOnClick = intent.extras!!.getString(PTConstants.PT_DISMISS_ON_CLICK,"")
+            val ptDismissOnClick = intent.extras!!.getString(PTConstants.PT_DISMISS_ON_CLICK, "")
 
             if (autoCancel && notificationId > -1 && ptDismissOnClick.isNullOrEmpty()) {
                 val notifyMgr: NotificationManager =
@@ -284,5 +304,9 @@ class LoginActivity : AppCompatActivity() {
                 notifyMgr.cancel(notificationId)
             }
         }
+    }
+
+    override fun onPushPermissionResponse(accepted: Boolean) {
+        Log.d("CT", "onPushPermissionResponse: ")
     }
 }

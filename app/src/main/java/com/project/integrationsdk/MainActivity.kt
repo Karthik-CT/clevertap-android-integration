@@ -21,6 +21,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.clevertap.android.geofence.CTGeofenceAPI
@@ -32,6 +37,7 @@ import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
+import com.clevertap.android.sdk.inapp.CTInAppBaseFullHtmlFragment
 import com.clevertap.android.sdk.inbox.CTInboxMessage
 import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.product_config.CTProductConfigListener
@@ -45,19 +51,26 @@ import com.segment.analytics.Properties
 import com.segment.analytics.Properties.Product
 import com.segment.analytics.Traits
 import com.segment.analytics.android.integrations.clevertap.CleverTapIntegration
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 //import com.singular.sdk.Singular
 //import com.singular.sdk.SingularConfig
 import org.json.JSONObject
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
-    DisplayUnitListener, CTInboxListener, InboxMessageButtonListener, InboxMessageListener, CTPushNotificationListener, CTGeofenceAPI.OnGeofenceApiInitializedListener,
+    DisplayUnitListener, CTInboxListener, InboxMessageButtonListener,
+    CTPushNotificationListener, CTGeofenceAPI.OnGeofenceApiInitializedListener,
     CTGeofenceEventsListener, CTLocationUpdatesListener {
 
     lateinit var binding: ActivityMainBinding
@@ -82,6 +95,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
         ctGeofenceAPI = CTGeofenceAPI.getInstance(applicationContext)
+
+
+        val location = cleverTapDefaultInstance!!.location
+        cleverTapDefaultInstance!!.location = location
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CleverTapAPI.createNotificationChannelGroup(
@@ -111,7 +128,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         cleverTapDefaultInstance?.enableDeviceNetworkInfoReporting(true)
 
         //addUserDetails()
-0
+
         binding.updateProfile.setOnClickListener {
             var prof = HashMap<String, Any>()
             prof["Email"] = "test110@test.com"
@@ -136,6 +153,31 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             cleverTapDefaultInstance?.pushEvent("Karthik's InApp Event")
             Toast.makeText(applicationContext, "InApp button Clicked", Toast.LENGTH_SHORT).show()
         }
+
+        binding.viewPlp1.setOnClickListener {
+            val inappProps = HashMap<String, Any>()
+            inappProps["items_total"] = 5
+            inappProps["type"] = "women/designers/charlotte-tilbury"
+            cleverTapDefaultInstance?.pushEvent("view_plp", inappProps)
+            Toast.makeText(applicationContext, "InApp button Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.viewPlp2.setOnClickListener {
+            val inappProps = HashMap<String, Any>()
+            inappProps["items_total"] = 233
+            inappProps["type"] = "women/clothing"
+            cleverTapDefaultInstance?.pushEvent("view_plp", inappProps)
+            Toast.makeText(applicationContext, "InApp button Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.viewPlp3.setOnClickListener {
+            val inappProps = HashMap<String, Any>()
+            inappProps["items_total"] = 150
+            inappProps["type"] = "women/edits/the-eid-sale"
+            cleverTapDefaultInstance?.pushEvent("view_plp", inappProps)
+            Toast.makeText(applicationContext, "InApp button Clicked", Toast.LENGTH_SHORT).show()
+        }
+
         cleverTapDefaultInstance?.apply {
             ctNotificationInboxListener = this@MainActivity
             initializeInbox()
@@ -354,6 +396,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         cleverTapDefaultInstance?.getCleverTapID {
             AppsFlyerLib.getInstance().setCustomerUserId(it)
+            println("The current CT ID of the user is $it")
         }
         AppsFlyerLib.getInstance().setDebugLog(true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -521,7 +564,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         //open website
         binding.openWebsite.setOnClickListener {
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://web-integration-sdk.000webhostapp.com/"))
+            val i = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://web-integration-sdk.000webhostapp.com/")
+            )
             startActivity(i)
         }
 
@@ -536,6 +582,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             cleverTapDefaultInstance?.setOffline(false)
             Toast.makeText(applicationContext, "setOffline(false)", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun onResume() {
@@ -576,10 +623,12 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                         binding.appsflyerPe.text = pe_act
                         binding.appsflyerPe.setTextColor(Color.GREEN)
                     }
+
                     "AF Varaint A" -> {
                         binding.appsflyerPe.text = pe_act
                         binding.appsflyerPe.setTextColor(Color.BLUE)
                     }
+
                     "AF Varaint B" -> {
                         binding.appsflyerPe.text = pe_act
                         binding.appsflyerPe.setTextColor(Color.CYAN)
@@ -641,6 +690,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                     "product config test 100% original" -> {
                         Toast.makeText(applicationContext, "fetched", Toast.LENGTH_SHORT).show()
                     }
+
                     else -> {
                         Toast.makeText(applicationContext, "not fetched", Toast.LENGTH_SHORT).show()
                     }
@@ -684,6 +734,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             true -> {
                 Toast.makeText(applicationContext, "true", Toast.LENGTH_SHORT).show()
             }
+
             false -> {
                 Toast.makeText(applicationContext, "false", Toast.LENGTH_SHORT).show()
             }
@@ -723,8 +774,11 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         CTGeofenceAPI.getInstance(applicationContext).setCtLocationUpdatesListener {
             //New location on the main thread as provided by the Android OS
 //            Log.d("ad_geofencing", it.latitude.toString())
-            if(it != null) {
+            if (it != null) {
                 Log.d("Location updated", "" + it.latitude + " and " + it.longitude)
+                it.let {
+                    logLocation(applicationContext, it.latitude, it.longitude)
+                }
             }
         }
 
@@ -870,13 +924,11 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
 
         val payload = this.intent?.extras
-        if (payload?.containsKey("pt_id") == true && payload["pt_id"] =="pt_rating")
-        {
+        if (payload?.containsKey("pt_id") == true && payload["pt_id"] == "pt_rating") {
             val nm = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nm.cancel(payload["notificationId"] as Int)
         }
-        if (payload?.containsKey("pt_id") == true && payload["pt_id"] =="pt_product_display")
-        {
+        if (payload?.containsKey("pt_id") == true && payload["pt_id"] == "pt_product_display") {
             val nm = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nm.cancel(payload["notificationId"] as Int)
         }
@@ -887,6 +939,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             android.R.id.home -> {
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -904,17 +957,17 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         println("PUSH KK PAYLOAD: $payload")
     }
 
-    override fun onInboxItemClicked(
-        message: CTInboxMessage?,
-        contentPageIndex: Int,
-        buttonIndex: Int
-    ) {
-        TODO("Not yet implemented")
-    }
-
-    fun onInboxItemClicked(message: CTInboxMessage?) {
-        TODO("Not yet implemented")
-    }
+//    override fun onInboxItemClicked(
+//        message: CTInboxMessage?,
+//        contentPageIndex: Int,
+//        buttonIndex: Int
+//    ) {
+//        TODO("Not yet implemented")
+//    }
+//
+//    fun onInboxItemClicked(message: CTInboxMessage?) {
+//        TODO("Not yet implemented")
+//    }
 
     private fun checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
@@ -991,7 +1044,6 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     }
 
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -1020,6 +1072,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                 }
                 return
             }
+
             MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -1099,3 +1152,20 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     }
 
 }
+
+fun logLocation(context: Context, latitude: Double, longitude: Double) {
+    val logDir = context.filesDir
+    val logFile = File(logDir, "location_logs.txt")
+    val timeStamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+    val logMessage = "$timeStamp - Latitude: $latitude, Longitude: $longitude\n"
+
+    try {
+        val fileWriter = FileWriter(logFile, true) // true to append
+        fileWriter.append(logMessage)
+        fileWriter.close()
+    } catch (e: IOException) {
+        Log.e("LogLocation", "Error writing to log file", e)
+    }
+}
+
+
