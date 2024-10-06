@@ -39,8 +39,8 @@ class CoachMarkSequence(private val mContext: Activity) {
                             builder.setTabPosition(getTabPosition())
                             if (builder.getOverlayTargetView() != null) {
                                 builder.setInfoText(getTitle(), getSubTitle(), getLimit())
-                                builder.setSkipBtn(getSkipBtn())
-                                builder.setTextBtnPositive(getTextBtnPositive())
+                                builder.setSkipBtn(getSkipBtn() ,getSkipBtnBGColor(), getSkipBtnTextColor())
+                                builder.setTextBtnPositive(getTextBtnPositive(), getTextBtnPositiveBGColor(), getTextBtnPositiveTextColor())
                                 builder.setOverlayTargetView(getOverlayTargetView())
                                 builder.setGravity(getGravity())
                             } else {
@@ -77,7 +77,11 @@ class CoachMarkSequence(private val mContext: Activity) {
         title: String = "",
         subTitle: String = "",
         positiveButtonText: String = mContext.getString(R.string.coachmarkNext),
+        positiveButtonBGColor: Int = 0,
+        positiveButtonTextColor: Int = 0,
         skipButtonText: String? = mContext.getString(R.string.coachmarkSkip),
+        skipButtonBGColor: Int = 0,
+        skipButtonTextColor: Int = 0,
         gravity: Gravity = Gravity.NULL,
     ) {
         CoachMarkOverlay.Builder(mContext).apply {
@@ -85,8 +89,8 @@ class CoachMarkSequence(private val mContext: Activity) {
             setSkipClickListener(mCoachMarkSkipButtonClickListener)
             setOverlayTargetView(targetView)
             setInfoText(title, subTitle, mSequenceQueue.size)
-            setTextBtnPositive(positiveButtonText)
-            setSkipBtn(skipButtonText)
+            setTextBtnPositive(positiveButtonText, positiveButtonBGColor, positiveButtonTextColor)
+            setSkipBtn(skipButtonText, skipButtonBGColor, skipButtonTextColor)
             setGravity(gravity)
             mSequenceQueue.add(this)
         }

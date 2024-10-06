@@ -10,22 +10,23 @@ import com.project.integrationsdk.R
 import com.project.integrationsdk.databinding.CoachmarkitemCoachmarkBinding
 import kotlin.math.roundToInt
 
-class CoachMarkOverlay : FrameLayout{
+class CoachMarkOverlay : FrameLayout {
 
-    var mBuilder: Builder?= null
+    var mBuilder: Builder? = null
     private var mContext: Context? = context
     private var mBaseBitmap: Bitmap? = null
     private var mLayer: Canvas? = null
     private val mOverlayTintPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mOverlayTransparentPaint = Paint()
 
-    private val binding = CoachmarkitemCoachmarkBinding.inflate(LayoutInflater.from(mContext), this, true)
+    private val binding =
+        CoachmarkitemCoachmarkBinding.inflate(LayoutInflater.from(mContext), this, true)
 
-    constructor(context: Context): super(context) {
+    constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context, builder: Builder): super(context) {
+    constructor(context: Context, builder: Builder) : super(context) {
         init()
         mBuilder = builder
     }
@@ -58,7 +59,7 @@ class CoachMarkOverlay : FrameLayout{
         super.onDraw(canvas)
     }
 
-    private fun drawOverlayTint() = mBuilder?.apply{
+    private fun drawOverlayTint() = mBuilder?.apply {
         mBaseBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         mBaseBitmap?.apply {
             mLayer = Canvas(this)
@@ -70,7 +71,7 @@ class CoachMarkOverlay : FrameLayout{
     }
 
     // master mine
-    private fun drawTransparentOverlay() = mBuilder?.apply{
+    private fun drawTransparentOverlay() = mBuilder?.apply {
         mLayer?.let { layer ->
             val targetViewSize = Rect()
             if (getOverlayTargetView() != null) {
@@ -99,10 +100,14 @@ class CoachMarkOverlay : FrameLayout{
                         mOverlayTransparentPaint
                     )
 
-                    val halfWidthScreen = layerWidth/2
-                    val halfHeightScreen = layerHeight/2
+                    val halfWidthScreen = layerWidth / 2
+                    val halfHeightScreen = layerHeight / 2
 
-                    val startMiddleEnd = positionLeftMiddleRight(targetViewSize.left, targetViewSize.right ,halfWidthScreen)
+                    val startMiddleEnd = positionLeftMiddleRight(
+                        targetViewSize.left,
+                        targetViewSize.right,
+                        halfWidthScreen
+                    )
                     val topBottom = positionTopBottom(targetViewSize.bottom, halfHeightScreen)
 
                     binding.apply {
@@ -110,52 +115,70 @@ class CoachMarkOverlay : FrameLayout{
                         txvSubTitle.text = getSubTitle()
                         if (getMax() == 0) {
                             txvLimit.visibility = View.GONE
-                        }else {
+                        } else {
                             txvLimit.apply {
-                                text = mContext?.getString(R.string.coachmarkLabel_value_limit, getLimit().plus(1).toString(), getMax().plus(1).toString())
+                                text = mContext?.getString(
+                                    R.string.coachmarkLabel_value_limit,
+                                    getLimit().plus(1).toString(),
+                                    getMax().plus(1).toString()
+                                )
                                 visibility = View.VISIBLE
                             }
                         }
                         btnNext.text = getTextBtnPositive()
+                        btnNext.setBackgroundColor(getTextBtnPositiveBGColor())
+                        btnNext.setTextColor(getTextBtnPositiveTextColor())
                         if (getSkipBtn() == null) {
                             btnSkip.visibility = View.GONE
-                        }else btnSkip.text = getSkipBtn()
+                        } else {
+                            btnSkip.text = getSkipBtn()
+                            btnSkip.setBackgroundColor(getSkipBtnBGColor())
+                            btnSkip.setTextColor(getSkipBtnTextColor())
+                        }
                         if (getGravity() == Gravity.NULL) {
                             // automatic
-                            when(topBottom) {
+                            when (topBottom) {
                                 GravityIn.TOP -> {
-                                    when(startMiddleEnd) {
+                                    when (startMiddleEnd) {
                                         GravityIn.START -> {
                                             GravityHelper.EndBottomGravity()
                                                 .gravity(this, targetViewSize)
                                         }
+
                                         GravityIn.CENTER -> {
                                             GravityHelper.BottomGravity()
                                                 .gravity(this, targetViewSize)
                                         }
+
                                         GravityIn.END -> {
                                             GravityHelper.StartBottomGravity()
                                                 .gravity(this, targetViewSize)
                                         }
+
                                         else -> {}
                                     }
                                 }
+
                                 GravityIn.BOTTOM -> {
-                                    when(startMiddleEnd) {
+                                    when (startMiddleEnd) {
                                         GravityIn.START -> {
                                             GravityHelper.EndTopGravity()
                                                 .gravity(this, targetViewSize)
                                         }
+
                                         GravityIn.CENTER -> {
                                             GravityHelper.TopGravity().gravity(this, targetViewSize)
                                         }
+
                                         GravityIn.END -> {
                                             GravityHelper.StartTopGravity()
                                                 .gravity(this, targetViewSize)
                                         }
+
                                         else -> {}
                                     }
                                 }
+
                                 GravityIn.CENTER -> {
                                     if (startMiddleEnd == GravityIn.CENTER) {
                                         GravityHelper.BottomGravity().gravity(this, targetViewSize)
@@ -164,27 +187,33 @@ class CoachMarkOverlay : FrameLayout{
 
                                 else -> {}
                             }
-                        }else {
+                        } else {
                             // manual
-                            when(getGravity()) {
+                            when (getGravity()) {
                                 Gravity.TOP -> {
                                     GravityHelper.TopGravity().gravity(this, targetViewSize)
                                 }
+
                                 Gravity.BOTTOM -> {
                                     GravityHelper.BottomGravity().gravity(this, targetViewSize)
                                 }
+
                                 Gravity.START_TOP -> {
                                     GravityHelper.StartTopGravity().gravity(this, targetViewSize)
                                 }
+
                                 Gravity.END_TOP -> {
                                     GravityHelper.EndTopGravity().gravity(this, targetViewSize)
                                 }
+
                                 Gravity.END_BOTTOM -> {
                                     GravityHelper.EndBottomGravity().gravity(this, targetViewSize)
                                 }
+
                                 Gravity.START_BOTTOM -> {
                                     GravityHelper.StartBottomGravity().gravity(this, targetViewSize)
                                 }
+
                                 else -> {}
                             }
                         }
@@ -194,20 +223,20 @@ class CoachMarkOverlay : FrameLayout{
         }
     }
 
-    private fun positionLeftMiddleRight(left: Int, right: Int ,halfWidth: Int): GravityIn {
+    private fun positionLeftMiddleRight(left: Int, right: Int, halfWidth: Int): GravityIn {
         return if (halfWidth in left..right) {
             GravityIn.CENTER
-        }else if (left in 1 until halfWidth) {
+        } else if (left in 1 until halfWidth) {
             GravityIn.START
-        }else {
+        } else {
             GravityIn.END
         }
     }
 
-    private fun positionTopBottom(bottom: Int, halfHeight: Int) : GravityIn {
+    private fun positionTopBottom(bottom: Int, halfHeight: Int): GravityIn {
         return if (bottom in 1 until halfHeight) {
             GravityIn.TOP
-        }else {
+        } else {
             GravityIn.BOTTOM
         }
     }
@@ -221,7 +250,8 @@ class CoachMarkOverlay : FrameLayout{
         private var mOverlayColor: Int = Color.BLACK
         private var mOverlayOpacity: Int = 150
         private var mOverlayTransparentShape: Shape = Shape.BOX
-        private var mOverlayTransparentCornerRadius: Float = mContext.resources.getDimension(R.dimen.margin_07)
+        private var mOverlayTransparentCornerRadius: Float =
+            mContext.resources.getDimension(R.dimen.margin_07)
         private var mOverlayTransparentMargin: Rect = Rect()
         private var mOverlayTransparentPadding: Rect = Rect()
         private var mOverlayClickListener: OverlayClickListener? = null
@@ -235,6 +265,11 @@ class CoachMarkOverlay : FrameLayout{
         private var mSkipBtn: String? = null
         private var mGravity: Gravity = Gravity.NULL
         private var mMax = 0
+
+        private var mTextBtnPositiveBGColor: Int? = null // Store the color
+        private var mTextBtnPositiveTextColor: Int? = null // Store the color
+        private var mSkipBtnBGColor: Int? = null // Store the color
+        private var mSkipBtnTextColor: Int? = null // Store the color
 
         fun getOverlayTargetView(): View? = mOverlayTargetView
         fun getOverlayColor(): Int = mOverlayColor
@@ -254,6 +289,11 @@ class CoachMarkOverlay : FrameLayout{
         fun getSkipBtn(): String? = mSkipBtn
         fun getGravity(): Gravity = mGravity
         fun getMax(): Int = mMax
+
+        fun getTextBtnPositiveBGColor(): Int = mTextBtnPositiveBGColor!!
+        fun getSkipBtnBGColor(): Int = mSkipBtnBGColor!!
+        fun getTextBtnPositiveTextColor(): Int = mTextBtnPositiveTextColor!!
+        fun getSkipBtnTextColor(): Int = mSkipBtnTextColor!!
 
         fun setOverlayTargetCoordinates(coordinates: Rect): Builder {
             mTargetCoordinates.set(coordinates)
@@ -295,13 +335,17 @@ class CoachMarkOverlay : FrameLayout{
             return this
         }
 
-        fun setTextBtnPositive(text: String): Builder {
+        fun setTextBtnPositive(text: String, bgColor: Int? = null, textColor: Int? = null): Builder {
             mTextBtnPositive = text
+            mTextBtnPositiveBGColor = bgColor
+            mTextBtnPositiveTextColor = textColor
             return this
         }
 
-        fun setSkipBtn(text: String?): Builder {
+        fun setSkipBtn(text: String?, bgColor: Int? = null, textColor: Int? = null): Builder {
             mSkipBtn = text
+            mSkipBtnBGColor = bgColor
+            mSkipBtnTextColor = textColor
             return this
         }
 
