@@ -7,63 +7,63 @@
     android:padding="10dp"
     tools:context=".NativeDisplayActivity">
 
-    <com.synnapps.carouselview.CarouselView
-        android:id="@+id/carouselView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:fillColor="#FFFFFFFF"
-        app:pageColor="#00000000"
-        app:radius="6dp"
-        app:slideInterval="5000"
-        app:strokeColor="#FF777777"
-        app:strokeWidth="1dp" />
+<!--    <com.synnapps.carouselview.CarouselView-->
+<!--        android:id="@+id/carouselView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        app:fillColor="#FFFFFFFF"-->
+<!--        app:pageColor="#00000000"-->
+<!--        app:radius="6dp"-->
+<!--        app:slideInterval="5000"-->
+<!--        app:strokeColor="#FF777777"-->
+<!--        app:strokeWidth="1dp" />-->
 
-    <com.synnapps.carouselview.CarouselView
-        android:id="@+id/customCarouselView"
-        android:layout_below="@id/carouselView"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_height="300dp"
-        app:fillColor="#FFFFFFFF"
-        app:pageColor="#00000000"
-        app:radius="6dp"
-        app:slideInterval="5000"
-        app:strokeColor="#FF777777"
-        app:strokeWidth="1dp" />
+<!--    <com.synnapps.carouselview.CarouselView-->
+<!--        android:id="@+id/customCarouselView"-->
+<!--        android:layout_below="@id/carouselView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_height="300dp"-->
+<!--        app:fillColor="#FFFFFFFF"-->
+<!--        app:pageColor="#00000000"-->
+<!--        app:radius="6dp"-->
+<!--        app:slideInterval="5000"-->
+<!--        app:strokeColor="#FF777777"-->
+<!--        app:strokeWidth="1dp" />-->
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/native_display_card_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/customCarouselView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="7dp">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/native_display_card_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/customCarouselView"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:cardCornerRadius="10dp"-->
+<!--        app:cardElevation="7dp">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="5dp">-->
 
-            <TextView
-                android:id="@+id/native_display_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Android Native Display Title"
-                android:textSize="17sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/native_display_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Android Native Display Title"-->
+<!--                android:textSize="17sp" />-->
 
-            <TextView
-                android:id="@+id/native_display_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Android Native Display Message"
-                android:textSize="17sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/native_display_message"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Android Native Display Message"-->
+<!--                android:textSize="17sp" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
 </RelativeLayout>

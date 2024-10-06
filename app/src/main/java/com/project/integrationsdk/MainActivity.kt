@@ -12,7 +12,6 @@ import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -21,11 +20,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.Worker
-import androidx.work.WorkerParameters
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.clevertap.android.geofence.CTGeofenceAPI
@@ -37,8 +31,6 @@ import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
-import com.clevertap.android.sdk.inapp.CTInAppBaseFullHtmlFragment
-import com.clevertap.android.sdk.inbox.CTInboxMessage
 import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.product_config.CTProductConfigListener
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
@@ -51,8 +43,6 @@ import com.segment.analytics.Properties
 import com.segment.analytics.Properties.Product
 import com.segment.analytics.Traits
 import com.segment.analytics.android.integrations.clevertap.CleverTapIntegration
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 //import com.singular.sdk.Singular
 //import com.singular.sdk.SingularConfig
 import org.json.JSONObject
@@ -64,7 +54,6 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -581,6 +570,18 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         binding.offlineFalseBtn.setOnClickListener {
             cleverTapDefaultInstance?.setOffline(false)
             Toast.makeText(applicationContext, "setOffline(false)", Toast.LENGTH_SHORT).show()
+        }
+
+        val data: Uri? = intent?.data
+        val couponCode: String? = data?.getQueryParameter("coupon_code")
+        println("Coupon Code Value: $couponCode")
+
+        binding.restaurantPage.setOnClickListener{
+            startActivity(Intent(applicationContext, RestaurantActivity::class.java))
+        }
+
+        binding.coachmarkPage.setOnClickListener{
+            startActivity(Intent(applicationContext, CoachMarkActivity::class.java))
         }
 
     }
@@ -1105,7 +1106,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     override fun OnGeofenceApiInitialized() {
         try {
             Log.d(
-                "clevertap OnGeofenceApiInitialized-",
+                "clevertap OnGeofenceApi",
                 "-----OnGeofenceApiInitialized----="
             )
         } catch (e: Exception) {

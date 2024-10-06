@@ -20,10 +20,30 @@
             android:textSize="17sp" />
 
         <Button
+            android:id="@+id/restaurant_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Restaurant"
+            android:layout_below="@id/update_profile"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/coachmark_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="CoachMark"
+            android:layout_below="@id/restaurant_page"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
             android:id="@+id/add_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/update_profile"
+            android:layout_below="@id/coachmark_page"
             android:layout_centerHorizontal="true"
             android:text="Events"
             android:textAllCaps="false"
