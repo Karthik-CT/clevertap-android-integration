@@ -46,6 +46,8 @@ class RestaurantActivity : AppCompatActivity(), DisplayUnitListener {
             println("$key: $value")
         }
         if (unit.customExtras["nd_id"] == "nd_coachmarks") {
+            //Notification Viewed Event
+            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
             coachMarkSequence.apply {
                 addItem(
                     targetView = binding.profileImage,
@@ -109,8 +111,6 @@ class RestaurantActivity : AppCompatActivity(), DisplayUnitListener {
                     }
                 }
             }
-            //Notification Viewed Event
-            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
         } else {
             println("NA")
         }
