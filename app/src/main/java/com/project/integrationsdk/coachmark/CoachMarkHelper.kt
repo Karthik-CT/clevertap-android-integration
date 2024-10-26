@@ -28,7 +28,7 @@ class CoachMarkHelper {
         }
     }
 
-    fun addCoachMarkItem(viewId: Int, titleKey: String, subTitleKey: String, isLastItem: Boolean = false, context: AppCompatActivity, unit: JSONObject, ) {
+    fun addCoachMarkItem(viewId: Int, titleKey: String, subTitleKey: String, isLastItem: Boolean = false, context: AppCompatActivity, unit: JSONObject) {
         coachMarkSequence.addItem(
             targetView = context.findViewById(viewId),
             title = unit.getJSONObject("custom_kv").getString(titleKey),
