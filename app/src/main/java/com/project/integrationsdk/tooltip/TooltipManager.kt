@@ -25,6 +25,7 @@ class TooltipManager(private val context: Context) {
         Tooltip.Builder(context)
             .anchor(config.anchorView, 0, 0, false)
             .text(config.text)
+            .backgroundColorHex("#FF0000")
             .styleId(R.style.ToolTipAltStyle)
             .maxWidth((context.resources.displayMetrics.widthPixels / 2))
             .arrow(true)

@@ -826,6 +826,15 @@ class Tooltip private constructor(private val context: Context, builder: Builder
             return this
         }
 
+        internal var backgroundColor: Int? = null
+
+        // New method to set the background color from a hex string
+        fun backgroundColorHex(hexColor: String): Builder {
+            backgroundColor = Color.parseColor(hexColor)
+            return this
+        }
+
+
         fun customView(@LayoutRes layoutId: Int, @IdRes textId: Int): Builder {
             this.layoutId = layoutId
             this.textId = textId
