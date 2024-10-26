@@ -32,21 +32,13 @@ class TooltipsActivity : AppCompatActivity() {
                 binding.main.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 tooltipManager = TooltipManager(applicationContext)
                 val tooltips = listOf(
-                    TooltipManager.TooltipConfig(binding.TextView1, "This is tooltip example 1", Tooltip.Gravity.BOTTOM, Color.parseColor("#FF9800")),
-                    TooltipManager.TooltipConfig(binding.TextView2, "This is tooltip example 2", Tooltip.Gravity.LEFT, Color.parseColor("#4CAF50")),
-                    TooltipManager.TooltipConfig(binding.TextView3, "This is tooltip example 3", Tooltip.Gravity.RIGHT, Color.parseColor("#2196F3")),
-                    TooltipManager.TooltipConfig(binding.TextView4, "This is tooltip example 4", Tooltip.Gravity.TOP, Color.parseColor("#F44336")),
+                    TooltipManager.TooltipConfig(binding.TextView1, "This is tooltip example 1", Tooltip.Gravity.BOTTOM),
+                    TooltipManager.TooltipConfig(binding.TextView2, "This is tooltip example 2", Tooltip.Gravity.LEFT),
+                    TooltipManager.TooltipConfig(binding.TextView3, "This is tooltip example 3", Tooltip.Gravity.RIGHT),
+                    TooltipManager.TooltipConfig(binding.TextView4, "This is tooltip example 4", Tooltip.Gravity.TOP),
                 )
                 tooltipManager.showTooltipsSequentially(tooltips)
             }
         })
-    }
-
-    private fun getClosePolicy(): ClosePolicy {
-        val builder = ClosePolicy.Builder()
-        builder.inside(true)
-        builder.outside(true)
-        builder.consume(true)
-        return builder.build()
     }
 }
