@@ -33,7 +33,6 @@ class TooltipManager(private val context: Context) {
             .overlay(true)
             .create()
             .doOnHidden {
-                // Show the next tooltip after the current one is hidden
                 showTooltipsSequentially(tooltips, index + 1)
             }
             .show(config.anchorView, config.gravity, true)
