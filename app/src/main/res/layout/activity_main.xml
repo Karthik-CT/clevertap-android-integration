@@ -40,10 +40,20 @@
             android:textSize="17sp" />
 
         <Button
+            android:id="@+id/tooltips_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="ToolTips"
+            android:layout_below="@id/coachmark_page"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
             android:id="@+id/add_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/coachmark_page"
+            android:layout_below="@id/tooltips_page"
             android:layout_centerHorizontal="true"
             android:text="Events"
             android:textAllCaps="false"

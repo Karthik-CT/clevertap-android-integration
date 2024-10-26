@@ -584,6 +584,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             startActivity(Intent(applicationContext, CoachMarkActivity::class.java))
         }
 
+        binding.tooltipsPage.setOnClickListener{
+            startActivity(Intent(applicationContext, TooltipsActivity::class.java))
+        }
+
     }
 
     override fun onResume() {
