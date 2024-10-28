@@ -8,6 +8,7 @@ import android.graphics.*
 import android.os.Handler
 import android.os.IBinder
 import android.text.Spannable
+import android.util.Log
 import android.view.*
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -16,6 +17,7 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.PopupWindow.INPUT_METHOD_NOT_NEEDED
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
@@ -75,6 +77,7 @@ class Tooltip private constructor(private val context: Context, builder: Builder
     private var mAnchorView: WeakReference<View>? = null
     private lateinit var mContentView: View
     private lateinit var mTextView: TextView
+    private val textColor: Int? = builder.textColor
 
     private val hideRunnable = Runnable { hide() }
     private val activateRunnable = Runnable { mActivated = true }
@@ -140,8 +143,7 @@ class Tooltip private constructor(private val context: Context, builder: Builder
                 theme.getResourceId(R.styleable.TooltipLayout_ttlm_animationStyle, android.R.style.Animation_Toast)
             }
 
-        val typedArray =
-            context.theme.obtainStyledAttributes(mAnimationStyleResId, intArrayOf(android.R.attr.windowEnterAnimation, android.R.attr.windowExitAnimation))
+        val typedArray = context.theme.obtainStyledAttributes(mAnimationStyleResId, intArrayOf(android.R.attr.windowEnterAnimation, android.R.attr.windowExitAnimation))
         mEnterAnimation = typedArray.getResourceId(typedArray.getIndex(0), 0)
         mExitAnimation = typedArray.getResourceId(typedArray.getIndex(1), 0)
         typedArray.recycle()
@@ -181,6 +183,8 @@ class Tooltip private constructor(private val context: Context, builder: Builder
         } ?: run {
             font?.let { mTypeface = Typefaces[context, it] }
         }
+
+        builder.textColor?.let { updateTextColor(it) }
     }
 
     private var mFailureFunc: ((tooltip: Tooltip) -> Unit)? = null
@@ -286,8 +290,7 @@ class Tooltip private constructor(private val context: Context, builder: Builder
                 }
             }
 
-            val contentView =
-                LayoutInflater.from(context).inflate(mTooltipLayoutIdRes, viewContainer, false)
+            val contentView = LayoutInflater.from(context).inflate(mTooltipLayoutIdRes, viewContainer, false)
 
             if (!mIsCustomView) {
                 mTextView = AppCompatTextView(ContextThemeWrapper(context, mTextStyleResId))
@@ -352,6 +355,18 @@ class Tooltip private constructor(private val context: Context, builder: Builder
 
             mContentView = contentView
             mPopupView = viewContainer
+
+            textColor?.let { color ->
+                mTextView.setTextColor(color)
+            }
+        }
+    }
+
+    fun updateTextColor(@ColorInt color: Int) {
+        if (::mTextView.isInitialized) { // Check if mTextView is initialized
+            mTextView.setTextColor(color)
+        } else {
+            Log.e("Tooltip", "mTextView is not initialized")
         }
     }
 
@@ -826,6 +841,18 @@ class Tooltip private constructor(private val context: Context, builder: Builder
             return this
         }
 
+        internal var backgroundColor: Int? = null
+        fun tooltipBackgroundColor(hexColor: String): Builder {
+            backgroundColor = Color.parseColor(hexColor)
+            return this
+        }
+
+        internal var textColor: Int? = null
+        fun tooltipTextColor(@ColorInt color: Int): Builder {
+            this.textColor = color
+            return this
+        }
+
         fun customView(@LayoutRes layoutId: Int, @IdRes textId: Int): Builder {
             this.layoutId = layoutId
             this.textId = textId
@@ -968,5 +995,4 @@ class ClosePolicy internal constructor(private val policy: Int) {
         val TOUCH_ANYWHERE_NO_CONSUME = ClosePolicy(TOUCH_INSIDE or TOUCH_OUTSIDE)
         val TOUCH_ANYWHERE_CONSUME = ClosePolicy(TOUCH_INSIDE or TOUCH_OUTSIDE or CONSUME)
     }
-
 }

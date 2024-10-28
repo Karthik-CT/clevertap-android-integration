@@ -26,6 +26,7 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
 
     init {
 
+
         val theme = context.theme.obtainStyledAttributes(
             null,
             R.styleable.TooltipLayout,
@@ -34,20 +35,28 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
         )
         this.radius = theme.getDimensionPixelSize(R.styleable.TooltipLayout_ttlm_cornerRadius, 4).toFloat()
         val strokeWidth = theme.getDimensionPixelSize(R.styleable.TooltipLayout_ttlm_strokeWeight, 2)
-        val backgroundColor = theme.getColor(R.styleable.TooltipLayout_ttlm_backgroundColor, 0)
+//        val backgroundColor = theme.getColor(R.styleable.TooltipLayout_ttlm_backgroundColor, 0)
         val strokeColor = theme.getColor(R.styleable.TooltipLayout_ttlm_strokeColor, 0)
         this.arrowRatio = theme.getFloat(R.styleable.TooltipLayout_ttlm_arrowRatio, ARROW_RATIO_DEFAULT)
         theme.recycle()
 
         this.rectF = RectF()
 
-        if (backgroundColor != 0) {
-            bgPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-            bgPaint.color = backgroundColor
-            bgPaint.style = Paint.Style.FILL
-        } else {
-            bgPaint = null
+
+        // Use builder-provided background color if available, else fall back to the theme-defined color
+        val backgroundColor = builder.backgroundColor ?: theme.getColor(R.styleable.TooltipLayout_ttlm_backgroundColor, 0)
+        bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = backgroundColor
+            style = Paint.Style.FILL
         }
+
+//        if (backgroundColor != 0) {
+//            bgPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+//            bgPaint.color = backgroundColor
+//            bgPaint.style = Paint.Style.FILL
+//        } else {
+//            bgPaint = null
+//        }
 
         if (strokeColor != 0) {
             stPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -60,6 +69,13 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
 
         path = Path()
     }
+
+    // Method to update background color dynamically
+    fun updateBackgroundColor(color: Int) {
+        bgPaint?.color = color
+        invalidateSelf()
+    }
+
 
     override fun draw(canvas: Canvas) {
         bgPaint?.let {
