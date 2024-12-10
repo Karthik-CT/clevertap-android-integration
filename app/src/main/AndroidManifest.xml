@@ -29,6 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntegrationSDKTest">
         <activity
+            android:name=".SpotlightActivity"
+            android:exported="false" />
+        <activity
             android:name=".TooltipsActivity"
             android:exported="false" />
         <activity
@@ -139,23 +142,29 @@
                     android:host="mainpage"
                     android:scheme="karthikdl" />
             </intent-filter>
-        </activity> <!-- To display the inapp after the splash screen add the below meta tag -->
+        </activity>
+
+        <!-- To display the inapp after the splash screen add the below meta tag -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_INAPP_EXCLUDE" -->
         <!-- android:value="LoginActivity" /> -->
+
         <!-- TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" /> <!-- TEST-KarthikTest4 -->
+            android:value="TEST-206-0b0" />
+
+        <!-- TEST-KarthikTest4 -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
         <!-- android:value="TEST-4R8-58W-7R7Z" /> -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-0b5-b24" /> -->
+
         <!-- IN1 Bearded Robot -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -166,6 +175,7 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_REGION" -->
         <!-- android:value="in1"/> -->
+
         <!-- TEST-KarthikTest2 Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -176,10 +186,12 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_USE_GOOGLE_AD_ID" -->
         <!-- android:value="1" /> -->
+
         <!-- Suppress System Events -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_DISABLE_APP_LAUNCHED" -->
         <!-- android:value="1" /> -->
+
         <meta-data
             android:name="FCM_SENDER_ID"
             android:value="id:487275975172" />
@@ -193,7 +205,9 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service> <!-- Custom Android Push Notifications Handling -->
+        </service>
+
+        <!-- Custom Android Push Notifications Handling -->
         <!-- <service -->
         <!-- android:name="com.project.integrationsdk.MyFcmMessageListenerService" -->
         <!-- android:exported="true"> -->
@@ -206,6 +220,7 @@
         <!-- android:exported="false" -->
         <!-- android:enabled="true"> -->
         <!-- </receiver> -->
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

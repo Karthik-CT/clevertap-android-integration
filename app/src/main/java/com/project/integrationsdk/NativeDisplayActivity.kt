@@ -79,10 +79,13 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
         println("prepareDisplayView: $unit")
         println("title: ${unit.contents[0].title} and Message: ${unit.contents[0].message}")
         unit.contents.forEach {
-//            binding.nativeDisplayTitle.text = it.title.toString()
-//            binding.nativeDisplayMessage.text = it.message.toString()
-//            binding.nativeDisplayTitle.setTextColor(Color.parseColor(it.titleColor))
-//            binding.nativeDisplayMessage.setTextColor(Color.parseColor(it.messageColor))
+            binding.nativeDisplayTitle.text = it.title.toString()
+            binding.nativeDisplayMessage.text = it.message.toString()
+            binding.nativeDisplayTitle.setTextColor(Color.parseColor(it.titleColor))
+            binding.nativeDisplayMessage.setTextColor(Color.parseColor(it.messageColor))
+
+            Glide.with(applicationContext).load(it.media).into(binding.imageNd)
+
             println(it.media)
             sampleImage.add(it.media)
             sampleTitle.add(it.title)
