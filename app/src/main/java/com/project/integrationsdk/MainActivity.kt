@@ -588,6 +588,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             startActivity(Intent(applicationContext, TooltipsActivity::class.java))
         }
 
+        binding.spotlightsPage.setOnClickListener{
+            startActivity(Intent(applicationContext, SpotlightActivity::class.java))
+        }
+
     }
 
     override fun onResume() {

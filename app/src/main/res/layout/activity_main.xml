@@ -50,10 +50,30 @@
             android:textSize="17sp" />
 
         <Button
+            android:id="@+id/spotlights_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Spotlight"
+            android:layout_below="@id/tooltips_page"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/product_experiences_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Product Experiences"
+            android:layout_below="@id/spotlights_page"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
             android:id="@+id/add_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tooltips_page"
+            android:layout_below="@id/product_experiences_new"
             android:layout_centerHorizontal="true"
             android:text="Events"
             android:textAllCaps="false"
@@ -137,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/custom_app_inbox"
             android:layout_centerHorizontal="true"
-            android:text="Product Experience"
+            android:text="Product Experience Legacy"
             android:textAllCaps="false"
             android:textSize="17sp" />
 
