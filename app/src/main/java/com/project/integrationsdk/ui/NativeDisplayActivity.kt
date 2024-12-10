@@ -1,15 +1,8 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener

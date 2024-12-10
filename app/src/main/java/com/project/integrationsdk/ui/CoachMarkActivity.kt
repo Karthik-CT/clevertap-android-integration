@@ -1,13 +1,11 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.project.integrationsdk.R
 import com.project.integrationsdk.coachmark.CoachMarkSequence
 import com.project.integrationsdk.coachmark.Gravity
 import com.project.integrationsdk.databinding.ActivityCoachMarkBinding

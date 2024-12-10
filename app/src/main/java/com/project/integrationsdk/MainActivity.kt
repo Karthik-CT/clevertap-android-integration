@@ -38,13 +38,21 @@ import com.facebook.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.project.integrationsdk.databinding.ActivityMainBinding
+import com.project.integrationsdk.ui.CoachMarkActivity
+import com.project.integrationsdk.ui.CustomAppInboxActivity
+import com.project.integrationsdk.ui.GeofenceActivity
+import com.project.integrationsdk.ui.NativeDisplayActivity
+import com.project.integrationsdk.ui.ProductExperienceActivity
+import com.project.integrationsdk.ui.ProductExperiencesNewActivity
+import com.project.integrationsdk.ui.RestaurantActivity
+import com.project.integrationsdk.ui.SpotlightActivity
+import com.project.integrationsdk.ui.TooltipsActivity
+import com.project.integrationsdk.ui.WebViewActivity
 import com.segment.analytics.Analytics
 import com.segment.analytics.Properties
 import com.segment.analytics.Properties.Product
 import com.segment.analytics.Traits
 import com.segment.analytics.android.integrations.clevertap.CleverTapIntegration
-//import com.singular.sdk.Singular
-//import com.singular.sdk.SingularConfig
 import org.json.JSONObject
 import java.io.File
 import java.io.FileWriter
@@ -590,6 +598,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         binding.spotlightsPage.setOnClickListener{
             startActivity(Intent(applicationContext, SpotlightActivity::class.java))
+        }
+
+        binding.productExperiencesNew.setOnClickListener {
+            startActivity(Intent(applicationContext, ProductExperiencesNewActivity::class.java))
         }
 
     }

@@ -1,4 +1,4 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.inbox.CTInboxMessage
 import com.project.integrationsdk.adapter.CustomAIAdapter
 import com.project.integrationsdk.databinding.ActivityCustomAppInboxBinding
 

@@ -1,21 +1,14 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
-import com.google.android.material.textfield.TextInputLayout
 import com.project.integrationsdk.coachmark.CoachMarkHelper
 import com.project.integrationsdk.coachmark.CoachMarkSequence
-import com.project.integrationsdk.coachmark.Gravity
 import com.project.integrationsdk.databinding.ActivityRestaurantBinding
-import de.hdodenhof.circleimageview.CircleImageView
 import java.util.ArrayList
 
 class RestaurantActivity : AppCompatActivity(), DisplayUnitListener {

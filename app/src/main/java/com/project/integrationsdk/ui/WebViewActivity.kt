@@ -1,11 +1,8 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.clevertap.android.sdk.CTWebInterface
 import com.clevertap.android.sdk.CleverTapAPI

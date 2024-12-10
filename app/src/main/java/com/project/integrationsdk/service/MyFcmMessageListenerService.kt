@@ -1,4 +1,4 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.service
 
 import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler
 import com.google.firebase.messaging.RemoteMessage

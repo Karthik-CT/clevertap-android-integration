@@ -1,4 +1,4 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.app.NotificationManager
 import android.content.Context
@@ -11,15 +11,11 @@ import android.widget.Toast
 import com.clevertap.android.pushtemplates.PTConstants
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.CleverTapInstanceConfig
-import com.clevertap.android.sdk.Constants
 import com.clevertap.android.sdk.PushPermissionResponseListener
-import com.clevertap.android.sdk.inapp.CTLocalInApp
 import com.clevertap.android.sdk.interfaces.NotificationHandler
+import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.databinding.ActivityLoginBinding
-import java.math.BigInteger
 import java.text.SimpleDateFormat
-import kotlin.reflect.typeOf
 
 class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 

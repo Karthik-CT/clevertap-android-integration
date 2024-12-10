@@ -1,10 +1,7 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.Manifest
-import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,16 +9,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.clevertap.android.geofence.CTGeofenceAPI
-import com.clevertap.android.geofence.CTGeofenceAPI.OnGeofenceApiInitializedListener
 import com.clevertap.android.geofence.CTGeofenceSettings
 import com.clevertap.android.geofence.Logger
 import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener
-import com.clevertap.android.geofence.interfaces.CTLocationUpdatesListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.databinding.ActivityGeofenceBinding
 import org.json.JSONObject
-import java.util.jar.Attributes
-import kotlin.math.log
 
 class GeofenceActivity : AppCompatActivity() {
 

@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.7'
 
     //CleverTap SDK
-    implementation 'com.clevertap.android:clevertap-android-sdk:6.2.1'
+    implementation 'com.clevertap.android:clevertap-android-sdk:7.0.3'
     implementation 'com.google.firebase:firebase-messaging:23.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     //Mandatory for CleverTap Android SDK v3.6.4 and above add the following -

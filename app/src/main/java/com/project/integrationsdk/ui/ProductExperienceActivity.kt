@@ -1,4 +1,4 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity

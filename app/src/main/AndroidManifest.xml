@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.project.integrationsdk">
+    package="com.project.integrationsdk" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -27,22 +27,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IntegrationSDKTest">
+        android:theme="@style/Theme.IntegrationSDKTest" >
         <activity
-            android:name=".SpotlightActivity"
+            android:name=".ui.ProductExperiencesNewActivity"
             android:exported="false" />
         <activity
-            android:name=".TooltipsActivity"
+            android:name=".ui.SpotlightActivity"
             android:exported="false" />
         <activity
-            android:name=".CoachMarkActivity"
+            android:name=".ui.TooltipsActivity"
             android:exported="false" />
         <activity
-            android:name=".RestaurantActivity"
+            android:name=".ui.CoachMarkActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
+            android:name=".ui.RestaurantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,8 +63,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProductExperienceActivity"
-            android:exported="true">
+            android:name=".ui.ProductExperienceActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -74,8 +77,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WebViewActivity"
-            android:exported="true">
+            android:name=".ui.WebViewActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -88,8 +91,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CustomAppInboxActivity"
-            android:exported="true">
+            android:name=".ui.CustomAppInboxActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -102,8 +105,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GeofenceActivity"
-            android:exported="true">
+            android:name=".ui.GeofenceActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -116,8 +119,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NativeDisplayActivity"
-            android:exported="true">
+            android:name=".ui.NativeDisplayActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -131,7 +134,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -142,29 +145,23 @@
                     android:host="mainpage"
                     android:scheme="karthikdl" />
             </intent-filter>
-        </activity>
-
-        <!-- To display the inapp after the splash screen add the below meta tag -->
+        </activity> <!-- To display the inapp after the splash screen add the below meta tag -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_INAPP_EXCLUDE" -->
         <!-- android:value="LoginActivity" /> -->
-
         <!-- TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" />
-
-        <!-- TEST-KarthikTest4 -->
+            android:value="TEST-206-0b0" /> <!-- TEST-KarthikTest4 -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
         <!-- android:value="TEST-4R8-58W-7R7Z" /> -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-0b5-b24" /> -->
-
         <!-- IN1 Bearded Robot -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -175,7 +172,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_REGION" -->
         <!-- android:value="in1"/> -->
-
         <!-- TEST-KarthikTest2 Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -186,12 +182,10 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_USE_GOOGLE_AD_ID" -->
         <!-- android:value="1" /> -->
-
         <!-- Suppress System Events -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_DISABLE_APP_LAUNCHED" -->
         <!-- android:value="1" /> -->
-
         <meta-data
             android:name="FCM_SENDER_ID"
             android:value="id:487275975172" />
@@ -201,15 +195,13 @@
 
         <service
             android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-        <!-- Custom Android Push Notifications Handling -->
+        </service> <!-- Custom Android Push Notifications Handling -->
         <!-- <service -->
-        <!-- android:name="com.project.integrationsdk.MyFcmMessageListenerService" -->
+        <!-- android:name="com.project.integrationsdk.service.MyFcmMessageListenerService" -->
         <!-- android:exported="true"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
@@ -220,7 +212,6 @@
         <!-- android:exported="false" -->
         <!-- android:enabled="true"> -->
         <!-- </receiver> -->
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

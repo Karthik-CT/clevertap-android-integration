@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".TooltipsActivity">
+    tools:context=".ui.TooltipsActivity">
 
     <TextView
         android:id="@+id/TextView1"

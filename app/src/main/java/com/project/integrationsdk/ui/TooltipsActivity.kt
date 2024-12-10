@@ -1,4 +1,4 @@
-package com.project.integrationsdk
+package com.project.integrationsdk.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,6 @@ import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.project.integrationsdk.databinding.ActivityTooltipsBinding
 import com.project.integrationsdk.tooltip.Tooltip
 import com.project.integrationsdk.tooltip.TooltipHelper
-import com.project.integrationsdk.tooltip.TooltipManager
 import java.util.ArrayList
 
 class TooltipsActivity : AppCompatActivity(), DisplayUnitListener {
