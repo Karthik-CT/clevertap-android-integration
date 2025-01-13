@@ -1188,5 +1188,3 @@ fun logLocation(context: Context, latitude: Double, longitude: Double) {
         Log.e("LogLocation", "Error writing to log file", e)
     }
 }
-
-

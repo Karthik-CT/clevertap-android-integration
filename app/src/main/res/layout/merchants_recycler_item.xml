@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/merchants_circular_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@color/black" />
+
+    <TextView
+        android:id="@+id/merchant_name"
+        android:text="merchant"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/merchants_circular_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
