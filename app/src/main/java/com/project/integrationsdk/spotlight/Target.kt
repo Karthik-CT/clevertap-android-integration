@@ -67,7 +67,7 @@ class Target(
 
             private val DEFAULT_ANCHOR = PointF(0f, 0f)
 
-            private val DEFAULT_SHAPE = Circle(100f)
+            private val DEFAULT_SHAPE = Circle(200f)
 
             private val DEFAULT_EFFECT = EmptyEffect()
         }

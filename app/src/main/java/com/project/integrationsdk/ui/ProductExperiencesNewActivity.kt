@@ -21,6 +21,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductExperiencesNewBinding
     private var cleverTapDefaultInstance: CleverTapAPI? = null
     private lateinit var testVars: List<Var<String>>
+    private lateinit var theme: Var<String>
     private val TAG = "ProductExpNewActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,29 +37,44 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
     private fun callProductExperienceNew() {
         binding.skeletonUi.visibility = View.VISIBLE
         binding.mainUi.visibility = View.GONE
-        val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3")
+
+        theme = cleverTapDefaultInstance!!.defineVariable("theme", "loyalty")
+
+        val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3", "test_var_string4", "test_var_string5", "test_var_string6")
         testVars = varNames.mapIndexed { index, name ->
             cleverTapDefaultInstance!!.defineVariable(name, "This is product experiences new testing$index")
         }
 
         cleverTapDefaultInstance!!.syncVariables()
-        Toast.makeText(applicationContext, "callProductExperienceNew called", Toast.LENGTH_SHORT).show()
 
         cleverTapDefaultInstance!!.fetchVariables {
             val values = varNames.map { name ->
                 cleverTapDefaultInstance!!.getVariableValue(name).toString()
             }
-
+            val themeValueFetched = cleverTapDefaultInstance!!.getVariableValue("theme").toString()
             Log.d(TAG, "Values: $values")
+            Log.d(TAG, "ThemeValues: $themeValueFetched")
 
             runOnUiThread {
-                renderCarousel(values[0])
-                renderRestaurant(values[1])
-                renderMerchant(values[2])
-
+                renderContent(values, themeValueFetched)
                 binding.skeletonUi.visibility = View.GONE
                 binding.mainUi.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun renderContent(values: List<String>, themeValue: String) {
+        if (themeValue == "loyalty") {
+            renderCarousel(values[0])
+            renderRestaurant(values[1])
+            renderMerchant(values[2])
+        } else if (themeValue == "e-commerce") {
+            Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
+//            renderCarousel(values[3])
+//            renderRestaurant(values[4])
+            renderCarousel(values[0])
+            renderRestaurant(values[1])
+            renderMerchant(values[5])
         }
     }
 
@@ -119,9 +135,6 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             JSONObject(value)
         } catch (e: JSONException) {
             Log.e(TAG, "Error parsing JSON: $e")
-            null
-        } ?: run {
-            Log.e(TAG, "peValues is null, cannot render items")
             return
         }
 
@@ -131,9 +144,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             if (keys.all { peValues.has(it) }) {
                 val values = keys.map { peValues.getString(it) }
                 items.add(itemBuilder(values))
-            } else {
-                break
-            }
+            } else break
             i++
         }
 

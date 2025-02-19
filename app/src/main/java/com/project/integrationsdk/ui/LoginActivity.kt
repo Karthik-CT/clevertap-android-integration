@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
             uploadPofileTest()
         }
 
-        cleverTapDefaultInstance?.promptForPushPermission(true)
+//        cleverTapDefaultInstance?.promptForPushPermission(true)
 
     }
 
@@ -155,61 +155,6 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
 
     private fun onUserLogin() {
-//        val location = cleverTapDefaultInstance!!.location
-//        cleverTapDefaultInstance!!.location = location
-//        println("Location $location")
-//        println("Latitude: ${location.latitude} longitude: ${location.longitude}")
-
-//        val arList = listOf("test101", "test102", "test105", "test106")
-//        for (x in arList) {
-//            if (binding.userIdentity.text.toString() == x) {
-//                val profile = HashMap<String, Any>()
-//                profile["Name"] = binding.userName.text.toString()
-//                profile["Identity"] = binding.userIdentity.text.toString()
-//                profile["Email"] = binding.emailId.text.toString()
-//                profile["Phone"] = binding.mobileNo.text.toString()
-//                profile["MSG-email"] = false
-//                profile["MSG-push"] = false
-//                profile["MSG-sms"] = false
-//                profile["MSG-whatsapp"] = false
-//                profile["signup_date"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-//                profile["DOB"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-//
-//                println("$x and ${binding.userIdentity.text.toString()} if part")
-//
-//                CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
-//                startActivity(Intent(applicationContext, MainActivity::class.java))
-//                finish()
-//                Toast.makeText(applicationContext, "Logged in!", Toast.LENGTH_SHORT).show()
-//            } else {
-//                val profile = HashMap<String, Any>()
-//                profile["Name"] = binding.userName.text.toString()
-//                profile["Identity"] = binding.userIdentity.text.toString()
-//                profile["Email"] = binding.emailId.text.toString()
-//                profile["Phone"] = binding.mobileNo.text.toString()
-//                profile["MSG-email"] = true
-//                profile["MSG-push"] = true
-//                profile["MSG-sms"] = true
-//                profile["MSG-whatsapp"] = true
-//                profile["signup_date"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-//                profile["DOB"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-//
-//                println("$x and ${binding.userIdentity.text.toString()} else part")
-//
-//                CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
-//                startActivity(Intent(applicationContext, MainActivity::class.java))
-//                finish()
-//                Toast.makeText(applicationContext, "Logged in!", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
-//        val arrInt = ArrayList<BigInteger>()
-//        arrInt.add(1999)
-//        arrInt.add(2999)
-//        arrInt.add(3999)
-//        arrInt.add(4999)
-//        println("ArrInt Value: $arrInt")
-
         val profile = HashMap<String, Any>()
 //        profile["total_cart_values"] = arrInt
         profile["Name"] = binding.userName.text.toString()
@@ -222,13 +167,9 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         profile["MSG-whatsapp"] = true
         profile["signup_date"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
         profile["DOB"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-
-
 //        profile["latitude"] = location.latitude
 //        profile["longitude"] = location.longitude
-
-        profile["items_to_recommend"] =
-            arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
+        profile["items_to_recommend"] = arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
         profile["int_values"] = intArrayOf(19, 29, 39, 49)
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -237,11 +178,6 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
     }
 
     private fun pushProfile() {
-//        val location = cleverTapDefaultInstance!!.location
-//        cleverTapDefaultInstance!!.location = location
-//        Log.d("location", "Latitude: ${location.latitude} longitude: ${location.longitude}")
-
-
         val profile = HashMap<String, Any>()
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
@@ -253,7 +189,6 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         profile["MSG-whatsapp"] = true
 //        profile["latitude"] = location.latitude
 //        profile["longitude"] = location.longitude
-
         CleverTapAPI.getDefaultInstance(applicationContext)?.pushProfile(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
