@@ -1,10 +1,16 @@
 package com.project.integrationsdk.ui
 
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -39,8 +45,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         binding.mainUi.visibility = View.GONE
 
         theme = cleverTapDefaultInstance!!.defineVariable("theme", "loyalty")
-
-        val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3", "test_var_string4", "test_var_string5", "test_var_string6")
+        val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3", "test_var_string4", "test_var_string5", "test_var_string6", "offer_banner", "offer_new_arrivals", "offer_categories")
         testVars = varNames.mapIndexed { index, name ->
             cleverTapDefaultInstance!!.defineVariable(name, "This is product experiences new testing$index")
         }
@@ -52,8 +57,12 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
                 cleverTapDefaultInstance!!.getVariableValue(name).toString()
             }
             val themeValueFetched = cleverTapDefaultInstance!!.getVariableValue("theme").toString()
-            Log.d(TAG, "Values: $values")
+            val offer_categories_value_fetched = cleverTapDefaultInstance!!.getVariableValue("offer_categories").toString()
+            val offer_banner_value_fetched = cleverTapDefaultInstance!!.getVariableValue("offer_banner").toString()
+            val offer_new_arrivals_value_fetched = cleverTapDefaultInstance!!.getVariableValue("offer_new_arrivals").toString()
+            Log.d(TAG, "PE Values: $values")
             Log.d(TAG, "ThemeValues: $themeValueFetched")
+            Log.d(TAG, "offer_categories_value_fetched: $offer_categories_value_fetched offer_banner_value_fetched: $offer_banner_value_fetched offer_new_arrivals_value_fetched: $offer_new_arrivals_value_fetched")
 
             runOnUiThread {
                 renderContent(values, themeValueFetched)
@@ -68,6 +77,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             renderCarousel(values[0])
             renderRestaurant(values[1])
             renderMerchant(values[2])
+            switchAppIcon(false)
         } else if (themeValue == "e-commerce") {
             Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
 //            renderCarousel(values[3])
@@ -75,40 +85,90 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             renderCarousel(values[0])
             renderRestaurant(values[1])
             renderMerchant(values[5])
+            switchAppIcon(false)
+        }  else if (themeValue == "ramadan") {
+            binding.sectionTitle2.text = "New Arrivals"
+            binding.sectionTitle3.text = "Popular Categories"
+            renderCarousel(values[6])
+            renderNewArrivals(values[7])
+            renderMerchant(values[8])
+            switchAppIcon(true)
         }
     }
 
-    private fun renderCarousel(value: String) {
-        renderItems(
-            value,
-            keysProvider = { index -> listOf("image_url_$index", "title$index", "subtitle$index") },
-            itemBuilder = { values -> RecyclerViewItem.Carousel(values[0], values[1], values[2]) },
-            setupRecyclerView = { items ->
-                val capsules = MutableList(items.size) { RecyclerViewItem.Capsule(isSelected = it == 0) }
-                val genericAdapter = GenericAdapter(capsules) { item ->
-                    val position = capsules.indexOf(item)
-                    binding.carouselViewPager.currentItem = position
-                }
+    private fun switchAppIcon(isFestival: Boolean) {
+        val pm = packageManager
 
-                binding.capsuleRecyclerView.apply {
-                    adapter = genericAdapter
-                    layoutManager = LinearLayoutManager(this@ProductExperiencesNewActivity, LinearLayoutManager.HORIZONTAL, false)
-                }
+        val defaultAlias = "com.project.integrationsdk.DefaultLauncher"
+        val festivalAlias = "com.project.integrationsdk.FestivalLauncher"
 
-                binding.carouselViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        capsules.forEachIndexed { index, item ->
-                            capsules[index] = item.copy(isSelected = index == position)
-                        }
-                        genericAdapter.notifyDataSetChanged()
-                    }
-                })
-
-                binding.carouselViewPager.adapter = GenericAdapter(items) { item ->
-                    Toast.makeText(applicationContext, "$item", Toast.LENGTH_SHORT).show()
-                }
-            }
+        // Always disable both first
+        pm.setComponentEnabledSetting(
+            ComponentName(this, defaultAlias),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
         )
+
+        pm.setComponentEnabledSetting(
+            ComponentName(this, festivalAlias),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
+
+        // Now enable only the required alias
+        val aliasToEnable = if (isFestival) festivalAlias else defaultAlias
+        pm.setComponentEnabledSetting(
+            ComponentName(this, aliasToEnable),
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
+    }
+
+    private fun renderCarousel(value: String) {
+        val autoScrollHandler = Handler(Looper.getMainLooper())
+        lateinit var autoScrollRunnable: Runnable
+        autoScrollRunnable = Runnable {
+            binding.carouselViewPager.let {
+                it.currentItem = (it.currentItem + 1) % (it.adapter?.itemCount ?: 1)
+                autoScrollHandler.postDelayed(autoScrollRunnable, 5000)
+            }
+        }
+
+        fun autoScroll(start: Boolean) = with(autoScrollHandler) {
+            removeCallbacks(autoScrollRunnable)
+            if (start) postDelayed(autoScrollRunnable, 5000)
+        }
+
+        renderItems(value,
+            { index -> listOf("image_url_$index", "title$index", "subtitle$index") },
+            { values -> RecyclerViewItem.Carousel(values[0], values[1], values[2]) }
+        ) { items ->
+            val capsules = MutableList(items.size) { RecyclerViewItem.Capsule(isSelected = it == 0) }
+            val genericAdapter = GenericAdapter(capsules) {
+                binding.carouselViewPager.currentItem = capsules.indexOf(it)
+                autoScroll(false).also { autoScroll(true) }
+            }
+
+            binding.capsuleRecyclerView.adapter = genericAdapter
+            binding.capsuleRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.carouselViewPager.adapter = GenericAdapter(items) { item ->
+                Toast.makeText(applicationContext, "$item", Toast.LENGTH_SHORT).show()
+            }
+
+            autoScroll(true)
+
+            binding.carouselViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    capsules.forEachIndexed { index, _ -> capsules[index] = RecyclerViewItem.Capsule(isSelected = index == position) }
+                    genericAdapter.run { notifyDataSetChanged() }
+                    autoScroll(false).also { autoScroll(true) }
+                }
+            })
+        }
+
+        lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) = autoScroll(false)
+        })
     }
 
     private fun renderMerchant(value: String) {
@@ -117,6 +177,15 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             keysProvider = { index -> listOf("logo_image_url_$index", "logo_name_$index") },
             itemBuilder = { values -> RecyclerViewItem.Merchant(values[0], values[1]) },
             setupRecyclerView = { items -> setupRecyclerView(binding.merchantsRecyclerView, items) }
+        )
+    }
+
+    private fun renderNewArrivals(value: String) {
+        renderItems(
+            value,
+            keysProvider = { index -> listOf("new_arrival_image_url_$index", "new_arrival_name_$index", "new_arrival_rating_$index", "new_arrival_price_$index", "new_arrival_offer_$index") },
+            itemBuilder = { values -> RecyclerViewItem.Restaurant(values[0], values[1], values[2], values[3], values[4]) },
+            setupRecyclerView = { items -> setupRecyclerView(binding.restaurantRecyclerView, items) }
         )
     }
 
