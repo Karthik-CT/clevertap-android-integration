@@ -15,8 +15,8 @@ android {
             resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
         }
         applicationId "com.project.integrationsdk"
-        minSdk 23
-        targetSdk 33
+        minSdk 24
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         googleServices.disableVersionCheck = true
@@ -116,7 +116,7 @@ dependencies {
     implementation 'com.mparticle:android-clevertap-kit:5+'
 
     //Singular
-    implementation fileTree(dir: "libs", include: ["*.aar"])
+//    implementation fileTree(dir: "libs", include: ["*.aar"])
 
     //Facebook
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
@@ -141,5 +141,12 @@ dependencies {
 
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation fileTree(dir: "libs", include: ["*.aar"])
+
+    implementation 'com.airbnb.android:lottie:6.0.0'
+
+//    implementation project(':CT-Templates')
+
 
 }

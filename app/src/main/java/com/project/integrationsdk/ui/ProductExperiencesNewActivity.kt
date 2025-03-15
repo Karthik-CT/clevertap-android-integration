@@ -1,11 +1,16 @@
 package com.project.integrationsdk.ui
 
+import android.app.Activity
 import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.variables.Var
+import com.project.integrationsdk.R
 import com.project.integrationsdk.adapter.GenericAdapter
 import com.project.integrationsdk.databinding.ActivityProductExperiencesNewBinding
 import com.project.integrationsdk.model.RecyclerViewItem
@@ -38,6 +44,10 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
 
         callProductExperienceNew()
+
+        binding.viewAll.setOnClickListener {
+            restartApp(this@ProductExperiencesNewActivity)
+        }
     }
 
     private fun callProductExperienceNew() {
@@ -99,7 +109,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
     private fun switchAppIcon(isFestival: Boolean) {
         val pm = packageManager
 
-        val defaultAlias = "com.project.integrationsdk.DefaultLauncher"
+        val defaultAlias = "com.project.integrationsdk.ECommerceLauncher"
         val festivalAlias = "com.project.integrationsdk.FestivalLauncher"
 
         // Always disable both first
@@ -231,6 +241,27 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
                     is RecyclerViewItem.Capsule -> Toast.makeText(context, "Clicked on Capsule", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    fun restartApp(activity: Activity) {
+        val intent = activity.intent
+        activity.finish()
+        activity.startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_refresh -> {
+                restartApp(this) // Call your refresh logic
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

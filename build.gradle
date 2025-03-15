@@ -12,6 +12,10 @@ buildscript {
         }
         maven { url 'https://maven.singular.net/' }
         maven { url "https://maven.guardsquare.com" }
+        flatDir {
+            dirs 'libs'
+        }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.0.2'

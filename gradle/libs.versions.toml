@@ -1,0 +1,60 @@
+[versions]
+agp = "8.6.1"
+analytics = "4.11.3"
+android = "1.10.3"
+circleimageview = "3.1.0"
+clevertapAndroidSdk = "7.0.1"
+exoplayer = "2.19.1"
+firebaseAnalytics = "22.1.2"
+firebaseBom = "33.4.0"
+firebaseMessaging = "24.0.2"
+gson = "2.10.1"
+installreferrer = "2.2"
+kotlin = "1.9.0"
+coreKtx = "1.10.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.7.0"
+lottie = "6.0.0"
+material = "1.3.0"
+activity = "1.9.2"
+constraintlayout = "2.1.4"
+databindingRuntime = "8.7.0"
+pushTemplates = "1.2.0"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+
+[libraries]
+analytics = { module = "com.segment.analytics.android:analytics", version.ref = "analytics" }
+android = { module = "com.segment.analytics.kotlin:android", version.ref = "android" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+clevertap-android-sdk = { module = "com.clevertap.android:clevertap-android-sdk", version.ref = "clevertapAndroidSdk" }
+exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
+exoplayer-hls = { module = "com.google.android.exoplayer:exoplayer-hls", version.ref = "exoplayer" }
+exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalytics" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "installreferrer" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
+push-templates = { module = "com.clevertap.android:push-templates", version.ref = "pushTemplates" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+

@@ -158,7 +158,8 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         val profile = HashMap<String, Any>()
 //        profile["total_cart_values"] = arrInt
         profile["Name"] = binding.userName.text.toString()
-        profile["Identity"] = binding.userIdentity.text.toString()
+//        profile["Identity"] = binding.userIdentity.text.toString()
+        profile["identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
         profile["Phone"] = "+91" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true

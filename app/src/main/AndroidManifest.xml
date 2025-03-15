@@ -23,9 +23,9 @@
     <application
         android:name="com.clevertap.android.sdk.Application"
         android:allowBackup="true"
-        android:icon="@mipmap/fg_orange_ecommerce_icon"
+        android:icon="@mipmap/red_android_app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/fg_orange_ecom_icon_round"
+        android:roundIcon="@mipmap/red_android_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IntegrationSDKTest">
         <activity
@@ -180,12 +180,12 @@
         <!--            android:value="in1" />-->
 
         <!-- TEST-KarthikTest2 Account -->
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
-        <!-- android:value="TEST-6Z4-46Z-776Z" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_TOKEN" -->
-        <!-- android:value="TEST-164-416" /> -->
+<!--         <meta-data-->
+<!--         android:name="CLEVERTAP_ACCOUNT_ID"-->
+<!--         android:value="TEST-6Z4-46Z-776Z" />-->
+<!--         <meta-data-->
+<!--         android:name="CLEVERTAP_TOKEN"-->
+<!--         android:value="TEST-164-416" />-->
 
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_USE_GOOGLE_AD_ID" -->
@@ -234,17 +234,30 @@
             android:authorities="com.facebook.app.FacebookContentProvider693680325291955"
             android:exported="true" />
 
-        <meta-data
-            android:name="CLEVERTAP_ENCRYPTION_LEVEL"
-            android:value="1" />
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_ENCRYPTION_LEVEL"-->
+<!--            android:value="1" />-->
 
 
         <!-- Default App Icon -->
         <activity-alias
             android:name=".DefaultLauncher"
             android:targetActivity=".ui.LoginActivity"
-            android:icon="@mipmap/fg_orange_ecom_icon_round"
+            android:icon="@mipmap/red_android_app_icon"
             android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+
+        <!-- ECommerce App Icon -->
+        <activity-alias
+            android:name=".ECommerceLauncher"
+            android:targetActivity=".ui.LoginActivity"
+            android:icon="@mipmap/fg_orange_ecom_icon_round"
+            android:enabled="false"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
