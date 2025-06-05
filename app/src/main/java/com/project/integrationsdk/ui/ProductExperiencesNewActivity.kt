@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -74,35 +75,53 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             Log.d(TAG, "ThemeValues: $themeValueFetched")
             Log.d(TAG, "offer_categories_value_fetched: $offer_categories_value_fetched offer_banner_value_fetched: $offer_banner_value_fetched offer_new_arrivals_value_fetched: $offer_new_arrivals_value_fetched")
 
+            val rakeshTest = cleverTapDefaultInstance!!.getVariableValue("rakeshTest").toString()
+            Log.d(TAG, "RakeshTest: $rakeshTest")
             runOnUiThread {
                 renderContent(values, themeValueFetched)
                 binding.skeletonUi.visibility = View.GONE
                 binding.mainUi.visibility = View.VISIBLE
+                renderBGColor(rakeshTest)
+            }
+        }
+    }
+
+    private fun renderBGColor(varTest: String) {
+        when (varTest) {
+            "Blue" -> {
+                binding.mainRelLay.setBackgroundColor(Color.BLUE)
+            }
+            "Red" -> {
+                binding.mainRelLay.setBackgroundColor(Color.RED)
+            }
+            "White" -> {
+                binding.mainRelLay.setBackgroundColor(Color.WHITE)
             }
         }
     }
 
     private fun renderContent(values: List<String>, themeValue: String) {
-        if (themeValue == "loyalty") {
-            renderCarousel(values[0])
-            renderRestaurant(values[1])
-            renderMerchant(values[2])
-            switchAppIcon(false)
-        } else if (themeValue == "e-commerce") {
-            Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
-//            renderCarousel(values[3])
-//            renderRestaurant(values[4])
-            renderCarousel(values[0])
-            renderRestaurant(values[1])
-            renderMerchant(values[5])
-            switchAppIcon(false)
-        }  else if (themeValue == "ramadan") {
-            binding.sectionTitle2.text = "New Arrivals"
-            binding.sectionTitle3.text = "Popular Categories"
-            renderCarousel(values[6])
-            renderNewArrivals(values[7])
-            renderMerchant(values[8])
-            switchAppIcon(true)
+        when (themeValue) {
+            "loyalty" -> {
+                renderCarousel(values[0])
+                renderRestaurant(values[1])
+                renderMerchant(values[2])
+            }
+            "e-commerce" -> {
+                Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
+    //            renderCarousel(values[3])
+    //            renderRestaurant(values[4])
+                renderCarousel(values[0])
+                renderRestaurant(values[1])
+                renderMerchant(values[5])
+            }
+            "ramadan" -> {
+                binding.sectionTitle2.text = "New Arrivals"
+                binding.sectionTitle3.text = "Popular Categories"
+                renderCarousel(values[6])
+                renderNewArrivals(values[7])
+                renderMerchant(values[8])
+            }
         }
     }
 

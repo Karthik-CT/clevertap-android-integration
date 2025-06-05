@@ -159,7 +159,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 //        profile["total_cart_values"] = arrInt
         profile["Name"] = binding.userName.text.toString()
 //        profile["Identity"] = binding.userIdentity.text.toString()
-        profile["identity"] = binding.userIdentity.text.toString()
+        profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
         profile["Phone"] = "+91" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
@@ -183,7 +183,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = binding.mobileNo.text.toString()
+        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
