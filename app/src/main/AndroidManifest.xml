@@ -17,14 +17,17 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- Singular -->
     <uses-permission android:name="BIND_GET_INSTALL_REFERRER_SERVICE" />
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" /> <!-- Facebook -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+    <!-- Facebook -->
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
 
     <application
         android:name="com.clevertap.android.sdk.Application"
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        tools:replace="android:fullBackupContent,android:allowBackup"
         android:icon="@mipmap/red_android_app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/red_android_app_icon_round"
@@ -162,6 +165,14 @@
             android:name="CLEVERTAP_TOKEN"
             android:value="TEST-206-0b0" />
 
+        <!-- TEST-KarthikTest5 Account -->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+<!--            android:value="TEST-869-958-K57Z" />-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_TOKEN"-->
+<!--            android:value="TEST-b5c-c6b" />-->
+
         <!-- TEST-KarthikTest3 Account -->
 <!--        <meta-data-->
 <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
@@ -170,9 +181,9 @@
 <!--            android:name="CLEVERTAP_TOKEN"-->
 <!--            android:value="TEST-02b-b00" />-->
 
-        <meta-data
-            android:name="CLEVERTAP_IDENTIFIER"
-            android:value="Phone" />
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_IDENTIFIER"-->
+<!--            android:value="Identity,Phone" />-->
 
         <!-- TEST-KarthikTest4 -->
         <!-- <meta-data -->
@@ -201,9 +212,9 @@
 <!--         android:name="CLEVERTAP_TOKEN"-->
 <!--         android:value="TEST-164-416" />-->
 
-         <meta-data
-         android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
-         android:value="1" />
+<!--         <meta-data-->
+<!--         android:name="CLEVERTAP_USE_GOOGLE_AD_ID"-->
+<!--         android:value="1" />-->
 
         <!-- Suppress System Events -->
         <!-- <meta-data -->
@@ -223,7 +234,9 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service> <!-- Custom Android Push Notifications Handling -->
+        </service>
+
+        <!-- Custom Android Push Notifications Handling -->
         <!-- <service -->
         <!-- android:name="com.project.integrationsdk.service.MyFcmMessageListenerService" -->
         <!-- android:exported="true"> -->
@@ -236,6 +249,7 @@
         <!-- android:exported="false" -->
         <!-- android:enabled="true"> -->
         <!-- </receiver> -->
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -248,9 +262,9 @@
             android:authorities="com.facebook.app.FacebookContentProvider693680325291955"
             android:exported="true" />
 
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_ENCRYPTION_LEVEL"-->
-<!--            android:value="1" />-->
+        <meta-data
+            android:name="CLEVERTAP_ENCRYPTION_LEVEL"
+            android:value="1" />
 
 
     </application>

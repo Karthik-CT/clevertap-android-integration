@@ -1,5 +1,6 @@
 package com.project.integrationsdk.ui
 
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
@@ -11,8 +12,10 @@ import android.widget.Toast
 import com.clevertap.android.pushtemplates.PTConstants
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.CleverTapInstanceConfig
 import com.clevertap.android.sdk.PushPermissionResponseListener
 import com.clevertap.android.sdk.interfaces.NotificationHandler
+import com.clevertap.android.sdk.login.LoginInfoProvider
 import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.databinding.ActivityLoginBinding
 import java.text.SimpleDateFormat
@@ -22,10 +25,22 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
     lateinit var binding: ActivityLoginBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
 
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        val config  = CleverTapInstanceConfig.getDefaultInstance(applicationContext)
+//        LoginInfoProvider(applicationContext, config).saveIdentityKeysForAccount("Identity,Phone")
+
+//        val wizRocketPrefs = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
+//        val key = "SP_KEY_PROFILE_IDENTITIES:TEST-6Z4-46Z-776Z"
+//        val currentValue = wizRocketPrefs.getString(key, "") ?: ""
+//        if (!currentValue.contains("Identity")) {
+//            val newValue = "Identity,Phone"
+//            wizRocketPrefs.edit().putString(key, newValue).apply()
+//        }
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
@@ -86,7 +101,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 //                .setNegativeBtnText("Cancel")
 //                .build()
 //            cleverTapDefaultInstance?.promptPushPrimer(builder)
-      //  }
+        //  }
 
         cleverTapDefaultInstance?.promptForPushPermission(true)
 
@@ -158,10 +173,9 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         val profile = HashMap<String, Any>()
 //        profile["total_cart_values"] = arrInt
         profile["Name"] = binding.userName.text.toString()
-//        profile["Identity"] = binding.userIdentity.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
+//        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
@@ -170,7 +184,8 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         profile["DOB"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
 //        profile["latitude"] = location.latitude
 //        profile["longitude"] = location.longitude
-        profile["items_to_recommend"] = arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
+        profile["items_to_recommend"] =
+            arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
         profile["int_values"] = intArrayOf(19, 29, 39, 49)
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))

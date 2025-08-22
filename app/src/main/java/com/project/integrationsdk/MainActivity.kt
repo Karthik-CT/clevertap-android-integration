@@ -143,7 +143,11 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                 .show()
         }
         binding.pushNotification2.setOnClickListener {
-            cleverTapDefaultInstance?.pushEvent("KarthikNotiEventNew")
+            val inappProps = HashMap<String, Any>()
+            inappProps["carName"] = "jaguar"
+            inappProps["carId"] = "115"
+            inappProps["Prepaid Balance"] = 100
+            cleverTapDefaultInstance?.pushEvent("App Inbox Event", inappProps)
             Toast.makeText(applicationContext, "PN button Clicked", Toast.LENGTH_SHORT).show()
         }
         binding.inapp.setOnClickListener {
@@ -375,6 +379,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         //AppsFlyer
         AppsFlyerLib.getInstance().init("ARphSC736QeqLtvqA5TmHX", null, this)
+        AppsFlyerLib.getInstance().setDebugLog(true)
         AppsFlyerLib.getInstance().start(this)
         AppsFlyerLib.getInstance().start(this, "ARphSC736QeqLtvqA5TmHX",
             object : AppsFlyerRequestListener {
@@ -391,11 +396,23 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                 }
             })
 
+
+        cleverTapDefaultInstance?.cleverTapAttributionIdentifier
         cleverTapDefaultInstance?.getCleverTapID {
             AppsFlyerLib.getInstance().setCustomerUserId(it)
+            val customData = HashMap<String, Any>()
+            customData["CleverTapID"] = it// Create the map with the CleverTap ID
+            AppsFlyerLib.getInstance().setAdditionalData(customData)
             println("The current CT ID of the user is $it")
+
         }
         AppsFlyerLib.getInstance().setDebugLog(true)
+        val eventValues = HashMap<String, Any>()
+        eventValues.put("PRICE", 1234.56)
+        eventValues.put("CONTENT_ID","1234567")
+
+        AppsFlyerLib.getInstance().logEvent(getApplicationContext() ,
+            "ADD_TO_WISHLIST" , eventValues)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             afPE()
         }

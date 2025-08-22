@@ -2,8 +2,10 @@ package com.project.integrationsdk.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.adapter.CustomAIAdapter
@@ -27,24 +29,27 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         binding.customAppInboxRv.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         binding.customAppInboxRv.layoutManager = linearLayoutManager
-        customAIAdapter = CustomAIAdapter(allMessage, applicationContext)
+        customAIAdapter = CustomAIAdapter(allMessage, applicationContext) { msg ->
+            // To raise App Inbox Notification Clicked event
+            cleverTapDefaultInstance?.pushInboxNotificationClickedEvent(msg.messageId)
+            Toast.makeText(this, "Clicked: ${msg.messageId}", Toast.LENGTH_SHORT).show()
+        }
         binding.customAppInboxRv.adapter = customAIAdapter
 
-        cleverTapDefaultInstance?.apply {
-            allMessage.forEach {
-                pushInboxNotificationViewedEvent(it.messageId)
-                pushInboxNotificationClickedEvent(it.messageId)
-            }
+        cleverTapDefaultInstance?.unreadInboxMessages?.forEach {
+            // To raise App Inbox Notification Viewed event
+            cleverTapDefaultInstance?.pushInboxNotificationViewedEvent(it.messageId)
+            //To mark the message as read
+            cleverTapDefaultInstance?.markReadInboxMessage(it.messageId)
         }
 
-        binding.customAppInboxGetMessagesbtn.setOnClickListener{
+        binding.customAppInboxGetMessagesbtn.setOnClickListener {
             val allMessage = cleverTapDefaultInstance!!.allInboxMessages
-            customAIAdapter = CustomAIAdapter(allMessage, applicationContext)
             binding.customAppInboxRv.adapter = customAIAdapter
         }
 
         binding.customAppInboxRaiseEvent.setOnClickListener {
-            cleverTapDefaultInstance?.pushEvent("Karthik's App Inbox Event")
+            cleverTapDefaultInstance?.pushEvent("App Inbox Event")
             Toast.makeText(
                 applicationContext,
                 "Custom App Inbox button Clicked",
