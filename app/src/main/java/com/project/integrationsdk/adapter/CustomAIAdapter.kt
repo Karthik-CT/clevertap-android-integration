@@ -27,6 +27,7 @@ class CustomAIAdapter(var caiList: ArrayList<CTInboxMessage>, var context: Conte
         Glide
             .with(context)
             .load(list.inboxMessageContents[0].media)
+            .centerCrop()
             .into(holder.binding.customAiImage)
         print("KK Tags: ${list.inboxMessageContents[0].message} and ${list.inboxMessageContents[0].message}")
 //        holder.binding.customAiLinks.text = list.inboxMessageContents[0].links

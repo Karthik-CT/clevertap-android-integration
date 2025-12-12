@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.clevertap.android.pushtemplates.PTConstants
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
@@ -20,11 +21,12 @@ import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.databinding.ActivityLoginBinding
 import java.text.SimpleDateFormat
 
-class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
+class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
 
     lateinit var binding: ActivityLoginBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
 //        val config  = CleverTapInstanceConfig.getDefaultInstance(applicationContext)
 //        LoginInfoProvider(applicationContext, config).saveIdentityKeysForAccount("Identity,Phone")
-
+//
 //        val wizRocketPrefs = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
 //        val key = "SP_KEY_PROFILE_IDENTITIES:TEST-6Z4-46Z-776Z"
 //        val currentValue = wizRocketPrefs.getString(key, "") ?: ""
@@ -67,6 +69,17 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
             NotificationManager.IMPORTANCE_MAX,
             true
         )
+
+        CleverTapAPI.createNotificationChannel(
+            getApplicationContext(),
+            "channelSound",
+            "channelSound",
+            "channelSound",
+            NotificationManager.IMPORTANCE_MAX,
+            true,
+            "channelsound1.wav"
+        )
+//        android:value="appid=101300553"
 
         cleverTapDefaultInstance?.enableDeviceNetworkInfoReporting(true)
 
@@ -175,7 +188,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
-//        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
+        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
         profile["MSG-push"] = true
         profile["MSG-sms"] = true

@@ -6,19 +6,16 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- geofence permission -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- geofence permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- Singular -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Singular -->
     <uses-permission android:name="BIND_GET_INSTALL_REFERRER_SERVICE" />
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-    <!-- Facebook -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" /> <!-- Facebook -->
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
@@ -27,12 +24,15 @@
         android:name="com.clevertap.android.sdk.Application"
         android:allowBackup="false"
         android:fullBackupContent="false"
-        tools:replace="android:fullBackupContent,android:allowBackup"
         android:icon="@mipmap/red_android_app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/red_android_app_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IntegrationSDKTest">
+        android:theme="@style/Theme.IntegrationSDKTest"
+        tools:replace="android:fullBackupContent,android:allowBackup">
+        <activity
+            android:name=".ui.KFCNativeDisplayActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.ProductExperiencesNewActivity"
             android:exported="false" />
@@ -150,41 +150,61 @@
                     android:host="mainpage"
                     android:scheme="karthikdl" />
             </intent-filter>
-        </activity>
-
-        <!-- To display the inapp after the splash screen add the below meta tag -->
+        </activity> <!-- To display the inapp after the splash screen add the below meta tag -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_INAPP_EXCLUDE" -->
         <!-- android:value="LoginActivity" /> -->
-
         <!-- TEST-Karthik Account -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" />
-
+            android:value="TEST-206-0b0" /> <!-- JitendraClev Account -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="65R-654-5Z6Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="456-256" /> -->
+        <!-- TEST-Shawarmer -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-WWR-9Z8-486Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-b1c-200" /> -->
+        <!-- Gaurav - android -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="6ZR-965-446Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="56c-216" /> -->
+        <!-- EU1 Bearded Robot -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="ZWW-WWW-WWRZ" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="000-001" /> -->
         <!-- TEST-KarthikTest5 Account -->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-<!--            android:value="TEST-869-958-K57Z" />-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_TOKEN"-->
-<!--            android:value="TEST-b5c-c6b" />-->
-
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-869-958-K57Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-b5c-c6b" /> -->
         <!-- TEST-KarthikTest3 Account -->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-<!--            android:value="TEST-WW8-8RW-8Z7Z" />-->
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_TOKEN"-->
-<!--            android:value="TEST-02b-b00" />-->
-
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_IDENTIFIER"-->
-<!--            android:value="Identity,Phone" />-->
-
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-WW8-8RW-8Z7Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-02b-b00" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_IDENTIFIER" -->
+        <!-- android:value="Identity,Phone" /> -->
         <!-- TEST-KarthikTest4 -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -192,35 +212,30 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-0b5-b24" /> -->
-
         <!-- IN1 Bearded Robot -->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
-        <!--            android:value="ZWW-WWW-WW4Z" />-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_TOKEN"-->
-        <!--            android:value="000-001" />-->
-        <!--        <meta-data-->
-        <!--            android:name="CLEVERTAP_REGION"-->
-        <!--            android:value="in1" />-->
-
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="ZWW-WWW-WW4Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="000-001" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_REGION" -->
+        <!-- android:value="in1" /> -->
         <!-- TEST-KarthikTest2 Account -->
-<!--         <meta-data-->
-<!--         android:name="CLEVERTAP_ACCOUNT_ID"-->
-<!--         android:value="TEST-6Z4-46Z-776Z" />-->
-<!--         <meta-data-->
-<!--         android:name="CLEVERTAP_TOKEN"-->
-<!--         android:value="TEST-164-416" />-->
-
-<!--         <meta-data-->
-<!--         android:name="CLEVERTAP_USE_GOOGLE_AD_ID"-->
-<!--         android:value="1" />-->
-
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-6Z4-46Z-776Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-164-416" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_USE_GOOGLE_AD_ID" -->
+        <!-- android:value="1" /> -->
         <!-- Suppress System Events -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_DISABLE_APP_LAUNCHED" -->
         <!-- android:value="1" /> -->
-
         <meta-data
             android:name="FCM_SENDER_ID"
             android:value="id:487275975172" />
@@ -234,9 +249,7 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-        <!-- Custom Android Push Notifications Handling -->
+        </service> <!-- Custom Android Push Notifications Handling -->
         <!-- <service -->
         <!-- android:name="com.project.integrationsdk.service.MyFcmMessageListenerService" -->
         <!-- android:exported="true"> -->
@@ -249,7 +262,6 @@
         <!-- android:exported="false" -->
         <!-- android:enabled="true"> -->
         <!-- </receiver> -->
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -265,8 +277,6 @@
         <meta-data
             android:name="CLEVERTAP_ENCRYPTION_LEVEL"
             android:value="1" />
-
-
     </application>
 
 </manifest>

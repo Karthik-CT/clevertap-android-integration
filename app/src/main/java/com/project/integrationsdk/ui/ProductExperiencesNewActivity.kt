@@ -28,6 +28,7 @@ import com.project.integrationsdk.databinding.ActivityProductExperiencesNewBindi
 import com.project.integrationsdk.model.RecyclerViewItem
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.Locale
 
 class ProductExperiencesNewActivity : AppCompatActivity() {
 
@@ -56,7 +57,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         binding.mainUi.visibility = View.GONE
 
         theme = cleverTapDefaultInstance!!.defineVariable("theme", "loyalty")
-        val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3", "test_var_string4", "test_var_string5", "test_var_string6", "offer_banner", "offer_new_arrivals", "offer_categories")
+        val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3", "test_var_string4", "test_var_string5", "test_var_string6", "offer_banner", "offer_new_arrivals", "offer_categories", "kfc_banner", "kfc_categories", "kfc_new_arrivals", "kfc_banner_update")
         testVars = varNames.mapIndexed { index, name ->
             cleverTapDefaultInstance!!.defineVariable(name, "This is product experiences new testing$index")
         }
@@ -87,27 +88,28 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
     }
 
     private fun renderBGColor(varTest: String) {
-        when (varTest) {
-            "Blue" -> {
+        when (varTest.lowercase(Locale.ROOT)) {
+            "Blue".lowercase(Locale.ROOT) -> {
                 binding.mainRelLay.setBackgroundColor(Color.BLUE)
             }
-            "Red" -> {
+            "Red".lowercase(Locale.ROOT) -> {
                 binding.mainRelLay.setBackgroundColor(Color.RED)
             }
-            "White" -> {
+            "White".lowercase(Locale.ROOT) -> {
                 binding.mainRelLay.setBackgroundColor(Color.WHITE)
             }
         }
     }
 
     private fun renderContent(values: List<String>, themeValue: String) {
-        when (themeValue) {
-            "loyalty" -> {
+        when (themeValue.lowercase(Locale.ROOT)) {
+            "loyalty".lowercase(Locale.ROOT) -> {
+                Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
                 renderCarousel(values[0])
                 renderRestaurant(values[1])
                 renderMerchant(values[2])
             }
-            "e-commerce" -> {
+            "e-commerce".lowercase(Locale.ROOT) -> {
                 Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
     //            renderCarousel(values[3])
     //            renderRestaurant(values[4])
@@ -115,12 +117,29 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
                 renderRestaurant(values[1])
                 renderMerchant(values[5])
             }
-            "ramadan" -> {
+            "ramadan".lowercase(Locale.ROOT) -> {
+                Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
                 binding.sectionTitle2.text = "New Arrivals"
                 binding.sectionTitle3.text = "Popular Categories"
                 renderCarousel(values[6])
                 renderNewArrivals(values[7])
                 renderMerchant(values[8])
+            }
+            "kfc".lowercase(Locale.ROOT) -> {
+                Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
+                binding.sectionTitle2.text = "Top Deals of the day \uD83D\uDD25"
+                binding.sectionTitle3.text = "Explore Menu"
+                renderCarousel(values[9])
+                renderMerchant(values[10])
+                renderNewArrivals(values[11])
+            }
+            "kfc_banner_update".lowercase(Locale.ROOT) -> {
+                Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
+                binding.sectionTitle2.text = "Top Deals of the day \uD83D\uDD25"
+                binding.sectionTitle3.text = "Explore Menu"
+                renderCarousel(values[12])
+                renderMerchant(values[10])
+                renderNewArrivals(values[11])
             }
         }
     }

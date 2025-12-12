@@ -1,5 +1,7 @@
 package com.project.integrationsdk.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import com.project.integrationsdk.databinding.ActivityCustomAppInboxBinding
 class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
 
     private lateinit var binding: ActivityCustomAppInboxBinding
+    var messageIDInbox: String? = null
     private val cleverTap: CleverTapAPI? by lazy {
         CleverTapAPI.getDefaultInstance(
             applicationContext
@@ -37,6 +40,17 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         adapter = CustomAIAdapter(cleverTap?.allInboxMessages ?: arrayListOf(), this) { msg ->
             // To raise App Inbox Notification Clicked event
             cleverTap?.pushInboxNotificationClickedEvent(msg.messageId)
+            messageIDInbox = msg.messageId
+            println("KK Message ID: $messageIDInbox")
+
+            cleverTap?.deleteInboxMessage(messageIDInbox)
+            startActivity(Intent(applicationContext, NativeDisplayActivity::class.java))
+
+            val sharedPref = applicationContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putString("messageIDInbox", messageIDInbox)
+            editor.apply()
+
             Toast.makeText(this, "Clicked: ${msg.messageId}", Toast.LENGTH_SHORT).show()
         }
 
@@ -65,8 +79,11 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
     }
 
     private fun raiseCustomEvent() {
-        cleverTap?.pushEvent("App Inbox Event")
-        Toast.makeText(this, "Custom App Inbox button Clicked", Toast.LENGTH_SHORT).show()
+//        cleverTap?.pushEvent("App Inbox Event")
+//        Toast.makeText(this, "Custom App Inbox button Clicked", Toast.LENGTH_SHORT).show()
+
+        cleverTap?.deleteInboxMessage(messageIDInbox)
+        Toast.makeText(applicationContext, "Inbox Deleted!", Toast.LENGTH_SHORT).show()
     }
 
     override fun inboxDidInitialize() {}

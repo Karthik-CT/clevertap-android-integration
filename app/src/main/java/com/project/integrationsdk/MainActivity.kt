@@ -41,6 +41,7 @@ import com.project.integrationsdk.databinding.ActivityMainBinding
 import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
 import com.project.integrationsdk.ui.GeofenceActivity
+import com.project.integrationsdk.ui.KFCNativeDisplayActivity
 import com.project.integrationsdk.ui.NativeDisplayActivity
 import com.project.integrationsdk.ui.ProductExperienceActivity
 import com.project.integrationsdk.ui.ProductExperiencesNewActivity
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
     private val MY_PERMISSIONS_REQUEST_BACKGROUND_LOCATION = 66
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +117,16 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             "KK CleverTap Notification Test",
             NotificationManager.IMPORTANCE_MAX,
             true
+        )
+
+        CleverTapAPI.createNotificationChannel(
+            getApplicationContext(),
+            "channelSound",
+            "channelSound",
+            "channelSound",
+            NotificationManager.IMPORTANCE_MAX,
+            true,
+            "channelsound1.wav"
         )
 
         cleverTapDefaultInstance?.ctPushNotificationListener = this
@@ -381,7 +393,8 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         AppsFlyerLib.getInstance().init("ARphSC736QeqLtvqA5TmHX", null, this)
         AppsFlyerLib.getInstance().setDebugLog(true)
         AppsFlyerLib.getInstance().start(this)
-        AppsFlyerLib.getInstance().start(this, "ARphSC736QeqLtvqA5TmHX",
+        AppsFlyerLib.getInstance().start(
+            this, "ARphSC736QeqLtvqA5TmHX",
             object : AppsFlyerRequestListener {
                 override fun onSuccess() {
                     Log.d("af", "Launch sent successfully")
@@ -409,10 +422,12 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         AppsFlyerLib.getInstance().setDebugLog(true)
         val eventValues = HashMap<String, Any>()
         eventValues.put("PRICE", 1234.56)
-        eventValues.put("CONTENT_ID","1234567")
+        eventValues.put("CONTENT_ID", "1234567")
 
-        AppsFlyerLib.getInstance().logEvent(getApplicationContext() ,
-            "ADD_TO_WISHLIST" , eventValues)
+        AppsFlyerLib.getInstance().logEvent(
+            getApplicationContext(),
+            "ADD_TO_WISHLIST", eventValues
+        )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             afPE()
         }
@@ -601,19 +616,19 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         val couponCode: String? = data?.getQueryParameter("coupon_code")
         println("Coupon Code Value: $couponCode")
 
-        binding.restaurantPage.setOnClickListener{
+        binding.restaurantPage.setOnClickListener {
             startActivity(Intent(applicationContext, RestaurantActivity::class.java))
         }
 
-        binding.coachmarkPage.setOnClickListener{
+        binding.coachmarkPage.setOnClickListener {
             startActivity(Intent(applicationContext, CoachMarkActivity::class.java))
         }
 
-        binding.tooltipsPage.setOnClickListener{
+        binding.tooltipsPage.setOnClickListener {
             startActivity(Intent(applicationContext, TooltipsActivity::class.java))
         }
 
-        binding.spotlightsPage.setOnClickListener{
+        binding.spotlightsPage.setOnClickListener {
             startActivity(Intent(applicationContext, SpotlightActivity::class.java))
         }
 
@@ -621,6 +636,22 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             startActivity(Intent(applicationContext, ProductExperiencesNewActivity::class.java))
         }
 
+        binding.testOnUserLogin.setOnClickListener{
+            val profile = HashMap<String, Any>()
+            profile["Identity"] = "weyay1"
+            CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
+        }
+
+        binding.deleteAppInbox.setOnClickListener{
+            val sharedPref = applicationContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val savedMessageId = sharedPref.getString("messageIDInbox", null)
+            println("Saved Message ID: $savedMessageId")
+            cleverTapDefaultInstance?.deleteInboxMessage(savedMessageId)
+        }
+
+        binding.kfcNativeDisplay.setOnClickListener{
+            startActivity(Intent(applicationContext, KFCNativeDisplayActivity::class.java))
+        }
     }
 
     override fun onResume() {
@@ -876,13 +907,33 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     }
 
     private fun addEvents() {
-        val prodViewedAction = mapOf(
-            "Product Name" to "Casio Chronograph Watch",
-            "Category" to "Mens Accessories",
-            "Price" to 59.99,
-            "Date" to Date()
+        val prodViewedAction1 = mapOf(
+            "productPriceCurrency" to "AED",
+            "productPrice" to  34,
+            "productCategoryId" to 8598,
+            "productName" to "Twister Box",
+            "productCategoryName" to "Twisters",
+            "productId" to "KFCTW008"
         )
-        cleverTapDefaultInstance?.pushEvent("Product viewed", prodViewedAction)
+        cleverTapDefaultInstance?.pushEvent("kfcAddedToCart", prodViewedAction1)
+
+        val prodViewedAction = mapOf(
+            "productPriceCurrency" to "AED",
+            "productPrice" to  39,
+            "productCategoryId" to 1203,
+            "productName" to "Strips Dipping Box",
+            "productCategoryName" to "Chicken Meals",
+            "productId" to "KFCCM004",
+            "storeID" to 552,
+            "OrderMode" to "Pickup",
+            "LoyaltyStatus" to "InActive",
+            "minAOV" to 39,
+            "OrderFrequency" to 3,
+            "CouponAvailable" to "No",
+            "StoreLatitude" to 25.7506213145778,
+            "StoreLongitude" to 55.9651607631923
+        )
+        cleverTapDefaultInstance?.pushEvent("kfcOfferAddedToCart", prodViewedAction)
         Toast.makeText(applicationContext, "Event Clicked!", Toast.LENGTH_SHORT).show()
     }
 
