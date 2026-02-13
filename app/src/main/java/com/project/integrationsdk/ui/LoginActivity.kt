@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -19,6 +20,7 @@ import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.login.LoginInfoProvider
 import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.databinding.ActivityLoginBinding
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 
 class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
@@ -46,7 +48,6 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
-
         cleverTapDefaultInstance?.registerPushPermissionNotificationResponseListener(this)
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
 
@@ -94,6 +95,9 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
         binding.profileUploadBtn.setOnClickListener {
             uploadPofileTest()
         }
+
+//        printSharedPreferences(applicationContext)
+//        clearIdentityErrorIssue(applicationContext)
 
 //        cleverTapDefaultInstance?.promptForPushPermission(true)
 
@@ -268,5 +272,66 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
 
     override fun onPushPermissionResponse(accepted: Boolean) {
         Log.d("CT", "onPushPermissionResponse: ")
+    }
+
+    fun printSharedPreferences(context: Context) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        for ((key, value) in prefs.all) {
+            Log.d("UserPrefs", "SharedPref: $key = $value")
+        }
+    }
+
+
+    fun clearIdentityErrorIssue(context: Context) {
+        val prefs = context.getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
+        val cachedGuidsEntry = prefs.all.entries.firstOrNull {
+            it.key.startsWith("cachedGUIDsKey:")
+        }
+
+        if (cachedGuidsEntry == null || cachedGuidsEntry.value !is String) {
+            Log.i("CT_FIX", "No CachedGUIDS found")
+            return
+        }
+
+        val cachedGuidsJson = cachedGuidsEntry.value as String
+        Log.d("CT_FIX", "Cached GUIDS JSON: $cachedGuidsJson")
+
+        val identityIDs = mutableListOf<String>()
+        val emailIDs = mutableListOf<String>()
+
+        try {
+            val jsonObject = JSONObject(cachedGuidsJson)
+            jsonObject.keys().forEach { key ->
+                val ctId = jsonObject.getString(key)
+                when {
+                    key.startsWith("Identity_") -> identityIDs.add(ctId)
+                    key.startsWith("Email_") -> emailIDs.add(ctId)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("CT_FIX", "Failed to parse CachedGUIDS JSON", e)
+            return
+        }
+
+        var shouldClear = false
+
+        if (identityIDs.size != identityIDs.toSet().size) {
+            Log.w("CT_FIX", "Duplicate Identity_ CleverTap IDs found")
+            shouldClear = true
+        }
+
+        if (emailIDs.size != emailIDs.toSet().size) {
+            Log.w("CT_FIX", "Duplicate Email_ CleverTap IDs found")
+            shouldClear = true
+        }
+        if (shouldClear) {
+            Log.w("CT_FIX", "Duplicates detected. Clearing wizrocket SharedPreferences")
+
+            prefs.edit().clear().apply()
+
+            Log.i("CT_FIX", "wizrocket SharedPreferences cleared")
+        } else {
+            Log.i("CT_FIX", "No duplicates found. CachedGUIDS retained")
+        }
     }
 }

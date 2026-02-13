@@ -1,17 +1,17 @@
 package com.project.integrationsdk.ui
 
+//import com.synnapps.carouselview.CarouselView
+//import com.synnapps.carouselview.ImageListener
+//import com.synnapps.carouselview.ViewListener
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.project.integrationsdk.databinding.ActivityNativeDisplayBinding
-//import com.synnapps.carouselview.CarouselView
-//import com.synnapps.carouselview.ImageListener
-//import com.synnapps.carouselview.ViewListener
-import java.util.ArrayList
 
 class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
 
@@ -22,6 +22,8 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
     private lateinit var sampleImage: ArrayList<String>
     private lateinit var sampleTitle: ArrayList<String>
     private lateinit var sampleLink: ArrayList<String>
+
+    private val TAG = "NativeDisplayActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,7 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
 
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
         cleverTapDefaultInstance?.setDisplayUnitListener(this)
+        getAllDisplayUnits()
     }
 
 //    private var imageListener: ImageListener =
@@ -60,10 +63,25 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
 //        customView
 //    }
 
+    private fun getAllDisplayUnits() {
+        logStep("DISPLAY UNITS", "Getting all display units")
+        printVar("All Display Units", cleverTapDefaultInstance?.allDisplayUnits.toString())
+    }
+
+    private fun logStep(section: String, description: String) {
+        Log.i(TAG, "═══════════════════════════════════════════════════════")
+        Log.i(TAG, "SECTION: $section")
+        Log.i(TAG, "STEP: $description")
+        Log.i(TAG, "═══════════════════════════════════════════════════════")
+    }
+    private fun printVar(name: String, value: Any?) {
+        Log.i(TAG, "  ▶ $name: $value")
+    }
+
     override fun onDisplayUnitsLoaded(units: java.util.ArrayList<CleverTapDisplayUnit>?) {
         for (i in 0 until units!!.size) {
             val unit = units[i]
-            println(unit)
+            println("THis is ND: $unit")
             prepareDisplayView(unit)
         }
     }

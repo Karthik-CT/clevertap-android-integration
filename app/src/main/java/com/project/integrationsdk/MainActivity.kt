@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             inappProps["carName"] = "jaguar"
             inappProps["carId"] = "115"
             inappProps["Prepaid Balance"] = 100
-            cleverTapDefaultInstance?.pushEvent("App Inbox Event", inappProps)
+            cleverTapDefaultInstance?.pushEvent("KarthikNotiEventNew", inappProps)
             Toast.makeText(applicationContext, "PN button Clicked", Toast.LENGTH_SHORT).show()
         }
         binding.inapp.setOnClickListener {
@@ -629,7 +629,9 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
 
         binding.spotlightsPage.setOnClickListener {
-            startActivity(Intent(applicationContext, SpotlightActivity::class.java))
+            cleverTapDefaultInstance?.pushEvent("testEvent")
+            Toast.makeText(applicationContext, "testEvent Clicked", Toast.LENGTH_SHORT).show()
+//            startActivity(Intent(applicationContext, SpotlightActivity::class.java))
         }
 
         binding.productExperiencesNew.setOnClickListener {
