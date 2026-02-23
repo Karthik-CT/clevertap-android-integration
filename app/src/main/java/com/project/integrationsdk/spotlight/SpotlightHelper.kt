@@ -11,57 +11,84 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.project.integrationsdk.R
 import com.project.integrationsdk.spotlight.effect.RippleEffect
-import com.project.integrationsdk.spotlight.shape.Circle
+import com.project.integrationsdk.spotlight.shape.Capsule
+import com.project.integrationsdk.spotlight.shape.Rectangle
+import org.json.JSONException
 import org.json.JSONObject
 
 class SpotlightHelper {
 
     fun showSpotlight(anyActivity: AppCompatActivity, unit: JSONObject, onComplete: () -> Unit) {
-        val targets = ArrayList<Target>()
+        try {
+            val customKv = unit.optJSONObject("custom_kv")?.apply {
+                if (has("nd_json")) {
+                    val ndJsonString = optString("nd_json", null)
+                    if (!ndJsonString.isNullOrEmpty()) {
+                        val parsedNdJson = JSONObject(ndJsonString)
+                        Log.d("SpotlightHelper", "Parsed nd_json: $parsedNdJson")
+                        for (key in parsedNdJson.keys()) {
+                            put(key, parsedNdJson.get(key))
+                        }
+                    }
+                }
+            } ?: throw JSONException("Missing 'custom_kv' in unit JSONObject")
 
-        // Get the spotlight count from the JSON object
-        val spotlightCount = unit.getJSONObject("custom_kv").getInt("nd_spotlightCount")
-        val textColor = unit.getJSONObject("custom_kv").getString("nd_textColor")
+            Log.d("SpotlightHelper", "Merged customKv: $customKv")
 
-        for (i in 1..spotlightCount) {
-            val title = unit.getJSONObject("custom_kv").getString("nd_title$i")
-            val subtitle = unit.getJSONObject("custom_kv").getString("nd_subTitle$i")
-            val anchorId = unit.getJSONObject("custom_kv").getString("nd_title${i}_id")
+            val spotlightCount = customKv.getInt("nd_spotlight_count")
+            val textColor = customKv.optString("nd_text_color", "#FFFFFF")
 
-            if (title.isNotEmpty() && anchorId.isNotEmpty()) {
-                val target = createTarget(anyActivity, anchorId, title, subtitle, textColor)
-                targets.add(target)
+            val targets = ArrayList<Target>()
+            for (i in 1..spotlightCount) {
+                try {
+                    val title = customKv.getString("nd_view${i}_title")
+                    val subtitle = customKv.optString("nd_view${i}_subtitle", "")
+                    val anchorId = customKv.getString("nd_view${i}_id")
+
+                    if (title.isNotEmpty() && anchorId.isNotEmpty()) {
+                        val target = createTarget(anyActivity, anchorId, title, subtitle, textColor)
+                        targets.add(target)
+                    }
+                } catch (e: JSONException) {
+                    Log.e("SpotlightHelper", "Error parsing spotlight view $i: ${e.message}")
+                } catch (e: Exception) {
+                    Log.e("SpotlightHelper", "Unexpected error in spotlight view $i: ${e.message}")
+                }
             }
-        }
 
-        if (targets.isEmpty()) {
-            Log.e("SpotlightHelper", "No valid targets found for spotlight.")
-            return // Early return if no targets are available
-        }
+            if (targets.isEmpty()) {
+                Log.e("SpotlightHelper", "No valid targets found for spotlight.")
+                return
+            }
 
-        val spotlight = Spotlight.Builder(anyActivity)
-            .setTargets(targets)
-            .setBackgroundColorRes(R.color.spotlightBackground)
-            .setDuration(1000L)
-            .setAnimation(DecelerateInterpolator(2f))
-            .setOnSpotlightListener(object : OnSpotlightListener {
-                override fun onStarted() {
-                    Log.d("SpotlightHelper", "Spotlight started")
-                }
+            val spotlight = Spotlight.Builder(anyActivity)
+                .setTargets(targets)
+                .setBackgroundColorRes(R.color.spotlightBackground)
+                .setDuration(1000L)
+                .setAnimation(DecelerateInterpolator(2f))
+                .setOnSpotlightListener(object : OnSpotlightListener {
+                    override fun onStarted() {
+                        Log.d("SpotlightHelper", "Spotlight started")
+                    }
 
-                override fun onEnded() {
-                    Log.d("SpotlightHelper", "Spotlight ended")
-                    onComplete() // Call the completion callback when spotlight ends
-                }
-            })
-            .build()
+                    override fun onEnded() {
+                        Log.d("SpotlightHelper", "Spotlight ended")
+                        onComplete()
+                    }
+                })
+                .build()
 
-        spotlight.start()
+            spotlight.start()
 
-        val nextTarget = View.OnClickListener { spotlight.next() }
-        targets.forEach { target ->
-            val overlayView = target.overlay
-            overlayView?.setOnClickListener(nextTarget)
+            val nextTarget = View.OnClickListener { spotlight.next() }
+            targets.forEach { target ->
+                val overlayView = target.overlay
+                overlayView?.setOnClickListener(nextTarget)
+            }
+        } catch (e: JSONException) {
+            Log.e("SpotlightHelper", "Error parsing spotlight JSON: ${e.message}")
+        } catch (e: Exception) {
+            Log.e("SpotlightHelper", "Unexpected error: ${e.message}")
         }
     }
 
@@ -145,7 +172,9 @@ class SpotlightHelper {
         val anchorView = activity.findViewById<View>(activity.resources.getIdentifier(anchorId, "id", activity.packageName))
         return Target.Builder()
             .setAnchor(anchorView)
-            .setShape(Circle(200f))
+//            .setShape(Circle(200f))
+//            .setShape(Capsule(200f, 500f, 500f))
+//            .setShape(Rectangle(500f, 200f))
             .setOverlay(overlay)
             .setEffect(RippleEffect(100f, 200f, Color.argb(30, 124, 255, 90)))
             .setOnTargetListener(object : OnTargetListener {

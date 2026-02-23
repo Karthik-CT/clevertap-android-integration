@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_rel_lay"
+    android:padding="16dp"
+    tools:context=".ui.ProductExperiencesNewActivity">
+
+    <RelativeLayout
+        android:id="@+id/main_ui"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/sectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What's in Today?"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/sectionTitle"
+            android:gravity="right"
+            android:text="View All"
+            android:textColor="#44D75F"
+            android:textSize="14sp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/carouselViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_below="@id/sectionTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/capsuleRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carouselViewPager"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:id="@+id/sectionTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capsuleRecyclerView"
+            android:layout_marginTop="8dp"
+            android:text="Popular Restaurants Nearby"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewAll2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capsuleRecyclerView"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toRightOf="@id/sectionTitle2"
+            android:gravity="right"
+            android:text="View All"
+            android:textColor="#44D75F"
+            android:textSize="14sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/restaurant_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sectionTitle2"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingEnd="16dp" />
+
+        <TextView
+            android:id="@+id/sectionTitle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurant_recycler_view"
+            android:layout_marginTop="8dp"
+            android:text="Popular Merchants"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewAll3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurant_recycler_view"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toRightOf="@id/sectionTitle2"
+            android:gravity="right"
+            android:text="View All"
+            android:textColor="#44D75F"
+            android:textSize="14sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/merchants_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sectionTitle3"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingEnd="16dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/skeleton_ui"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <!-- Skeleton for "What's in Today?" -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/darker_gray" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Skeleton for "Popular Restaurants Nearby" -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/darker_gray" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/darker_gray" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Skeleton for "Popular Merchants" -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:shape="oval" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:shape="oval" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:shape="oval" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:shape="oval" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/darker_gray"
+                    android:shape="oval" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="12dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

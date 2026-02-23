@@ -513,6 +513,49 @@
             android:textAllCaps="false"
             android:textSize="17sp" />
 
+        <Button
+            android:id="@+id/test_onUserLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_plp_3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="test_onUserLogin"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/delete_app_inbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/test_onUserLogin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="Delete App Inbox"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/kfc_native_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/delete_app_inbox"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="KFC Native Display"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/multi_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kfc_native_display"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="Multi App UI"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
 
     </RelativeLayout>
 

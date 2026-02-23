@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Integration SDK Test"
 include ':app'
+//include ':CT-Templates'
