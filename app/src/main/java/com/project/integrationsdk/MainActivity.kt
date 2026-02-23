@@ -42,6 +42,7 @@ import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
 import com.project.integrationsdk.ui.GeofenceActivity
 import com.project.integrationsdk.ui.KFCNativeDisplayActivity
+import com.project.integrationsdk.ui.MultiAppActivity
 import com.project.integrationsdk.ui.NativeDisplayActivity
 import com.project.integrationsdk.ui.ProductExperienceActivity
 import com.project.integrationsdk.ui.ProductExperiencesNewActivity
@@ -139,11 +140,11 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         //addUserDetails()
 
         binding.updateProfile.setOnClickListener {
-            var prof = HashMap<String, Any>()
-            prof["Email"] = "test110@test.com"
-            prof["Identity"] = "test110"
-            cleverTapDefaultInstance?.pushProfile(prof)
-            Toast.makeText(applicationContext, "Profile Updated!", Toast.LENGTH_SHORT).show()
+            val prof = HashMap<String, Any>()
+            prof["Email"] = intent.getStringExtra("Email").toString()
+            prof["Identity"] = intent.getStringExtra("Identity").toString()
+            cleverTapDefaultInstance?.onUserLogin(prof)
+            Toast.makeText(applicationContext, "Email and Identity Updated!", Toast.LENGTH_SHORT).show()
         }
         binding.addEvents.setOnClickListener {
             addEvents()
@@ -653,6 +654,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         binding.kfcNativeDisplay.setOnClickListener{
             startActivity(Intent(applicationContext, KFCNativeDisplayActivity::class.java))
+        }
+
+        binding.multiApp.setOnClickListener {
+            startActivity(Intent(applicationContext, MultiAppActivity::class.java))
         }
     }
 

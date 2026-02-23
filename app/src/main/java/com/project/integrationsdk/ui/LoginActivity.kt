@@ -23,7 +23,7 @@ import com.project.integrationsdk.databinding.ActivityLoginBinding
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 
-class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
+class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
     lateinit var binding: ActivityLoginBinding
     var cleverTapDefaultInstance: CleverTapAPI? = null
@@ -188,24 +188,25 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
 
     private fun onUserLogin() {
         val profile = HashMap<String, Any>()
-//        profile["total_cart_values"] = arrInt
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
+        profile["Phone"] = "+" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
         profile["MSG-whatsapp"] = true
         profile["signup_date"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
         profile["DOB"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-//        profile["latitude"] = location.latitude
-//        profile["longitude"] = location.longitude
-        profile["items_to_recommend"] =
-            arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
+        profile["items_to_recommend"] = arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
         profile["int_values"] = intArrayOf(19, 29, 39, 49)
         CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
-        startActivity(Intent(applicationContext, MainActivity::class.java))
+        startActivity(
+            Intent(applicationContext, MainActivity::class.java).apply {
+                putExtra("Identity", binding.userIdentity.text.toString())
+                putExtra("Email", binding.emailId.text.toString())
+            }
+        )
         finish()
         Toast.makeText(applicationContext, "Logged in!", Toast.LENGTH_SHORT).show()
     }
@@ -215,13 +216,11 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener{
         profile["Name"] = binding.userName.text.toString()
         profile["Identity"] = binding.userIdentity.text.toString()
         profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = "+91" + binding.mobileNo.text.toString()
+        profile["Phone"] = "+" + binding.mobileNo.text.toString()
         profile["MSG-email"] = true
         profile["MSG-push"] = true
         profile["MSG-sms"] = true
         profile["MSG-whatsapp"] = true
-//        profile["latitude"] = location.latitude
-//        profile["longitude"] = location.longitude
         CleverTapAPI.getDefaultInstance(applicationContext)?.pushProfile(profile)
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
