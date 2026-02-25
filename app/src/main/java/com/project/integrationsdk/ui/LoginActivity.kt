@@ -229,17 +229,9 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
     private fun uploadPofileTest() {
         val profile = HashMap<String, Any>()
-        profile["Name"] = binding.userName.text.toString()
-        profile["Identity"] = "el1"
-        profile["Identity"] = binding.userIdentity.text.toString()
-        profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = binding.mobileNo.text.toString()
         profile["MSG-email"] = true
-        profile["MSG-push"] = true
-        profile["MSG-sms"] = true
-        profile["MSG-whatsapp"] = true
 
-        CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
+        CleverTapAPI.getDefaultInstance(applicationContext)?.pushProfile(profile)
 
         Toast.makeText(applicationContext, "uploadPofileTest() Pushed!", Toast.LENGTH_SHORT).show()
     }

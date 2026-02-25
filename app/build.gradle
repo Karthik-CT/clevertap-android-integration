@@ -47,6 +47,38 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.0'
     }
+
+    flavorDimensions "clevertap"
+    productFlavors {
+
+        multiAppKfcUae {
+            dimension "clevertap"
+            applicationId "com.project.integrationsdk.multiAppKfcUae"
+
+            manifestPlaceholders = [
+                    CLEVERTAP_ACCOUNT_ID : "58Z-5W6-866Z-TESTECOMM",
+                    CLEVERTAP_TOKEN      : "TEST-605-1b5",
+                    facebook_app_id      : "693680325291955",
+                    facebook_client_token: "cf537dad2b4422b3d7c09d50e83a590c"
+            ]
+
+            resValue "string", "app_name", "Multi-App-KFC-UAE"
+        }
+
+        multiAppPhUae {
+            dimension "clevertap"
+            applicationId "com.project.integrationsdk.multiAppPhUae"
+
+            manifestPlaceholders = [
+                    CLEVERTAP_ACCOUNT_ID : "58Z-5W6-866Z-TESTFINTECH",
+                    CLEVERTAP_TOKEN      : "TEST-605-1b5",
+                    facebook_app_id      : "693680325291955",
+                    facebook_client_token: "cf537dad2b4422b3d7c09d50e83a590c"
+            ]
+
+            resValue "string", "app_name", "Multi-App-PH-UAE"
+        }
+    }
 }
 
 dependencies {
