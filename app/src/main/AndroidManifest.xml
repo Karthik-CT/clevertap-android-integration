@@ -162,11 +162,22 @@
 
         <!-- TEST-Karthik Account -->
          <meta-data
-         android:name="CLEVERTAP_ACCOUNT_ID"
-         android:value="TEST-W8W-6WR-846Z" />
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="TEST-W8W-6WR-846Z" />
          <meta-data
-         android:name="CLEVERTAP_TOKEN"
-         android:value="TEST-206-0b0" />
+             android:name="CLEVERTAP_TOKEN"
+             android:value="TEST-206-0b0" />
+
+        <!-- SG1 Roaring Lion Account -->
+<!--         <meta-data-->
+<!--            android:name="CLEVERTAP_ACCOUNT_ID"-->
+<!--            android:value="5WW-WWW-WW4Z" />-->
+<!--         <meta-data-->
+<!--            android:name="CLEVERTAP_TOKEN"-->
+<!--            android:value="000-005" />-->
+<!--        <meta-data-->
+<!--            android:name="CLEVERTAP_REGION"-->
+<!--            android:value="sg1" />-->
 
         <!-- MultiApp TESTECOMM Account -->
         <!--        <meta-data-->
@@ -322,17 +333,17 @@
         <!-- android:enabled="true"> -->
         <!-- </receiver> -->
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
+<!--        <meta-data-->
+<!--            android:name="com.facebook.sdk.ApplicationId"-->
+<!--            android:value="@string/facebook_app_id" />-->
+<!--        <meta-data-->
+<!--            android:name="com.facebook.sdk.ClientToken"-->
+<!--            android:value="@string/facebook_client_token" />-->
 
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider693680325291955"
-            android:exported="true" />
+<!--        <provider-->
+<!--            android:name="com.facebook.FacebookContentProvider"-->
+<!--            android:authorities="com.facebook.app.FacebookContentProvider693680325291955"-->
+<!--            android:exported="true" />-->
     </application>
 
 </manifest>

@@ -529,24 +529,24 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         val myStuff = cleverTapDefaultInstance?.getProperty("MyStuff")
         println("Stuff: $myStuff")
 
-        FacebookSdk.sdkInitialize(applicationContext)
-        val params = Bundle()
-        params.putString("name", "My new Custom Audience")
-        params.putString("subtype", "CUSTOM")
-        params.putString("description", "People who purchased on my website")
-        params.putString("customer_file_source", "USER_PROVIDED_ONLY")
-        GraphRequest(
-            AccessToken.getCurrentAccessToken(),
-            "/act_514641083667285/customaudiences",
-            params,
-            HttpMethod.POST,
-            object : GraphRequest.Callback {
-                override fun onCompleted(response: GraphResponse) {
-                    /* handle the result */
-                    println("Response: $response")
-                }
-            }
-        ).executeAsync()
+//        FacebookSdk.sdkInitialize(applicationContext)
+//        val params = Bundle()
+//        params.putString("name", "My new Custom Audience")
+//        params.putString("subtype", "CUSTOM")
+//        params.putString("description", "People who purchased on my website")
+//        params.putString("customer_file_source", "USER_PROVIDED_ONLY")
+//        GraphRequest(
+//            AccessToken.getCurrentAccessToken(),
+//            "/act_514641083667285/customaudiences",
+//            params,
+//            HttpMethod.POST,
+//            object : GraphRequest.Callback {
+//                override fun onCompleted(response: GraphResponse) {
+//                    /* handle the result */
+//                    println("Response: $response")
+//                }
+//            }
+//        ).executeAsync()
 
         //uploadEvents
         binding.uploadEventsBtn.setOnClickListener {
