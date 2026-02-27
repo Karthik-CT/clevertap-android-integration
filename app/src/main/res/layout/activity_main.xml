@@ -564,7 +564,7 @@
             android:layout_below="@id/multi_app"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
-            android:text="Multi App UI"
+            android:text="Logout"
             android:textAllCaps="false"
             android:textSize="17sp" />
 

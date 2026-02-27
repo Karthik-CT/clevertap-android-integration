@@ -31,8 +31,13 @@ object SessionManager {
         return pref.getBoolean(KEY_IS_LOGGED_IN, false)
     }
 
-    fun getIdentity(context: Context): String? {
+    fun getIdentity(context: Context): Map<String, String?> {
         val pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return pref.getString(KEY_IDENTITY, null)
+        return mapOf(
+            "identity" to pref.getString(KEY_IDENTITY, null),
+            "email" to pref.getString(KEY_EMAIL, null),
+            "name" to pref.getString(KEY_NAME, null),
+            "phone" to pref.getString(KEY_PHONE, null)
+        )
     }
 }
