@@ -38,10 +38,12 @@ import com.facebook.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.project.integrationsdk.databinding.ActivityMainBinding
+import com.project.integrationsdk.session.SessionManager
 import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
 import com.project.integrationsdk.ui.GeofenceActivity
 import com.project.integrationsdk.ui.KFCNativeDisplayActivity
+import com.project.integrationsdk.ui.LoginActivity
 import com.project.integrationsdk.ui.MultiAppActivity
 import com.project.integrationsdk.ui.NativeDisplayActivity
 import com.project.integrationsdk.ui.ProductExperienceActivity
@@ -658,6 +660,12 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         binding.multiApp.setOnClickListener {
             startActivity(Intent(applicationContext, MultiAppActivity::class.java))
+        }
+
+        binding.logoutBtn2.setOnClickListener {
+            SessionManager.logout(applicationContext)
+            startActivity(Intent(applicationContext, LoginActivity::class.java))
+            finish()
         }
     }
 

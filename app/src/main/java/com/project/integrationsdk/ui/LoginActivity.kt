@@ -20,6 +20,7 @@ import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.login.LoginInfoProvider
 import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.databinding.ActivityLoginBinding
+import com.project.integrationsdk.session.SessionManager
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 
@@ -33,6 +34,13 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+
+        if (SessionManager.isLoggedIn(this)) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         setContentView(binding.root)
 
 //        val config  = CleverTapInstanceConfig.getDefaultInstance(applicationContext)
@@ -90,10 +98,6 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
         binding.pushProfile.setOnClickListener {
             pushProfile()
-        }
-
-        binding.profileUploadBtn.setOnClickListener {
-            uploadPofileTest()
         }
 
 //        printSharedPreferences(applicationContext)
@@ -186,62 +190,60 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
     }
 
 
-    private fun onUserLogin() {
-        val profile = HashMap<String, Any>()
-        profile["Name"] = binding.userName.text.toString()
-        profile["Identity"] = binding.userIdentity.text.toString()
-        profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = "+" + binding.mobileNo.text.toString()
-        profile["MSG-email"] = true
-        profile["MSG-push"] = true
-        profile["MSG-sms"] = true
-        profile["MSG-whatsapp"] = true
-        profile["signup_date"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-        profile["DOB"] = SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022")
-        profile["items_to_recommend"] = arrayListOf("CT000001", "CT000002", "CT000003", "CT000004", "CT000005")
-        profile["int_values"] = intArrayOf(19, 29, 39, 49)
-        CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
-        startActivity(
-            Intent(applicationContext, MainActivity::class.java).apply {
-                putExtra("Identity", binding.userIdentity.text.toString())
-                putExtra("Email", binding.emailId.text.toString())
-            }
+    private fun onUserLogin(): Unit = with(binding) {
+        val name = userName.text.toString().trim()
+        val identity = userIdentity.text.toString().trim()
+        val email = emailId.text.toString().trim()
+        val mobile = mobileNo.text.toString().trim()
+        if (identity.isBlank() || email.isBlank()) {
+            Toast.makeText(this@LoginActivity, "Identity and Email are required", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val profile: MutableMap<String, Any> = hashMapOf(
+            "Identity" to identity,
+            "Email" to email,
+            "MSG-email" to true,
+            "MSG-push" to true,
+            "MSG-sms" to true,
+            "MSG-whatsapp" to true,
+            "signup_date" to SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022"),
+            "DOB" to SimpleDateFormat("MMM dd, yyyy").parse("Feb 15, 2022"),
+            "items_to_recommend" to arrayListOf("CT000001","CT000002","CT000003","CT000004","CT000005"),
+            "int_values" to intArrayOf(19, 29, 39, 49)
         )
+        mobile.takeIf { it.isNotBlank() }?.let { profile["Phone"] = "+$it" }
+        name.takeIf { it.isNotBlank() }?.let { profile["Name"] = it }
+        CleverTapAPI.getDefaultInstance(this@LoginActivity)?.onUserLogin(profile)
+        SessionManager.login(applicationContext, identity, email, if (mobile.isNotBlank()) "+$mobile" else "", name)
+        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         finish()
         Toast.makeText(applicationContext, "Logged in!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun pushProfile() {
-        val profile = HashMap<String, Any>()
-        profile["Name"] = binding.userName.text.toString()
-        profile["Identity"] = binding.userIdentity.text.toString()
-        profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = "+" + binding.mobileNo.text.toString()
-        profile["MSG-email"] = true
-        profile["MSG-push"] = true
-        profile["MSG-sms"] = true
-        profile["MSG-whatsapp"] = true
+    private fun pushProfile(): Unit = with(binding) {
+        val name = userName.text.toString().trim()
+        val identity = userIdentity.text.toString().trim()
+        val email = emailId.text.toString().trim()
+        val mobile = mobileNo.text.toString().trim()
+        if (identity.isBlank() || email.isBlank()) {
+            Toast.makeText(this@LoginActivity, "Identity and Email are required", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val profile: MutableMap<String, Any> = hashMapOf(
+            "Identity" to identity,
+            "Email" to email,
+            "MSG-email" to true,
+            "MSG-push" to true,
+            "MSG-sms" to true,
+            "MSG-whatsapp" to true
+        )
+        mobile.takeIf { it.isNotBlank() }?.let { profile["Phone"] = "+$it" }
+        name.takeIf { it.isNotBlank() }?.let { profile["Name"] = it }
         CleverTapAPI.getDefaultInstance(applicationContext)?.pushProfile(profile)
+        SessionManager.login(applicationContext, identity, email, if (mobile.isNotBlank()) "+$mobile" else "", name)
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
         Toast.makeText(applicationContext, "Profile Pushed!", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun uploadPofileTest() {
-        val profile = HashMap<String, Any>()
-        profile["Name"] = binding.userName.text.toString()
-        profile["Identity"] = "el1"
-        profile["Identity"] = binding.userIdentity.text.toString()
-        profile["Email"] = binding.emailId.text.toString()
-        profile["Phone"] = binding.mobileNo.text.toString()
-        profile["MSG-email"] = true
-        profile["MSG-push"] = true
-        profile["MSG-sms"] = true
-        profile["MSG-whatsapp"] = true
-
-        CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
-
-        Toast.makeText(applicationContext, "uploadPofileTest() Pushed!", Toast.LENGTH_SHORT).show()
     }
 
     fun dismissNotification(intent: Intent?, applicationContext: Context) {
