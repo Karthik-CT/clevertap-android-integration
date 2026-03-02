@@ -24,6 +24,8 @@ databindingRuntime = "8.7.0"
 pushTemplates = "1.2.0"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
+navigationFragmentKtxVersion = "2.9.7"
+navigationUiKtxVersion = "2.9.7"
 
 [libraries]
 analytics = { module = "com.segment.analytics.android:analytics", version.ref = "analytics" }
@@ -52,6 +54,8 @@ androidx-databinding-runtime = { group = "androidx.databinding", name = "databin
 push-templates = { module = "com.clevertap.android:push-templates", version.ref = "pushTemplates" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

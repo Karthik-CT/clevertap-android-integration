@@ -42,6 +42,7 @@ import com.project.integrationsdk.session.SessionManager
 import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
 import com.project.integrationsdk.ui.GeofenceActivity
+import com.project.integrationsdk.ui.HomeActivity
 import com.project.integrationsdk.ui.KFCNativeDisplayActivity
 import com.project.integrationsdk.ui.LoginActivity
 import com.project.integrationsdk.ui.MultiAppActivity
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         checkLocationPermission()
 
 //        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_notifications_24)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
@@ -666,6 +667,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             SessionManager.logout(applicationContext)
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
+        }
+
+        binding.newHome.setOnClickListener {
+            startActivity(Intent(applicationContext, HomeActivity::class.java))
         }
     }
 

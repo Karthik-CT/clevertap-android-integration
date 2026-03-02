@@ -19,4 +19,6 @@
     <string name="title_start_bottom">this is start bottom</string>
     <string name="title_bottom">this is bottom</string>
     <string name="label_btn_explore">Ready To Explore</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
