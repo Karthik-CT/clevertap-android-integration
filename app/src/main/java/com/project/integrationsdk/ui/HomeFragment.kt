@@ -2,12 +2,14 @@ package com.project.integrationsdk.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -59,19 +61,8 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupToolbar()
         setupCarousel()
         setupGrid()
-    }
-
-    private fun setupToolbar() {
-        binding.tvGreeting.text = "Hi Karthik"
-        binding.ivRefresh.setOnClickListener {
-            binding.viewPager.setCurrentItem(1, false)
-        }
-        binding.ivNotification.setOnClickListener {
-            // Handle notification
-        }
     }
 
     private fun setupCarousel() {
@@ -161,15 +152,32 @@ class HomeFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = GridAdapter(gridTitle) { position ->
                 when (position) {
-                    0 -> startActivity(
-                        Intent(
-                            requireContext(),
-                            ProductExperiencesNewActivity::class.java
-                        )
-                    )
-
-                    1 -> Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
-                    2 -> Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+                    0 -> {
+                        startActivity(Intent(requireContext(), UploadEventsActivity::class.java))
+                        Toast.makeText(requireContext(), "${gridTitle[position]} clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    1 -> {
+                        startActivity(Intent(requireContext(), UploadUserPropertiesActivity::class.java))
+                        Toast.makeText(requireContext(), "${gridTitle[position]} clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    2 -> {
+                        ctInstance?.pushEvent("Karthik's Noti Event")
+                        Toast.makeText(requireContext(), "${gridTitle[position]} clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    3 -> {
+                        ctInstance?.pushEvent("Karthik's InApp Event")
+                        Toast.makeText(requireContext(), "${gridTitle[position]} clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    4 -> {
+                        ctInstance?.pushEvent("Karthik's Native Display Event")
+                        startActivity(Intent(requireContext(), NativeDisplayActivity::class.java))
+                        Toast.makeText(requireContext(), "${gridTitle[position]} clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    5 -> {
+                        ctInstance?.pushEvent("Karthik's App Inbox Event")
+                        startActivity(Intent(requireContext(), CustomAppInboxActivity::class.java))
+                        Toast.makeText(requireContext(), "${gridTitle[position]} clicked", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

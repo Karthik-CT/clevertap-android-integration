@@ -37,6 +37,7 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
             finish()
             return
         }
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         setContentView(binding.root)
 
 //        val config  = CleverTapInstanceConfig.getDefaultInstance(applicationContext)

@@ -136,7 +136,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
             "kfc_banner_update".lowercase(Locale.ROOT) -> {
                 Toast.makeText(applicationContext, themeValue, Toast.LENGTH_SHORT).show()
                 binding.sectionTitle2.text = "Top Deals of the day \uD83D\uDD25"
-                binding.sectionTitle3.text = "Explore Menu"
+                binding.sectionTitle3.text = "Explore Brands"
                 renderCarousel(values[12])
                 renderMerchant(values[10])
                 renderNewArrivals(values[11])

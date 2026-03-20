@@ -31,6 +31,12 @@
         android:theme="@style/Theme.IntegrationSDKTest"
         tools:replace="android:fullBackupContent,android:allowBackup">
         <activity
+            android:name=".ui.UploadUserPropertiesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.UploadEventsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />
         <activity
@@ -166,7 +172,8 @@
             android:value="TEST-W8W-6WR-846Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" /> <!-- SG1 Roaring Lion Account -->
+            android:value="TEST-206-0b0" />
+        <!-- SG1 Roaring Lion Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
         <!-- android:value="5WW-WWW-WW4Z" /> -->
@@ -246,11 +253,9 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-02b-b00" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="CLEVERTAP_IDENTIFIER" -->
-        <!-- android:value="Identity,Email,Phone" /> -->
-        <!-- android:name="CLEVERTAP_IDENTIFIER" -->
-        <!-- android:value="Identity,Phone" /> -->
+        <meta-data
+            android:name="CLEVERTAP_IDENTIFIER"
+            android:value="" />
         <!-- TEST-KarthikTest4 -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->

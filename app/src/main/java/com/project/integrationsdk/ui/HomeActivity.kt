@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.clevertap.android.sdk.CleverTapAPI
+import com.project.integrationsdk.BaseActivity
 import com.project.integrationsdk.R
 import com.project.integrationsdk.databinding.ActivityHomeBinding
 import com.project.integrationsdk.databinding.ItemCardBinding
@@ -25,7 +26,7 @@ import com.project.integrationsdk.databinding.ItemCarouselBinding
 import com.project.integrationsdk.session.SessionManager
 import kotlin.math.abs
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private val ctInstance by lazy {

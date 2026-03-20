@@ -70,7 +70,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
+class MainActivity : BaseActivity(), InAppNotificationButtonListener,
     DisplayUnitListener, CTInboxListener, InboxMessageButtonListener,
     CTPushNotificationListener, CTGeofenceAPI.OnGeofenceApiInitializedListener,
     CTGeofenceEventsListener, CTLocationUpdatesListener {
@@ -95,10 +95,9 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 //        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_notifications_24)
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
         cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
         ctGeofenceAPI = CTGeofenceAPI.getInstance(applicationContext)
-
 
         val location = cleverTapDefaultInstance!!.location
         cleverTapDefaultInstance!!.location = location
@@ -154,10 +153,19 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             Toast.makeText(applicationContext, "Events button Clicked", Toast.LENGTH_SHORT).show()
         }
         binding.pushNotification.setOnClickListener {
-            cleverTapDefaultInstance?.pushEvent("Karthik's Noti Event")
-            Toast.makeText(applicationContext, "Notification button Clicked", Toast.LENGTH_SHORT)
-                .show()
+//            cleverTapDefaultInstance?.pushEvent("Karthik's Noti Event")
+            val eventProps: HashMap<String, Any>  = hashMapOf(
+                "Cart value" to 1054.5,
+                "Currency" to "INR",
+                "Cart items" to arrayListOf("Yogurt","Ghee","Cucumber","Onion","Green Chilli"),
+//                "Category Name" to arrayListOf("Milk Products","Milk Products","Vegetable","Vegetable","Vegetable"),
+//                "Cart items id" to arrayListOf(78,288,150,319,109),
+//                "Category ID" to arrayListOf(39,39,41,41,41)
+            )
+            cleverTapDefaultInstance?.pushEvent("multi_value_array_event", eventProps)
+            Toast.makeText(applicationContext, "Notification button Clicked", Toast.LENGTH_SHORT).show()
         }
+
         binding.pushNotification2.setOnClickListener {
             val inappProps = HashMap<String, Any>()
             inappProps["carName"] = "jaguar"
@@ -458,6 +466,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             chargeDetails["Amount"] = 300
             chargeDetails["Payment Mode"] = "Credit card"
             chargeDetails["Charged ID"] = 24052013
+            chargeDetails["Coupon Code"] = "TEST1"
 
             val item1 = HashMap<String, Any>()
             item1["Product category"] = "books"
