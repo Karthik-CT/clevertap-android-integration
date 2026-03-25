@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    <color name="purple_200">#FFBB86FC</color>-->
+    <!--    <color name="purple_500">#FF6200EE</color>-->
+    <!--    <color name="purple_700">#FF3700B3</color>-->
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <!--    <color name="black">#FF000000</color>-->
+    <!--    <color name="white">#FFFFFFFF</color>-->
+    <color name="clevertap_red">#EF4444</color>
+
+
+    <color name="colorGraySoft">#efefef</color>
+    <color name="colorBlackSoft">#262626</color>
+
+    <color name="tooltipOrangeColor">#FF9800</color>
+    <color name="tooltipOrangeColor2">#FFD99F</color>
+
+    <color name="spotlightBackground">#D8000000</color>
+    <color name="green">#44D75F</color>
+
+
+    <!-- Brand (same in both modes) -->
+    <color name="purple_500">#7B6FE8</color>
+    <color name="purple_700">#3A2FA8</color>
+    <color name="purple_200">#9D94F0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+
+    <!-- Semantic UI colors — dark mode overrides -->
+    <color name="screen_background">#0F0F12</color>
+    <color name="surface">#1E1E26</color>
+    <color name="text_primary">#F0EEFF</color>
+    <color name="text_secondary">#9E9AB8</color>
+    <color name="section_header_text">#F0EEFF</color>
+    <color name="bottom_nav_background">#1A1A20</color>
+    <color name="bottom_nav_selected">#9D94F0</color>
+    <color name="bottom_nav_unselected">#555566</color>
+    <color name="divider">#2A2A35</color>
+</resources>

@@ -1,85 +1,62 @@
 package com.project.integrationsdk.ui
 
 import android.os.Bundle
-import android.view.GestureDetector
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.fragment.app.Fragment
 import com.clevertap.android.sdk.CleverTapAPI
-import com.project.integrationsdk.BaseActivity
 import com.project.integrationsdk.R
 import com.project.integrationsdk.databinding.ActivityHomeBinding
-import com.project.integrationsdk.databinding.ItemCardBinding
-import com.project.integrationsdk.databinding.ItemCarouselBinding
-import com.project.integrationsdk.session.SessionManager
-import kotlin.math.abs
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private val ctInstance by lazy {
-        CleverTapAPI.getDefaultInstance(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ── Step 1: Draw behind status bar and nav bar ────────────
+        // This makes our toolbar gradient extend all the way to the top.
+        // We handle the insets manually below so nothing is obscured.
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
 
-        CleverTapAPI.setDebugLevel(3)
-        setupViewPager()
-        setupBottomNav()
-    }
+        // ── Step 2: Insets — ONLY pad the fragmentContainer top ───
+        // The fragment's toolbar will offset itself by this amount.
+        // The BottomNavigationView handles its own bottom inset.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-    private fun setupViewPager() {
+            // Bottom nav: pad bottom so it sits above gesture bar / nav buttons
+            binding.bottomNav.setPadding(0, 0, 0, bars.bottom)
 
-        val adapter = object : FragmentStateAdapter(this) {
-
-            override fun getItemCount() = 3
-
-            override fun createFragment(position: Int) =
-                when (position) {
-                    0 -> HomeFragment()
-                    1 -> ProfileFragment()
-                    else -> SettingsFragment()
-                }
+            insets
         }
 
-        binding.mainViewPager.adapter = adapter
+        // ── Step 3: Load home fragment ────────────────────────────
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment())
+            binding.bottomNav.selectedItemId = R.id.nav_home
+        }
 
-        // When swiping → update bottom nav
-        binding.mainViewPager.registerOnPageChangeCallback(
-            object : androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    binding.bottomNav.menu.getItem(position).isChecked = true
-                }
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home     -> { loadFragment(HomeFragment());     true }
+                R.id.nav_profile  -> { loadFragment(ProfileFragment());  true }
+                R.id.nav_settings -> { loadFragment(SettingsFragment()); true }
+                else -> false
             }
-        )
+        }
     }
 
-    private fun setupBottomNav() {
-
-        binding.bottomNav.setOnItemSelectedListener {
-
-            when (it.itemId) {
-                R.id.nav_home -> binding.mainViewPager.currentItem = 0
-                R.id.nav_profile -> binding.mainViewPager.currentItem = 1
-                R.id.nav_settings -> binding.mainViewPager.currentItem = 2
-            }
-
-            true
-        }
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
     }
 }

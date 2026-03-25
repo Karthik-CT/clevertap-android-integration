@@ -1,20 +1,15 @@
 package com.project.integrationsdk.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.clevertap.android.sdk.CleverTapAPI
-import com.project.integrationsdk.BaseActivity
 import com.project.integrationsdk.R
 import com.project.integrationsdk.databinding.ActivityUploadUserPropertiesBinding
 
-class UploadUserPropertiesActivity : BaseActivity() {
+class UploadUserPropertiesActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityUploadUserPropertiesBinding
     private val ctInstance by lazy {

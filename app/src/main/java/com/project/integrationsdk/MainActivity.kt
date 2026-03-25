@@ -37,8 +37,8 @@ import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.facebook.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mixpanel.android.mpmetrics.MixpanelAPI
+import com.project.integrationsdk.data.UserPrefs
 import com.project.integrationsdk.databinding.ActivityMainBinding
-import com.project.integrationsdk.session.SessionManager
 import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
 import com.project.integrationsdk.ui.GeofenceActivity
@@ -70,7 +70,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class MainActivity : BaseActivity(), InAppNotificationButtonListener,
+class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     DisplayUnitListener, CTInboxListener, InboxMessageButtonListener,
     CTPushNotificationListener, CTGeofenceAPI.OnGeofenceApiInitializedListener,
     CTGeofenceEventsListener, CTLocationUpdatesListener {
@@ -673,8 +673,10 @@ class MainActivity : BaseActivity(), InAppNotificationButtonListener,
         }
 
         binding.logoutBtn2.setOnClickListener {
-            SessionManager.logout(applicationContext)
-            startActivity(Intent(applicationContext, LoginActivity::class.java))
+            UserPrefs.logout(applicationContext)
+            startActivity(Intent(applicationContext, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
             finish()
         }
 
