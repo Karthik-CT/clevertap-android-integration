@@ -2,6 +2,7 @@ package com.project.integrationsdk
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
@@ -42,6 +43,7 @@ import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
 import com.project.integrationsdk.ui.GeofenceActivity
 import com.project.integrationsdk.ui.KFCNativeDisplayActivity
+import com.project.integrationsdk.ui.LoginActivity
 import com.project.integrationsdk.ui.MultiAppActivity
 import com.project.integrationsdk.ui.NativeDisplayActivity
 import com.project.integrationsdk.ui.ProductExperienceActivity
@@ -50,6 +52,7 @@ import com.project.integrationsdk.ui.RestaurantActivity
 import com.project.integrationsdk.ui.SpotlightActivity
 import com.project.integrationsdk.ui.TooltipsActivity
 import com.project.integrationsdk.ui.WebViewActivity
+import com.project.integrationsdk.utils.CleverTapIdManager
 import com.segment.analytics.Analytics
 import com.segment.analytics.Properties
 import com.segment.analytics.Properties.Product
@@ -671,11 +674,28 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     }
 
     fun logOutSession() {
-        val sharedPreferences = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
-        CleverTapAPI.getInstances().clear()
+//        val sharedPreferences = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)  ?: return
+//        val editor = sharedPreferences.edit()
+//        editor.clear()
+//        editor.apply()
+
+        listOf("WizRocket", "ct_prefs").forEach { name ->
+            applicationContext.getSharedPreferences(name, Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+
+                .apply()
+        }
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
+        finish()
+
+        restartApp(applicationContext as Activity)
+    }
+
+    fun restartApp(activity: Activity) {
+        val intent = activity.intent
+        activity.finish()
+        activity.startActivity(intent)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -18,8 +18,10 @@ import com.clevertap.android.sdk.CleverTapInstanceConfig
 import com.clevertap.android.sdk.PushPermissionResponseListener
 import com.clevertap.android.sdk.interfaces.NotificationHandler
 import com.clevertap.android.sdk.login.LoginInfoProvider
+import com.project.integrationsdk.utils.CleverTapIdManager
 import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.databinding.ActivityLoginBinding
+import com.project.integrationsdk.utils.CleverTapManager
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 
@@ -34,6 +36,8 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        CleverTapManager.pushEvent("testEvent")
 
 //        val config  = CleverTapInstanceConfig.getDefaultInstance(applicationContext)
 //        LoginInfoProvider(applicationContext, config).saveIdentityKeysForAccount("Identity,Phone")

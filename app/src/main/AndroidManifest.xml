@@ -21,7 +21,7 @@
         tools:node="remove" />
 
     <application
-        android:name="com.clevertap.android.sdk.Application"
+        android:name=".MyApplication"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/red_android_app_icon"
@@ -167,6 +167,10 @@
          <meta-data
              android:name="CLEVERTAP_TOKEN"
              android:value="TEST-206-0b0" />
+
+        <meta-data
+            android:name="CLEVERTAP_USE_CUSTOM_ID"
+            android:value="1"/>
 
         <!-- SG1 Roaring Lion Account -->
 <!--         <meta-data-->
