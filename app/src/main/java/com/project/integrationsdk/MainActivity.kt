@@ -53,6 +53,7 @@ import com.project.integrationsdk.ui.SpotlightActivity
 import com.project.integrationsdk.ui.TooltipsActivity
 import com.project.integrationsdk.ui.WebViewActivity
 import com.project.integrationsdk.utils.CleverTapIdManager
+import com.project.integrationsdk.utils.CleverTapManager
 import com.segment.analytics.Analytics
 import com.segment.analytics.Properties
 import com.segment.analytics.Properties.Product
@@ -674,22 +675,8 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
     }
 
     fun logOutSession() {
-//        val sharedPreferences = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)  ?: return
-//        val editor = sharedPreferences.edit()
-//        editor.clear()
-//        editor.apply()
-
-        listOf("WizRocket", "ct_prefs").forEach { name ->
-            applicationContext.getSharedPreferences(name, Context.MODE_PRIVATE)
-                .edit()
-                .clear()
-
-                .apply()
-        }
         startActivity(Intent(applicationContext, LoginActivity::class.java))
         finish()
-
-        restartApp(applicationContext as Activity)
     }
 
     fun restartApp(activity: Activity) {

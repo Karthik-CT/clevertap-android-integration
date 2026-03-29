@@ -162,31 +162,19 @@
                 android:id="@+id/on_user_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="On User Login"
+                android:text="Login"
                 android:textSize="15sp" />
 
             <Button
-                android:id="@+id/push_profile"
+                android:id="@+id/sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/on_user_login"
-                android:text="Push Profile"
+                android:text="Sign Up"
                 android:textSize="15sp" />
 
         </RelativeLayout>
-
-
-
-        <Button
-            android:id="@+id/profile_upload_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/relative_lay_btns"
-            android:text="Upload Profile"
-            android:textSize="15sp" />
 
     </RelativeLayout>
 

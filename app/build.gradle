@@ -5,6 +5,8 @@ plugins {
 }
 apply plugin: 'kotlin-android'
 
+def localProps = new Properties()
+localProps.load(new FileInputStream(rootProject.file("local.properties")))
 android {
     namespace 'com.project.integrationsdk'
     compileSdk 35
@@ -22,6 +24,10 @@ android {
         googleServices.disableVersionCheck = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                CLEVERTAP_ACCOUNT_ID: localProps['CLEVERTAP_ACCOUNT_ID'],
+                CLEVERTAP_TOKEN: localProps['CLEVERTAP_TOKEN']
+        ]
     }
 
     buildTypes {
