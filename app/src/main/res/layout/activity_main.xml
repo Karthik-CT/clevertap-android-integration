@@ -23,9 +23,9 @@
             android:id="@+id/restaurant_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/update_profile"
             android:layout_centerHorizontal="true"
             android:text="Restaurant"
-            android:layout_below="@id/update_profile"
             android:textAllCaps="false"
             android:textSize="17sp" />
 
@@ -33,9 +33,9 @@
             android:id="@+id/coachmark_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/restaurant_page"
             android:layout_centerHorizontal="true"
             android:text="CoachMark"
-            android:layout_below="@id/restaurant_page"
             android:textAllCaps="false"
             android:textSize="17sp" />
 
@@ -43,9 +43,9 @@
             android:id="@+id/tooltips_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/coachmark_page"
             android:layout_centerHorizontal="true"
             android:text="ToolTips"
-            android:layout_below="@id/coachmark_page"
             android:textAllCaps="false"
             android:textSize="17sp" />
 
@@ -53,9 +53,9 @@
             android:id="@+id/spotlights_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tooltips_page"
             android:layout_centerHorizontal="true"
             android:text="Spotlight"
-            android:layout_below="@id/tooltips_page"
             android:textAllCaps="false"
             android:textSize="17sp" />
 
@@ -63,9 +63,9 @@
             android:id="@+id/product_experiences_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/spotlights_page"
             android:layout_centerHorizontal="true"
             android:text="Product Experiences"
-            android:layout_below="@id/spotlights_page"
             android:textAllCaps="false"
             android:textSize="17sp" />
 
@@ -554,6 +554,17 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:text="Multi App UI"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/sim_tracker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/multi_app"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="Sim Tracker"
             android:textAllCaps="false"
             android:textSize="17sp" />
 

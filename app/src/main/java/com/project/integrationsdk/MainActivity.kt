@@ -47,6 +47,7 @@ import com.project.integrationsdk.ui.NativeDisplayActivity
 import com.project.integrationsdk.ui.ProductExperienceActivity
 import com.project.integrationsdk.ui.ProductExperiencesNewActivity
 import com.project.integrationsdk.ui.RestaurantActivity
+import com.project.integrationsdk.ui.SimTrackingActivity
 import com.project.integrationsdk.ui.SpotlightActivity
 import com.project.integrationsdk.ui.TooltipsActivity
 import com.project.integrationsdk.ui.WebViewActivity
@@ -658,6 +659,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         binding.multiApp.setOnClickListener {
             startActivity(Intent(applicationContext, MultiAppActivity::class.java))
+        }
+
+        binding.simTracker.setOnClickListener {
+            startActivity(Intent(applicationContext, SimTrackingActivity::class.java))
         }
     }
 
