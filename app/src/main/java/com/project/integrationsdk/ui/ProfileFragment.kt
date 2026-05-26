@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.data.CleverTapHelper
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.data.UserPrefs
 import com.project.integrationsdk.databinding.FragmentProfileBinding
 import java.text.SimpleDateFormat
@@ -23,7 +24,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val ct by lazy { CleverTapAPI.getDefaultInstance(requireContext() as Context) }
+    private val ct by lazy { CleverTapManager.getInstance(requireContext() as Context) }
     private var selectedDob: Date? = null
     private val displayFormat = SimpleDateFormat("dd / MM / yyyy", Locale.getDefault())
 

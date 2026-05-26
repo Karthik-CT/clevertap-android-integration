@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityNativeDisplayBinding
 
 class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
@@ -44,7 +45,7 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
 //        carouselView.setImageListener(imageListener)
 //        customCarouselView.setViewListener(viewListener)
 
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
         cleverTapDefaultInstance?.setDisplayUnitListener(this)
         getAllDisplayUnits()
     }
@@ -110,13 +111,13 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
 //        customCarouselView.setViewListener(viewListener)
 //
 //        carouselView.setImageClickListener {
-//            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID).apply {
+//            CleverTapManager.getInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID).apply {
 //                Toast.makeText(applicationContext, "Event Card Clicked!", Toast.LENGTH_SHORT).show()
 //            }
 //        }
 //
 //        customCarouselView.setImageClickListener {
-//            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID).apply {
+//            CleverTapManager.getInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID).apply {
 //                Toast.makeText(applicationContext, "Event Card custom Clicked!", Toast.LENGTH_SHORT).show()
 //            }
 //            for(i in 1..5){
@@ -125,11 +126,11 @@ class NativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
 //        }
 
         //Notification Viewed Event
-        CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
+        CleverTapManager.getInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
 
         //Notification Clicked Event
 //        binding.nativeDisplayCardView.setOnClickListener {
-//            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID).apply {
+//            CleverTapManager.getInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID).apply {
 //                Toast.makeText(applicationContext, "Event Card Clicked!", Toast.LENGTH_SHORT).show()
 //            }
 //        }

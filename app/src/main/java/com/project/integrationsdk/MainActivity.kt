@@ -37,6 +37,7 @@ import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.facebook.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mixpanel.android.mpmetrics.MixpanelAPI
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.data.UserPrefs
 import com.project.integrationsdk.databinding.ActivityMainBinding
 import com.project.integrationsdk.ui.CoachMarkActivity
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
         ctGeofenceAPI = CTGeofenceAPI.getInstance(applicationContext)
 
         val location = cleverTapDefaultInstance!!.location
@@ -383,7 +384,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
             firebaseAnalytics.setDefaultEventParameters(parameters)
             firebaseAnalytics.setUserProperty(
                 "ct_objectId",
-                Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this))!!.cleverTapID
+                Objects.requireNonNull(CleverTapManager.getInstance(this))!!.cleverTapID
             )
         }
 
@@ -654,7 +655,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         binding.testOnUserLogin.setOnClickListener{
             val profile = HashMap<String, Any>()
             profile["Identity"] = "weyay1"
-            CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profile)
+            CleverTapManager.getInstance(applicationContext)?.onUserLogin(profile)
         }
 
         binding.deleteAppInbox.setOnClickListener{
@@ -1019,7 +1020,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
 
         profileUpdate["MyStuff"] = arrayListOf("bag", "shoes") //ArrayList of Strings
         profileUpdate["MyStuff"] = arrayOf("Jeans", "Perfume") //String Array
-        CleverTapAPI.getDefaultInstance(applicationContext)?.onUserLogin(profileUpdate)
+        CleverTapManager.getInstance(applicationContext)?.onUserLogin(profileUpdate)
     }
 
     override fun onDisplayUnitsLoaded(units: ArrayList<CleverTapDisplayUnit>?) {
@@ -1033,14 +1034,14 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         unit.contents.forEach {
             println(it.media)
         }
-        CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
-        CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID)
+        CleverTapManager.getInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
+        CleverTapManager.getInstance(this)?.pushDisplayUnitClickedEventForID(unit.unitID)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            CleverTapAPI.getDefaultInstance(this)?.pushNotificationClickedEvent(intent!!.extras)
+            CleverTapManager.getInstance(this)?.pushNotificationClickedEvent(intent!!.extras)
         }
 
         val payload = this.intent?.extras

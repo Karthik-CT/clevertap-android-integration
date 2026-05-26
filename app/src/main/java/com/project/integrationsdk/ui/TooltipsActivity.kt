@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityTooltipsBinding
 import com.project.integrationsdk.tooltip.Tooltip
 import com.project.integrationsdk.tooltip.TooltipHelper
@@ -20,7 +21,7 @@ class TooltipsActivity : AppCompatActivity(), DisplayUnitListener {
         super.onCreate(savedInstanceState)
         binding = ActivityTooltipsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
 
         cleverTapDefaultInstance?.pushEvent("ToolsTips Event")
 
@@ -41,9 +42,9 @@ class TooltipsActivity : AppCompatActivity(), DisplayUnitListener {
         }
 
         if (unit.customExtras["nd_id"] == "nd_tooltips") {
-            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
+            CleverTapManager.getInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
             TooltipHelper().showTooltips(this@TooltipsActivity, unit.jsonObject){
-                CleverTapAPI.getDefaultInstance(this@TooltipsActivity)?.pushDisplayUnitClickedEventForID(unit.unitID)
+                CleverTapManager.getInstance(this@TooltipsActivity)?.pushDisplayUnitClickedEventForID(unit.unitID)
             }
         } else {
             println("NA")

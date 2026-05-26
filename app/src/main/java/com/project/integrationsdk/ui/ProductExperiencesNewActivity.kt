@@ -24,6 +24,7 @@ import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.variables.Var
 import com.project.integrationsdk.R
 import com.project.integrationsdk.adapter.GenericAdapter
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityProductExperiencesNewBinding
 import com.project.integrationsdk.model.RecyclerViewItem
 import org.json.JSONException
@@ -43,7 +44,7 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         binding = ActivityProductExperiencesNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
 
         callProductExperienceNew()
 

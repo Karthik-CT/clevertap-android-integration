@@ -17,13 +17,15 @@ import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.PushPermissionResponseListener
 import com.project.integrationsdk.MainActivity
 import com.project.integrationsdk.data.CleverTapHelper
+import com.project.integrationsdk.data.CleverTapManager
+import com.project.integrationsdk.data.DashboardConfig
 import com.project.integrationsdk.data.UserPrefs
 import com.project.integrationsdk.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
     private lateinit var binding: ActivityLoginBinding
-    private val ct by lazy { CleverTapAPI.getDefaultInstance(this) }
+    private val ct by lazy { CleverTapManager.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,17 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Single check — UserPrefs.isLoggedIn() reads the explicit flag
-        if (UserPrefs.isLoggedIn(this)) {
+        // UserPrefs is namespaced by the active DashboardConfig id, so this
+        // flag is per-dashboard: signed in on Karthik stays signed in only
+        // on Karthik; switching to a dashboard the user has never signed
+        // in on lands them back on this Login screen.
+        val activeDashboard = DashboardConfig.getActive(this)
+        val signedIn = UserPrefs.isLoggedIn(this)
+        Log.i(
+            "LoginActivity",
+            "Active dashboard=${activeDashboard.name} signedIn=$signedIn"
+        )
+        if (signedIn) {
             goHome()
             return
         }

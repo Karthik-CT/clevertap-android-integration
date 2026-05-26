@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityRestaurantBinding
 import org.json.JSONObject
 import java.util.ArrayList
@@ -24,7 +25,7 @@ class RestaurantActivity : AppCompatActivity(), DisplayUnitListener {
         binding = ActivityRestaurantBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
         cleverTapDefaultInstance?.setDisplayUnitListener(this)
 
 //        cleverTapDefaultInstance?.pushEvent("Native Display Event")
@@ -65,10 +66,10 @@ class RestaurantActivity : AppCompatActivity(), DisplayUnitListener {
             println("$key: $value")
         }
         if (unit.customExtras["nd_id"] == "nd_coachmarks") {
-            CleverTapAPI.getDefaultInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
+            CleverTapManager.getInstance(this)?.pushDisplayUnitViewedEventForID(unit.unitID)
             println("unit.jsonObject : ${unit.jsonObject}")
             CoachMarkHelper().renderCoachMark(this, unit.jsonObject){
-                CleverTapAPI.getDefaultInstance(this@RestaurantActivity)?.pushDisplayUnitClickedEventForID(unit.unitID)
+                CleverTapManager.getInstance(this@RestaurantActivity)?.pushDisplayUnitClickedEventForID(unit.unitID)
             }
         } else {
             println("NA")

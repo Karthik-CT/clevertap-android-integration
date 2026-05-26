@@ -7,6 +7,7 @@ import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.project.integrationsdk.R
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.spotlight.SpotlightHelper
 
 class SpotlightActivity : AppCompatActivity(), DisplayUnitListener {
@@ -17,7 +18,7 @@ class SpotlightActivity : AppCompatActivity(), DisplayUnitListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spotlight)
 
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
 
         cleverTapDefaultInstance?.pushEvent("Spotlight Event")
 

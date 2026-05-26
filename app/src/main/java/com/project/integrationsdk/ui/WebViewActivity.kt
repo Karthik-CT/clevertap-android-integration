@@ -9,6 +9,7 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.clevertap.android.sdk.CTWebInterface
 import com.clevertap.android.sdk.CleverTapAPI
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityWebViewBinding
 
 
@@ -32,7 +33,7 @@ class WebViewActivity : AppCompatActivity() {
                 domStorageEnabled = true
             }
             addJavascriptInterface(
-                CTWebInterface(CleverTapAPI.getDefaultInstance(this@WebViewActivity)),
+                CTWebInterface(CleverTapManager.getInstance(this@WebViewActivity)),
                 "com_project_integrationsdk"
             )
         }

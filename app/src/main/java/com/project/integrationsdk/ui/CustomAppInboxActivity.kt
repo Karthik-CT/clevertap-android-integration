@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.adapter.CustomAIAdapter
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityCustomAppInboxBinding
 
 class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
@@ -16,9 +17,7 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
     private lateinit var binding: ActivityCustomAppInboxBinding
     var messageIDInbox: String? = null
     private val cleverTap: CleverTapAPI? by lazy {
-        CleverTapAPI.getDefaultInstance(
-            applicationContext
-        )
+        CleverTapManager.getInstance(applicationContext)
     }
     private lateinit var adapter: CustomAIAdapter
 

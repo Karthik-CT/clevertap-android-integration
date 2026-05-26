@@ -9,6 +9,7 @@ import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.project.integrationsdk.adapter.KFCNDAdapter
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityKfcnativeDisplayBinding
 import com.project.integrationsdk.model.KFCNDModel
 import org.json.JSONObject
@@ -27,7 +28,7 @@ class KFCNativeDisplayActivity : AppCompatActivity(), DisplayUnitListener {
         binding = ActivityKfcnativeDisplayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
         cleverTapDefaultInstance?.setDisplayUnitListener(this)
 
         cleverTapDefaultInstance?.pushEvent("KFCNativeDisplay")

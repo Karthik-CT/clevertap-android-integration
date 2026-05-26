@@ -13,6 +13,7 @@ import com.clevertap.android.geofence.CTGeofenceSettings
 import com.clevertap.android.geofence.Logger
 import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener
 import com.clevertap.android.sdk.CleverTapAPI
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityGeofenceBinding
 import org.json.JSONObject
 
@@ -28,7 +29,7 @@ class GeofenceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
         ctGeofenceAPI = CTGeofenceAPI.getInstance(applicationContext)
 
         val permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)

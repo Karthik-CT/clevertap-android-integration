@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.R
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityMultiAppBinding
 import kotlin.toString
 
@@ -59,7 +60,7 @@ class MultiAppActivity : AppCompatActivity() {
             "productCategoryName" to "Twisters",
             "productId" to "KFCTW008"
         )
-        CleverTapAPI.getDefaultInstance(applicationContext)?.pushEvent("Product Viewed", prodViewedAction1)
+        CleverTapManager.getInstance(applicationContext)?.pushEvent("Product Viewed", prodViewedAction1)
         Toast.makeText(applicationContext, "${binding.productViewedButton.text} clicked", Toast.LENGTH_SHORT).show()
     }
 
@@ -73,7 +74,7 @@ class MultiAppActivity : AppCompatActivity() {
             "productCategoryName" to "Twisters",
             "productId" to "KFCTW008"
         )
-        CleverTapAPI.getDefaultInstance(applicationContext)?.pushEvent("Added to Cart", prodViewedAction1)
+        CleverTapManager.getInstance(applicationContext)?.pushEvent("Added to Cart", prodViewedAction1)
         Toast.makeText(applicationContext, "${binding.addToCartButton.text} clicked", Toast.LENGTH_SHORT).show()
     }
 
@@ -87,7 +88,7 @@ class MultiAppActivity : AppCompatActivity() {
             "productId" to "KFCTW008",
             "grandTotal" to 50
         )
-        CleverTapAPI.getDefaultInstance(applicationContext)?.pushEvent("Purchase", prodViewedAction1)
+        CleverTapManager.getInstance(applicationContext)?.pushEvent("Purchase", prodViewedAction1)
         Toast.makeText(applicationContext, "${binding.purchaseButton.text} clicked", Toast.LENGTH_SHORT).show()
     }
 
@@ -110,8 +111,8 @@ class MultiAppActivity : AppCompatActivity() {
         }
 
         Log.d("MultiActivity", "raiseCustomEvent: ${eventProps}")
-//        CleverTapAPI.getDefaultInstance(applicationContext)?.pushEvent(eventName, eventProps)
-        CleverTapAPI.getDefaultInstance(applicationContext)?.pushProfile(eventProps)
+//        CleverTapManager.getInstance(applicationContext)?.pushEvent(eventName, eventProps)
+        CleverTapManager.getInstance(applicationContext)?.pushProfile(eventProps)
         Toast.makeText(applicationContext, "${eventName} raised", Toast.LENGTH_SHORT).show()
     }
 

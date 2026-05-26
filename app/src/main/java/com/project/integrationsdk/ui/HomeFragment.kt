@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.data.UserPrefs
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.R
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val ct by lazy { CleverTapAPI.getDefaultInstance(requireContext() as Context) }
+    private val ct by lazy { CleverTapManager.getInstance(requireContext() as Context) }
     private val handler = Handler(Looper.getMainLooper())
 
     private val carouselImages = listOf(

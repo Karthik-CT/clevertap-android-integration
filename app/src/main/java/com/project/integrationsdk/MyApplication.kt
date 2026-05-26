@@ -1,51 +1,24 @@
 package com.project.integrationsdk
 
+import android.util.Log
 import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.CleverTapInstanceConfig
-import com.project.integrationsdk.data.DashboardConfig
+import com.project.integrationsdk.data.CleverTapManager
 
-/**
- * MyApplication — extends CleverTap's own Application class.
- *
- * WHY EXTEND instead of replacing:
- * CleverTap's Application class registers ActivityLifecycleCallbacks,
- * sets up push handling, in-app rendering, and other internals via
- * its own onCreate(). By extending it and calling super.onCreate()
- * first, ALL of that still runs exactly as before — nothing breaks.
- *
- * We then override just the default CT instance credentials using
- * CleverTapInstanceConfig, which reads from DashboardConfig (SharedPrefs)
- * instead of AndroidManifest meta-data.
- *
- * AndroidManifest.xml change — only the class name changes:
- *   BEFORE: android:name="com.clevertap.android.sdk.Application"
- *   AFTER:  android:name=".MyApplication"
- */
 class MyApplication : com.clevertap.android.sdk.Application() {
 
     override fun onCreate() {
-        // ── Step 1: Run ALL of CleverTap's own Application init ──
-        // This registers lifecycle callbacks, push, in-app, etc.
-        // Everything CleverTap depends on internally is set up here.
+        // Static CleverTap log level controls verbose/debug output across
+        // BOTH static Logger.v/d calls AND per-instance logger.verbose/debug
+        // (the instance methods route through getStaticDebugLevel internally).
+        // Set it before anything the SDK might log during init.
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
+
         super.onCreate()
 
-        // ── Step 2: Override the default CT instance with selected dashboard ──
-        // This runs AFTER CleverTap's init so it safely overrides just
-        // the accountId + token without breaking anything else.
-        initCleverTapWithSelectedDashboard()
-    }
+        Log.i("MyApplication", "onCreate — CT static debugLevel=${CleverTapAPI.getDebugLevel()}")
 
-    private fun initCleverTapWithSelectedDashboard() {
-        val dashboard = DashboardConfig.getActive(this)
-
-        // Build instance config from the saved dashboard selection
-        val config = CleverTapInstanceConfig.createInstance(
-            this,
-            dashboard.accountId,
-            dashboard.token,
-            dashboard.region?.let { it }
-        )
-
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
+        // Build the non-default instance for the active dashboard. setIdentityKeys
+        // is a no-op on default instances, so we have to use this path.
+        CleverTapManager.getInstance(this)
     }
 }

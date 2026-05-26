@@ -169,13 +169,19 @@
         <!-- android:name="CLEVERTAP_INAPP_EXCLUDE" -->
         <!-- android:value="LoginActivity" /> -->
 
+        <!-- CleverTap credentials are NOT declared here on purpose. We use
+             a non-default CleverTapInstanceConfig built at runtime from
+             DashboardConfig (see CleverTapManager). That allows per-dashboard
+             identity keys via CleverTapInstanceConfig.setIdentityKeys(...),
+             which only works on a non-default instance. -->
+
         <!-- TEST-Karthik Account -->
-        <meta-data
-            android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="TEST-W8W-6WR-846Z" />
-        <meta-data
-            android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-206-0b0" />
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
+        <!-- android:value="TEST-W8W-6WR-846Z" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="CLEVERTAP_TOKEN" -->
+        <!-- android:value="TEST-206-0b0" /> -->
 
         <!-- SG1 Roaring Lion Account -->
         <!-- <meta-data -->

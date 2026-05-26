@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.product_config.CTProductConfigListener
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityProductExperienceBinding
 
 class ProductExperienceActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class ProductExperienceActivity : AppCompatActivity() {
         binding = ActivityProductExperienceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        cleverTapDefaultInstance = CleverTapAPI.getDefaultInstance(applicationContext)
+        cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
 
         productExperienceAB()
     }

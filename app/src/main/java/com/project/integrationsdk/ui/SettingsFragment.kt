@@ -350,6 +350,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.R
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.data.DashboardConfig
 import com.project.integrationsdk.data.UserPrefs
 import com.project.integrationsdk.databinding.FragmentSettingsBinding
@@ -359,7 +360,7 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
-    private val ct by lazy { CleverTapAPI.getDefaultInstance(requireContext() as Context) }
+    private val ct by lazy { CleverTapManager.getInstance(requireContext() as Context) }
     private var pendingDashboard: DashboardConfig.Dashboard? = null
 
     override fun onCreateView(
@@ -448,9 +449,10 @@ class SettingsFragment : Fragment() {
 
     private fun updateDashboardDisplay(d: DashboardConfig.Dashboard) {
         binding.tvAccountId.text = d.accountId
-        binding.tvToken.text = if (d.token.length > 4)
-            "•".repeat(d.token.length - 4) + d.token.takeLast(4)
-        else d.token
+        binding.tvToken.text =d.token
+//        binding.tvToken.text = if (d.token.length > 4)
+//            "•".repeat(d.token.length - 4) + d.token.takeLast(4)
+//        else d.token
         // Show region if present, hide row if null
         if (d.region != null) {
             binding.tvRegion.text    = d.region.uppercase()

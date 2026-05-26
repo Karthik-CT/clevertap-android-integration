@@ -18,7 +18,12 @@ import java.util.Date
  */
 object UserPrefs {
 
-    private const val PREFS_NAME = "user_profile"
+    // Per-dashboard prefs file: "user_profile_<dashboardId>". Each dashboard
+    // keeps its own login flag + profile so switching accounts in Settings
+    // shows Login only when the user has never signed in on that account,
+    // and goes straight home when returning to a dashboard they were
+    // already signed into.
+    private const val PREFS_PREFIX = "user_profile_"
 
     // ── Keys ──────────────────────────────────────────────────────
     private const val KEY_IS_LOGGED_IN  = "is_logged_in"   // ← was only in SessionManager
@@ -148,5 +153,8 @@ object UserPrefs {
     // ─────────────────────────────────────────────────────────────
 
     private fun prefs(context: Context) =
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        context.getSharedPreferences(prefsName(context), Context.MODE_PRIVATE)
+
+    private fun prefsName(context: Context): String =
+        PREFS_PREFIX + DashboardConfig.getActive(context).id
 }

@@ -7,13 +7,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.R
+import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityUploadEventsBinding
 
 class UploadEventsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityUploadEventsBinding
     private val ctInstance by lazy {
-        CleverTapAPI.getDefaultInstance(this)
+        CleverTapManager.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
