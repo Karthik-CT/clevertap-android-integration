@@ -10,11 +10,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.variables.Var
-import com.project.integrationsdk.R
+import com.clevertap.android.sdk.variables.callbacks.VariableCallback
 import com.project.integrationsdk.adapter.GenericAdapter
 import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityProductExperiencesNewBinding
@@ -44,13 +45,41 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         binding = ActivityProductExperiencesNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        val insetsController = WindowCompat.getInsetsController(window, binding.root)
+        insetsController.isAppearanceLightStatusBars = false  // false = white icons on dark bg
+
         cleverTapDefaultInstance = CleverTapManager.getInstance(applicationContext)
+
+        applyStatusBarInset()
 
         callProductExperienceNew()
 
         binding.viewAll.setOnClickListener {
             restartApp(this@ProductExperiencesNewActivity)
         }
+        binding.btnRefresh.setOnClickListener {
+            restartApp(this@ProductExperiencesNewActivity)
+        }
+        binding.btnNotification.setOnClickListener {
+            Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun applyStatusBarInset() {
+        val extraPadding = (14 * resources.displayMetrics.density).toInt()
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbarContainer) { view, insets ->
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(
+                view.paddingLeft,
+                statusBarHeight + extraPadding,
+                view.paddingRight,
+                view.paddingBottom
+            )
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.toolbarContainer)
     }
 
     private fun callProductExperienceNew() {
@@ -61,6 +90,13 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         val varNames = listOf("test_var_string", "test_var_string2", "test_var_string3", "test_var_string4", "test_var_string5", "test_var_string6", "offer_banner", "offer_new_arrivals", "offer_categories", "kfc_banner", "kfc_categories", "kfc_new_arrivals", "kfc_banner_update")
         testVars = varNames.mapIndexed { index, name ->
             cleverTapDefaultInstance!!.defineVariable(name, "This is product experiences new testing$index")
+                .also { variable ->
+                    variable.addValueChangedCallback(object : VariableCallback<String>() {
+                        override fun onValueChanged(p0: Var<String?>?) {
+                            println("value changed: $p0")
+                        }
+                    })
+                }
         }
 
         cleverTapDefaultInstance!!.syncVariables()
@@ -287,20 +323,5 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         val intent = activity.intent
         activity.finish()
         activity.startActivity(intent)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_refresh -> {
-                restartApp(this) // Call your refresh logic
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }

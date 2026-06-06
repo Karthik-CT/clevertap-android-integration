@@ -111,6 +111,9 @@ class HomeFragment : Fragment() {
                 ct?.pushEvent("Karthik's Native Display Event")
                 startActivity(Intent(requireContext(), NativeDisplayActivity::class.java))
             },
+            ActionCard("Product Experiences") {
+                startActivity(Intent(requireContext(), ProductExperiencesNewActivity::class.java))
+            },
             ActionCard("Custom App Inbox") {
                 ct?.pushEvent("Karthik's App Inbox Event")
                 startActivity(Intent(requireContext(), CustomAppInboxActivity::class.java))
