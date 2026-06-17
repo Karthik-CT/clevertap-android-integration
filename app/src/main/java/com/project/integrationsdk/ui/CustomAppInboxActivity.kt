@@ -47,7 +47,6 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
 
         Toast.makeText(applicationContext, "App Inbox Unread Count: ${cleverTap?.inboxMessageUnreadCount}", Toast.LENGTH_LONG).show()
 
-        // this is just for testing to check revert process
     }
 
     private fun setupRecyclerView() {
