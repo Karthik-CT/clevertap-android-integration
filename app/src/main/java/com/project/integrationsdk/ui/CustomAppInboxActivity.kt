@@ -3,6 +3,7 @@ package com.project.integrationsdk.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,8 +32,21 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         setupRecyclerView()
         markUnreadMessagesAsViewed()
 
+
         binding.customAppInboxGetMessagesbtn.setOnClickListener { refreshMessages() }
         binding.customAppInboxRaiseEvent.setOnClickListener { raiseCustomEvent() }
+
+        val messages = cleverTap?.allInboxMessages
+        messages?.forEach { msg ->
+            val actualExpires = msg.expires          // long — Unix timestamp in seconds
+            val wzrkTtl = msg.data.optLong("wzrk_ttl", -1)  // raw from server payload
+            Log.d("CT", "ID: ${msg.messageId}, expires(long): $actualExpires, wzrk_ttl: $wzrkTtl")
+        }
+
+        Log.d("Custom App Inbox Activity", "App Inbox Unread Count: ${cleverTap?.inboxMessageUnreadCount}")
+
+        Toast.makeText(applicationContext, "App Inbox Unread Count: ${cleverTap?.inboxMessageUnreadCount}", Toast.LENGTH_LONG).show()
+
     }
 
     private fun setupRecyclerView() {
@@ -65,7 +79,7 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
             // To raise App Inbox Notification Viewed event
             cleverTap?.pushInboxNotificationViewedEvent(it.messageId)
             //To mark the message as read
-            cleverTap?.markReadInboxMessage(it.messageId)
+//            cleverTap?.markReadInboxMessage(it.messageId)
         }
     }
 

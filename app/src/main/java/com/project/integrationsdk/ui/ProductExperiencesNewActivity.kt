@@ -21,6 +21,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.variables.Var
 import com.clevertap.android.sdk.variables.callbacks.VariableCallback
@@ -28,11 +29,12 @@ import com.project.integrationsdk.adapter.GenericAdapter
 import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityProductExperiencesNewBinding
 import com.project.integrationsdk.model.RecyclerViewItem
+import com.project.integrationsdk.util.bindInboxUnreadCount
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
 
-class ProductExperiencesNewActivity : AppCompatActivity() {
+class ProductExperiencesNewActivity : AppCompatActivity(), CTInboxListener {
 
     private lateinit var binding: ActivityProductExperiencesNewBinding
     private var cleverTapDefaultInstance: CleverTapAPI? = null
@@ -65,6 +67,35 @@ class ProductExperiencesNewActivity : AppCompatActivity() {
         binding.btnNotification.setOnClickListener {
             Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
         }
+
+        setupInboxBadge()
+    }
+
+    // Initialize the App Inbox and render the unread count
+    // (cleverTapDefaultInstance?.inboxMessageUnreadCount) on the bell.
+    private fun setupInboxBadge() {
+        cleverTapDefaultInstance?.apply {
+            ctNotificationInboxListener = this@ProductExperiencesNewActivity
+            initializeInbox()
+        }
+        updateInboxBadge()
+    }
+
+    private fun updateInboxBadge() {
+        binding.notifBadge.bindInboxUnreadCount(cleverTapDefaultInstance)
+    }
+
+    override fun inboxDidInitialize() {
+        runOnUiThread { updateInboxBadge() }
+    }
+
+    override fun inboxMessagesDidUpdate() {
+        runOnUiThread { updateInboxBadge() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateInboxBadge()
     }
 
     private fun applyStatusBarInset() {

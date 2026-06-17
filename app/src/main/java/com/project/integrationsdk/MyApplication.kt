@@ -20,5 +20,7 @@ class MyApplication : com.clevertap.android.sdk.Application() {
         // Build the non-default instance for the active dashboard. setIdentityKeys
         // is a no-op on default instances, so we have to use this path.
         CleverTapManager.getInstance(this)
+
+        CleverTapAPI.getDefaultInstance(applicationContext)?.initializeInbox()
     }
 }

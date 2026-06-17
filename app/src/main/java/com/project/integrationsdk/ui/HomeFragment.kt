@@ -22,6 +22,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.data.UserPrefs
+import com.project.integrationsdk.util.bindInboxUnreadCount
+import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.R
 import com.project.integrationsdk.databinding.FragmentHomeBinding
@@ -71,7 +73,7 @@ data class ActionCard(val title: String, val onClick: () -> Unit)
 //  HOME FRAGMENT
 // ─────────────────────────────────────────────────────────────────
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CTInboxListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -137,6 +139,32 @@ class HomeFragment : Fragment() {
         setupToolbar()
         setupCarousel()
         setupList()
+        setupInboxBadge()
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  APP INBOX UNREAD BADGE
+    //  Initialize the inbox, listen for updates and render the unread
+    //  count (ct?.inboxMessageUnreadCount) on top of the bell icon.
+    // ─────────────────────────────────────────────────────────────
+    private fun setupInboxBadge() {
+        ct?.apply {
+            ctNotificationInboxListener = this@HomeFragment
+            initializeInbox()
+        }
+        updateInboxBadge()
+    }
+
+    private fun updateInboxBadge() {
+        _binding?.notifBadge?.bindInboxUnreadCount(ct)
+    }
+
+    override fun inboxDidInitialize() {
+        activity?.runOnUiThread { updateInboxBadge() }
+    }
+
+    override fun inboxMessagesDidUpdate() {
+        activity?.runOnUiThread { updateInboxBadge() }
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -270,6 +298,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume(); handler.postDelayed(autoScrollRunnable, 3500)
+        updateInboxBadge()
     }
 
     override fun onPause() {
