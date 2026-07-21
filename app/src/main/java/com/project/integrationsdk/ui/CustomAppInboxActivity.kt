@@ -12,6 +12,7 @@ import com.clevertap.android.sdk.CleverTapAPI
 import com.project.integrationsdk.adapter.CustomAIAdapter
 import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityCustomAppInboxBinding
+import com.project.integrationsdk.util.markExpiredInboxMessagesAsRead
 
 class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
 
@@ -78,9 +79,14 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         cleverTap?.unreadInboxMessages?.forEach {
             // To raise App Inbox Notification Viewed event
             cleverTap?.pushInboxNotificationViewedEvent(it.messageId)
-            //To mark the message as read
-//            cleverTap?.markReadInboxMessage(it.messageId)
         }
+
+        // Reconcile any message whose wzrk_ttl (epoch seconds) has been reached
+        // or crossed: mark it as read so the unread count — and every screen's
+        // notification-bell badge — drops on the next render. Covers the
+        // killed/backgrounded case too, since this runs whenever the inbox is
+        // opened or updated.
+        cleverTap.markExpiredInboxMessagesAsRead()
     }
 
     private fun refreshMessages() {
@@ -99,6 +105,14 @@ class CustomAppInboxActivity : AppCompatActivity(), CTInboxListener {
         Toast.makeText(applicationContext, "Inbox Deleted!", Toast.LENGTH_SHORT).show()
     }
 
-    override fun inboxDidInitialize() {}
-    override fun inboxMessagesDidUpdate() {}
+    override fun inboxDidInitialize() {
+        // Inbox is loaded (e.g. after a cold start following an app kill) —
+        // reconcile TTL-expired messages now that the data is available.
+        cleverTap.markExpiredInboxMessagesAsRead()
+    }
+
+    override fun inboxMessagesDidUpdate() {
+        // New/changed messages synced — re-run the TTL reconciliation.
+        cleverTap.markExpiredInboxMessagesAsRead()
+    }
 }

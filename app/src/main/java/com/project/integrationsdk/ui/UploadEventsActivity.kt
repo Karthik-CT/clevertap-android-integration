@@ -1,6 +1,7 @@
 package com.project.integrationsdk.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -15,6 +16,14 @@ import com.project.integrationsdk.R
 import com.project.integrationsdk.data.CleverTapManager
 import com.project.integrationsdk.databinding.ActivityUploadEventsBinding
 import com.project.integrationsdk.util.bindInboxUnreadCount
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okio.IOException
+import org.json.JSONObject
+import java.util.Date
 
 class UploadEventsActivity : AppCompatActivity(), CTInboxListener {
 
@@ -57,13 +66,52 @@ class UploadEventsActivity : AppCompatActivity(), CTInboxListener {
             ct?.showAppInbox()
         }
 
+        binding.multiValueArrayEventButton.setOnClickListener {
+//            val eventProperties = HashMap<String, Any>()
+//            eventProperties["Product ID"] = arrayListOf("7896", "7586")
+//            ct?.pushEvent("addToCart", eventProperties)
+//            Toast.makeText(applicationContext, "PUSHED MULTI VALUE ARRAY EVENT", Toast.LENGTH_SHORT).show()
+
+//            val charges = hashMapOf<String, Any>("Total Amount" to 400)
+//            val items = arrayListOf(
+//                hashMapOf<String, Any>(
+//                    "Item name" to "Burger",
+//                    "Number of Items" to 1,
+//                    "Amount" to 200
+//                ),
+//                hashMapOf<String, Any>(
+//                    "Item name" to "Pepsi",
+//                    "Number of Items" to 1,
+//                    "Amount" to 100
+//                )
+//            )
+//            ct?.pushChargedEvent(charges, items)
+
+            val bundlePurchased = hashMapOf<String, Any>(
+                "bundle_id" to "INT_5GB_7D",
+                "bundle_name" to "5GB Weekly Internet",
+                "bundle_category" to "Internet",
+                "bundle_price" to 3000,
+                "currency" to "IQD",
+                "validity_days" to 7,
+                "purchase_date" to Date(),
+                "expiry_date" to Date(System.currentTimeMillis() + (7L * 24 * 60 * 60 * 1000)),
+                "transaction_id" to "TXN987654321",
+                "renewable" to true,
+                "auto_renew" to false,
+                "offer_type" to "Regular",
+                "language" to "Arabic",
+                "purchase_channel" to "App"
+            )
+            ct?.pushEvent("purchase_bundle_completed", bundlePurchased)
+            Toast.makeText(applicationContext, "purchase_bundle_completed Clicked", Toast.LENGTH_SHORT).show()
+        }
+
         setupInboxBadge()
 
         updatePropertyCountBadge()
     }
 
-    // Initialize the App Inbox and render the unread count
-    // (ct?.inboxMessageUnreadCount) on top of the notification bell.
     private fun setupInboxBadge() {
         ct?.apply {
             ctNotificationInboxListener = this@UploadEventsActivity
@@ -109,7 +157,8 @@ class UploadEventsActivity : AppCompatActivity(), CTInboxListener {
     }
 
     private fun addKeyValueRow() {
-        val row = LayoutInflater.from(this).inflate(R.layout.item_key_value, binding.keyValueContainer, false)
+        val row = LayoutInflater.from(this)
+            .inflate(R.layout.item_key_value, binding.keyValueContainer, false)
         row.findViewById<View>(R.id.btnDeleteRow).setOnClickListener {
             binding.keyValueContainer.removeView(row)
             propertyCount--

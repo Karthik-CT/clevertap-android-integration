@@ -36,7 +36,7 @@ object DashboardConfig {
             accountId = "TEST-6Z4-46Z-776Z",
             token = "TEST-164-416",
             region = "eu1",
-            identityKeys = arrayOf("Email", "Identity")
+            identityKeys = arrayOf("Phone", "Identity")
         ),
 
         Dashboard(
@@ -54,7 +54,7 @@ object DashboardConfig {
             accountId = "TEST-4R8-58W-7R7Z",
             token = "TEST-0b5-b24",
             region = "eu1",
-            identityKeys = arrayOf("Email", "Identity")
+            identityKeys = arrayOf("Phone", "Identity")
         ),
 
         Dashboard(
@@ -63,7 +63,7 @@ object DashboardConfig {
             accountId = "TEST-869-958-K57Z",
             token = "TEST-b5c-c6b",
             region = "eu1",
-            identityKeys = arrayOf("Email", "Identity")
+            identityKeys = arrayOf("Phone", "Identity")
         ),
 
         Dashboard(
@@ -76,19 +76,19 @@ object DashboardConfig {
         ),
 
         Dashboard(
+            id = "kk_central",
+            name = "TEST — karthikCentral",
+            accountId = "TEST-84R-5R9-967Z",
+            token = "TEST-c25-24b",
+            region = "eu1",
+            identityKeys = arrayOf("Email","Identity")
+        ),
+
+        Dashboard(
             id = "rohit",
             name = "TEST — Rohit Khandka",
             accountId = "TEST-RZ5-677-767Z",
             token = "TEST-aa6-512",
-            region = "eu1",
-            identityKeys = arrayOf("Email", "Identity")
-        ),
-
-        Dashboard(
-            id = "shawarmer",
-            name = "TEST — Shawarmer",
-            accountId = "TEST-WWR-9Z8-486Z",
-            token = "TEST-b1c-200",
             region = "eu1",
             identityKeys = arrayOf("Email", "Identity")
         ),
@@ -152,6 +152,33 @@ object DashboardConfig {
             name = "EU1 — Bearded Robot",
             accountId = "ZWW-WWW-WWRZ",
             token = "000-001",
+            region = "eu1",
+            identityKeys = arrayOf("Email", "Identity")
+        ),
+
+        Dashboard(
+            id = "eu1_android6",
+            name = "EU1 — Android 6",
+            accountId = "566-7Z4-W54Z",
+            token = "41a-665",
+            region = "eu1",
+            identityKeys = arrayOf("Email", "Identity")
+        ),
+
+        Dashboard(
+            id = "sk1_mobile_channel",
+            name = "SK1 — Mobile Channels",
+            accountId = "8KK-85K-996Z",
+            token = "35b-33b",
+            region = "sk1-staging-30",
+            identityKeys = arrayOf("Email", "Identity")
+        ),
+
+        Dashboard(
+            id = "TEST-Jude Migration",
+            name = "TEST-Jude Migration",
+            accountId = "R9Z-86K-Z57Z",
+            token = "36b-1c2",
             region = "eu1",
             identityKeys = arrayOf("Email", "Identity")
         )

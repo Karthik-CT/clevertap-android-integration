@@ -157,4 +157,24 @@ object UserPrefs {
 
     private fun prefsName(context: Context): String =
         PREFS_PREFIX + DashboardConfig.getActive(context).id
+
+    fun updateConsent(
+        context: Context,
+        email: Boolean? = null,
+        push: Boolean? = null,
+        sms: Boolean? = null,
+        whatsapp: Boolean? = null
+    ) {
+        val current = load(context)
+
+        save(
+            context,
+            current.copy(
+                msgEmail = email ?: current.msgEmail,
+                msgPush = push ?: current.msgPush,
+                msgSms = sms ?: current.msgSms,
+                msgWhatsapp = whatsapp ?: current.msgWhatsapp
+            )
+        )
+    }
 }
