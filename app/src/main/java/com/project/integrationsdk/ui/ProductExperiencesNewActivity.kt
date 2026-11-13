@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -47,6 +48,7 @@ class ProductExperiencesNewActivity : AppCompatActivity(), CTInboxListener, Expe
     override val isDebug get() = applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
 
     override val context: Context get() = this
+    override val lifecycleOwner: LifecycleOwner get() = this
     override val root: View get() = binding.root
     override val swipeRefresh: SwipeRefreshLayout get() = binding.swipeRefresh
     override val bottomNav: BottomNavigationView get() = binding.bottomNav

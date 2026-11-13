@@ -17,7 +17,7 @@ enum class Vertical(
     ECOMMERCE("E-Commerce", "Shop, cart and offers", "🛍️", "#E8590C", null),
     FINTECH("FinTech", "Banking and payments", "🏦", "#0B2A5B", { FinTechExperience(it) }),
     FOODTECH("FoodTech", "Order food and delivery", "🍔", "#E03131", null),
-    RIDE_HAILING("Ride Hailing", "Book and track rides", "🚕", "#212529", null),
+    RIDE_HAILING("Ride Hailing", "Book and track rides", "🚕", "#212529", { RideHailingExperience(it) }),
     TELECOM("Telecom", "Plans, data and recharge", "📶", "#5B4FCF", { TelecomExperience(it) });
 
     val hasOwnUi get() = experience != null

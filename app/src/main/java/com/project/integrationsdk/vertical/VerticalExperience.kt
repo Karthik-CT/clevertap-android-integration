@@ -3,6 +3,7 @@ package com.project.integrationsdk.vertical
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
+import androidx.lifecycle.LifecycleOwner
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.clevertap.android.sdk.CleverTapAPI
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 /** What a vertical's UI gets from the screen that hosts it. */
 interface ExperienceHost {
     val context: Context
+    val lifecycleOwner: LifecycleOwner
     val root: View
     val swipeRefresh: SwipeRefreshLayout
     val bottomNav: BottomNavigationView
