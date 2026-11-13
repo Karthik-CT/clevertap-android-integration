@@ -26,6 +26,7 @@ navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
 navigationFragmentKtxVersion = "2.9.7"
 navigationUiKtxVersion = "2.9.7"
+activityKtx = "1.9.3"
 
 [libraries]
 analytics = { module = "com.segment.analytics.android:analytics", version.ref = "analytics" }
@@ -56,6 +57,7 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

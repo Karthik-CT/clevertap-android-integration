@@ -42,6 +42,7 @@ import com.project.integrationsdk.data.UserPrefs
 import com.project.integrationsdk.databinding.ActivityMainBinding
 import com.project.integrationsdk.ui.CoachMarkActivity
 import com.project.integrationsdk.ui.CustomAppInboxActivity
+import com.project.integrationsdk.ui.DCBActivity
 import com.project.integrationsdk.ui.GeofenceActivity
 import com.project.integrationsdk.ui.HomeActivity
 import com.project.integrationsdk.ui.KFCNativeDisplayActivity
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         setContentView(binding.root)
 
         checkLocationPermission()
+
 
 //        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_notifications_24)
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -679,6 +681,10 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             })
             finish()
+        }
+
+        binding.dcbTest.setOnClickListener {
+            startActivity(Intent(applicationContext, DCBActivity::class.java))
         }
 
         binding.newHome.setOnClickListener {

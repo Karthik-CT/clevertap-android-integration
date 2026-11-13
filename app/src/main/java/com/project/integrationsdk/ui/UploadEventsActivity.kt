@@ -103,7 +103,7 @@ class UploadEventsActivity : AppCompatActivity(), CTInboxListener {
                 "language" to "Arabic",
                 "purchase_channel" to "App"
             )
-            ct?.pushEvent("purchase_bundle_completed", bundlePurchased)
+            ct?.pushEvent("purchase_bundle_completed2", bundlePurchased)
             Toast.makeText(applicationContext, "purchase_bundle_completed Clicked", Toast.LENGTH_SHORT).show()
         }
 

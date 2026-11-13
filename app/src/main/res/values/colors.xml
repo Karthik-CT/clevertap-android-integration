@@ -36,4 +36,18 @@
     <color name="bottom_nav_selected">#5B4FCF</color>
     <color name="bottom_nav_unselected">#9E9E9E</color>
     <color name="divider">#E5E5E5</color>
+
+    <!-- NBK demo home (Product Experience) theme -->
+    <color name="nbk_navy">#1B3A8C</color>
+    <color name="nbk_link">#1E6FE0</color>
+    <color name="nbk_bg">#F2F4F8</color>
+    <color name="nbk_card">#FFFFFF</color>
+    <color name="nbk_text">#1A1F36</color>
+    <color name="nbk_muted">#8A93A6</color>
+    <color name="nbk_divider">#E6E9F0</color>
+    <color name="nbk_bg_dark">#0F1220</color>
+    <color name="nbk_card_dark">#1C2033</color>
+    <color name="nbk_text_dark">#F2F4F8</color>
+    <color name="nbk_muted_dark">#9AA3B8</color>
+    <color name="nbk_divider_dark">#2C3250</color>
 </resources>

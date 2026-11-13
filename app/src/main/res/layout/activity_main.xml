@@ -569,10 +569,21 @@
             android:textSize="17sp" />
 
         <Button
-            android:id="@+id/new_home"
+            android:id="@+id/dcb_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/logout_btn2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:text="DCB Test"
+            android:textAllCaps="false"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/new_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dcb_test"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:text="Home"

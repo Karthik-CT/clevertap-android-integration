@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NBK demo home -->
+    <string name="nbk_greeting">صباح الخير،</string>
+    <string name="nbk_customer">نورة الراشد</string>
+    <string name="nbk_see_all">عرض الكل</string>
+    <string name="nbk_accounts">الحسابات</string>
+    <string name="nbk_family_accounts">حسابات العائلة</string>
+    <string name="nbk_credit_cards">بطاقات الائتمان</string>
+    <string name="nbk_available_balance">الرصيد المتاح</string>
+    <string name="nbk_receive">استلام</string>
+    <string name="nbk_send">إرسال</string>
+    <string name="nbk_pay">دفع</string>
+    <string name="nbk_withdraw">سحب من البطاقة</string>
+    <string name="nbk_tag_salary">حساب الراتب</string>
+    <string name="nbk_tag_savings">حساب التوفير</string>
+    <string name="nbk_tag_spending">بطاقة إنفاق العطلة</string>
+    <string name="nbk_acc_name_1">حساب الراتب</string>
+    <string name="nbk_acc_name_2">الجوهرة للتوفير</string>
+    <string name="nbk_card_name_1">بطاقة فيزا إنفينيت الائتمانية</string>
+    <string name="nbk_visa">فيزا</string>
+    <string name="nbk_flag_kw">ك.ت</string>
+    <string name="nbk_nav_home">الرئيسية</string>
+    <string name="nbk_nav_transfer">تحويل</string>
+    <string name="nbk_nav_payments">المدفوعات</string>
+    <string name="nbk_nav_apply">تقديم</string>
+    <string name="nbk_nav_more">المزيد</string>
+    <string name="nbk_hero_title_default">مرحباً بك في بنكك</string>
+    <string name="nbk_hero_subtitle_default">كل ما تحتاجه في مكان واحد</string>
+    <string name="nbk_hero_cta_default">استكشف</string>
+    <string name="nbk_loan_title">قرض شخصي</string>
+    <string name="nbk_loan_rate_fmt">ابتداءً من %1$s سنوياً</string>
+    <string name="nbk_loan_cta_default">قدّم الآن</string>
+    <string name="nbk_refresh_vars">تحديث المتغيرات</string>
+    <string name="nbk_vars_updated">تم تحديث المتغيرات</string>
+    <string name="nbk_demo_only">للعرض فقط</string>
+    <string name="nbk_search">بحث</string>
+    <string name="nbk_notifications">الإشعارات</string>
+</resources>

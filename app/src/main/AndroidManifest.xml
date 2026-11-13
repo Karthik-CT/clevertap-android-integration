@@ -31,6 +31,9 @@
         android:theme="@style/Theme.IntegrationSDKTest"
         tools:replace="android:fullBackupContent,android:allowBackup">
         <activity
+            android:name=".ui.DCBActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.UploadUserPropertiesActivity"
             android:exported="false" />
         <activity
@@ -162,19 +165,17 @@
                     android:host="mainpage"
                     android:scheme="karthikdl" />
             </intent-filter>
-        </activity>
-
-        <!-- To display the inapp after the splash screen add the below meta tag -->
+        </activity> <!-- To display the inapp after the splash screen add the below meta tag -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_INAPP_EXCLUDE" -->
         <!-- android:value="LoginActivity" /> -->
-
-        <!-- CleverTap credentials are NOT declared here on purpose. We use
+        <!--
+ CleverTap credentials are NOT declared here on purpose. We use
              a non-default CleverTapInstanceConfig built at runtime from
              DashboardConfig (see CleverTapManager). That allows per-dashboard
              identity keys via CleverTapInstanceConfig.setIdentityKeys(...),
-             which only works on a non-default instance. -->
-
+             which only works on a non-default instance.
+        -->
         <!-- TEST-Karthik Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -182,7 +183,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-206-0b0" /> -->
-
         <!-- SG1 Roaring Lion Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -193,7 +193,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_REGION" -->
         <!-- android:value="sg1" /> -->
-
         <!-- MultiApp TESTECOMM Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -201,7 +200,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-605-1b5" /> -->
-
         <!-- MultiApp TESTFINTECH Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -209,7 +207,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-605-1b5" /> -->
-
         <!-- TEST-kkTest -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -217,7 +214,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-266-432" /> -->
-
         <!-- TEST-Rohit Khandka -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -225,7 +221,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-aa6-512" /> -->
-
         <!-- JitendraClev Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -233,7 +228,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="456-256" /> -->
-
         <!-- TEST-Shawarmer -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -241,7 +235,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-b1c-200" /> -->
-
         <!-- Gaurav - android -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -249,7 +242,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="56c-216" /> -->
-
         <!-- EU1 Bearded Robot -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -257,7 +249,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="000-001" /> -->
-
         <!-- TEST-KarthikTest5 Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -265,7 +256,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-b5c-c6b" /> -->
-
         <!-- TEST-KarthikTest3 Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -273,7 +263,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-02b-b00" /> -->
-
         <!-- TEST-KarthikTest4 -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -281,7 +270,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-0b5-b24" /> -->
-
         <!-- IN1 Bearded Robot -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -292,7 +280,6 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_REGION" -->
         <!-- android:value="in1" /> -->
-
         <!-- TEST-KarthikTest2 Account -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_ACCOUNT_ID" -->
@@ -300,23 +287,20 @@
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_TOKEN" -->
         <!-- android:value="TEST-164-416" /> -->
-
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_USE_GOOGLE_AD_ID" -->
         <!-- android:value="1" /> -->
-
         <!-- Suppress System Events -->
         <!-- <meta-data -->
         <!-- android:name="CLEVERTAP_DISABLE_APP_LAUNCHED" -->
         <!-- android:value="1" /> -->
-
-<!--        <meta-data-->
-<!--            android:name="CLEVERTAP_IDENTIFIER"-->
-<!--            android:value="Identity" />-->
-
+        <meta-data
+            android:name="CLEVERTAP_IDENTIFIER"
+            android:value="Identity" />
         <meta-data
             android:name="FCM_SENDER_ID"
             android:value="id:487275975172" />
+
         <meta-data
             android:name="CLEVERTAP_BACKGROUND_SYNC"
             android:value="1" />

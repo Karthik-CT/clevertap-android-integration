@@ -24,6 +24,11 @@ import com.project.integrationsdk.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
+    companion object {
+        private const val PUSH_PERMISSION_PREFS = "push_permission_prefs"
+        private const val KEY_HAS_REQUESTED_PUSH_PERMISSION = "has_requested_push_permission"
+    }
+
     private lateinit var binding: ActivityLoginBinding
     private val ct by lazy { CleverTapManager.getInstance(this) }
 
@@ -78,7 +83,8 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
 
     override fun onResume() {
         super.onResume()
-        ct?.promptForPushPermission(true)
+        maybePromptForPushPermission()
+
         val payload = intent?.extras
         if (payload?.containsKey("pt_id") == true) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -86,7 +92,20 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    // The CleverTap SDK requires this to be called from onResume() — it
+    // resolves the current Activity via CoreMetaData.getCurrentActivity(),
+    // which is only set once the lifecycle reaches onResume (calling from
+    // onCreate silently no-ops). Gated by a persisted flag so it still only
+    // fires once per install, instead of on every resume.
+    private fun maybePromptForPushPermission() {
+        val prefs = getSharedPreferences(PUSH_PERMISSION_PREFS, Context.MODE_PRIVATE)
+        if (prefs.getBoolean(KEY_HAS_REQUESTED_PUSH_PERMISSION, false)) return
+
+        prefs.edit().putBoolean(KEY_HAS_REQUESTED_PUSH_PERMISSION, true).apply()
+        ct?.promptForPushPermission(false)
+    }
+
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             NotificationUtils.dismissNotification(intent, applicationContext)
@@ -103,8 +122,8 @@ class LoginActivity : AppCompatActivity(), PushPermissionResponseListener {
         val identity = binding.userIdentity.text.toString().trim()
         val email    = binding.emailId.text.toString().trim()
 
-        if (identity.isEmpty() || email.isEmpty()) {
-            toast("Identity and Email are required")
+        if (identity.isEmpty() ) {
+            toast("Identity is required")
             return
         }
 

@@ -24,7 +24,8 @@ class WebViewActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.webView.apply {
 //            loadUrl("https://karthik-ct.github.io/clevertap-web-integration/")
-            loadUrl("file:///android_asset/webViewHTMLPage.html")
+            loadUrl("https://ct-web-integration.netlify.app/")
+//            loadUrl("file:///android_asset/webViewHTMLPage.html")
             settings.apply {
                 javaScriptEnabled = true
                 allowFileAccess = false

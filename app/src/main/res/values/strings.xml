@@ -21,4 +21,41 @@
     <string name="label_btn_explore">Ready To Explore</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- NBK demo home -->
+    <string name="nbk_greeting">Good morning,</string>
+    <string name="nbk_customer">Noura Al-Rashid</string>
+    <string name="nbk_see_all">See All</string>
+    <string name="nbk_accounts">Accounts</string>
+    <string name="nbk_family_accounts">Family Accounts</string>
+    <string name="nbk_credit_cards">Credit Cards</string>
+    <string name="nbk_available_balance">Available Balance</string>
+    <string name="nbk_receive">Receive</string>
+    <string name="nbk_send">Send</string>
+    <string name="nbk_pay">Pay</string>
+    <string name="nbk_withdraw">Withdraw From Card</string>
+    <string name="nbk_tag_salary">My Salary Account</string>
+    <string name="nbk_tag_savings">My Savings Account</string>
+    <string name="nbk_tag_spending">My Spending Card Holiday</string>
+    <string name="nbk_acc_name_1">Salary Account</string>
+    <string name="nbk_acc_name_2">Al Jawhara Savings</string>
+    <string name="nbk_card_name_1">Demo Visa Infinite Credit Card</string>
+    <string name="nbk_visa">VISA</string>
+    <string name="nbk_flag_kw">KW</string>
+    <string name="nbk_nav_home">Home</string>
+    <string name="nbk_nav_transfer">Transfer</string>
+    <string name="nbk_nav_payments">Payments</string>
+    <string name="nbk_nav_apply">Apply</string>
+    <string name="nbk_nav_more">More</string>
+    <string name="nbk_hero_title_default">Welcome to your bank</string>
+    <string name="nbk_hero_subtitle_default">Everything you need, in one place</string>
+    <string name="nbk_hero_cta_default">Explore</string>
+    <string name="nbk_loan_title">Personal Loan</string>
+    <string name="nbk_loan_rate_fmt">From %1$s p.a.</string>
+    <string name="nbk_loan_cta_default">Apply Now</string>
+    <string name="nbk_refresh_vars">Refresh variables</string>
+    <string name="nbk_vars_updated">Variables updated</string>
+    <string name="nbk_demo_only">Demo only</string>
+    <string name="nbk_search">Search</string>
+    <string name="nbk_notifications">Notifications</string>
 </resources>
