@@ -50,7 +50,7 @@ import com.project.integrationsdk.ui.LoginActivity
 import com.project.integrationsdk.ui.MultiAppActivity
 import com.project.integrationsdk.ui.NativeDisplayActivity
 import com.project.integrationsdk.ui.ProductExperienceActivity
-import com.project.integrationsdk.ui.ProductExperiencesNewActivity
+import com.project.integrationsdk.ui.VerticalPickerActivity
 import com.project.integrationsdk.ui.RestaurantActivity
 import com.project.integrationsdk.ui.SpotlightActivity
 import com.project.integrationsdk.ui.TooltipsActivity
@@ -651,7 +651,7 @@ class MainActivity : AppCompatActivity(), InAppNotificationButtonListener,
         }
 
         binding.productExperiencesNew.setOnClickListener {
-            startActivity(Intent(applicationContext, ProductExperiencesNewActivity::class.java))
+            startActivity(Intent(applicationContext, VerticalPickerActivity::class.java))
         }
 
         binding.testOnUserLogin.setOnClickListener{

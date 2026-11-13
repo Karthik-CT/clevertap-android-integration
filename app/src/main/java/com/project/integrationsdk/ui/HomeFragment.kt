@@ -114,7 +114,7 @@ class HomeFragment : Fragment(), CTInboxListener {
                 startActivity(Intent(requireContext(), NativeDisplayActivity::class.java))
             },
             ActionCard("Product Experiences") {
-                startActivity(Intent(requireContext(), ProductExperiencesNewActivity::class.java))
+                startActivity(Intent(requireContext(), VerticalPickerActivity::class.java))
             },
             ActionCard("Custom App Inbox") {
                 ct?.pushEvent("Karthik's App Inbox Event")

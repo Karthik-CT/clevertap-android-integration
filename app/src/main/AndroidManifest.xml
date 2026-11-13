@@ -31,6 +31,9 @@
         android:theme="@style/Theme.IntegrationSDKTest"
         tools:replace="android:fullBackupContent,android:allowBackup">
         <activity
+            android:name=".ui.VerticalPickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.DCBActivity"
             android:exported="false" />
         <activity
